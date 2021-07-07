@@ -7,6 +7,7 @@
     "plugin:react/recommended",
     "airbnb",
     "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -17,19 +18,29 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "react-hooks",
+    "prettier"
+  ],
   "rules": {
+    "react/jsx-one-expression-per-line": "off",
+    "prettier/prettier": "error",
+    "no-use-before-define": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [".tsx"]
+        "extensions": [
+          ".tsx"
+        ]
       }
     ],
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error"],
-    "react/react-in-jsx-scope": "off",
+    "import/prefer-default-export": "off",
+    "camelcase": "off",
+    "@typescript-eslint/ban-types": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -37,8 +48,11 @@
         "ts": "never",
         "tsx": "never"
       }
-   ],
-   "prettier/prettier": "error"
+    ],
+    "array-callback-return": "off",
+    "no-return-assign": "off",
+    "no-alert": "off",
+    "no-plusplus": "off"
   },
   "settings": {
     "import/resolver": {
