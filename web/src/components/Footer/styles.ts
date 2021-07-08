@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const FooterDiv = styled.footer`
-  width: 100%;
   height: 42px;
   text-align: center;
   padding: 14px 0;
@@ -12,6 +11,6 @@ export const FooterDiv = styled.footer`
 `;
 
 export const FooterText = styled.p`
-  font-size: 1em;
+  font-size: 16px;
   color: #707070;
 `;

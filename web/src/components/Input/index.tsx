@@ -1,14 +1,16 @@
 import React, { forwardRef } from 'react';
 
+import { StyledInput } from './styles';
+
 type PropsInput = {
-  label: string;
+  type: string;
+  placeholder: string;
+  required: boolean;
+  minLength?: number;
 };
 
 const Input = forwardRef<HTMLInputElement, PropsInput>((props, ref) => (
-  <>
-    <label htmlFor="input">{props.label}</label>
-    <input type="text" ref={ref} id="input" />
-  </>
+  <StyledInput ref={ref} {...props} />
 ));
 
 export default Input;

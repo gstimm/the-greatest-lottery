@@ -1,15 +1,15 @@
 import React from 'react';
 
-import { Aside, H1, H2, P } from './styles';
+import { Aside } from './styles';
 
 const AsideLogo: React.FC = () => {
   return (
     <Aside>
-      <H2>The</H2>
-      <H2>Greatest</H2>
-      <H2>App</H2>
-      <P>for</P>
-      <H1>LOTTERY</H1>
+      <h2>The</h2>
+      <h2>Greatest</h2>
+      <h2>App</h2>
+      <p>for</p>
+      <h1>LOTTERY</h1>
     </Aside>
   );
 };

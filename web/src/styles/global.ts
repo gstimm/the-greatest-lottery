@@ -7,13 +7,12 @@ export default createGlobalStyle`
   outline: 0;
   box-sizing: border-box;
   font-style: italic;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 body {
   background: #F7F7F7 ;
   -webkit-font-smoothing: antialiased;
-  height: 100vh;
 }
 
 body, input, button {

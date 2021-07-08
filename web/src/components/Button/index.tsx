@@ -4,23 +4,21 @@ import { IconBaseProps } from 'react-icons';
 import { StyledButton } from './styles';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  text: string;
+  type: 'submit';
   color: string;
   icon?: React.ComponentType<IconBaseProps>;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button: React.FC<ButtonProps> = ({
   icon: Icon,
   color,
-  text,
-  onClick,
+  children,
   ...rest
 }) => {
   return (
-    <StyledButton color={color} onClick={onClick} {...rest}>
+    <StyledButton color={color} {...rest}>
       {Icon && Icon.name === 'FiArrowLeft' && <Icon size={24} />}
-      {text}
+      {children}
       {Icon && Icon.name === 'FiArrowRight' && <Icon size={24} />}
     </StyledButton>
   );
