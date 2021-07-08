@@ -7,17 +7,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   color: string;
   icon?: React.ComponentType<IconBaseProps>;
-  clicked?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button: React.FC<ButtonProps> = ({
   icon: Icon,
   color,
   text,
+  onClick,
   ...rest
 }) => {
   return (
-    <StyledButton color={color} {...rest}>
+    <StyledButton color={color} onClick={onClick} {...rest}>
       {Icon && Icon.name === 'FiArrowLeft' && <Icon size={24} />}
       {text}
       {Icon && Icon.name === 'FiArrowRight' && <Icon size={24} />}

@@ -2,13 +2,20 @@ import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import { AsideLogo, Button } from '../../components';
+import { AsideLogo, Button, Footer } from '../../components';
+
+const test = () => alert('test');
 
 const SignInPage: React.FC = () => {
   return (
     <div id="page-auth">
       <AsideLogo />
-      <Button text="Log In" icon={FiArrowRight} color="#b5c401" />
+      <Button
+        text="Log In"
+        icon={FiArrowRight}
+        color="#b5c401"
+        onClick={test}
+      />
       <main>
         <div className="main-content">
           <h1>Authentication</h1>
@@ -25,7 +32,7 @@ const SignInPage: React.FC = () => {
           <FiArrowRight />
         </div>
       </main>
-      <footer>Copyright 2021 Luby Software</footer>
+      <Footer />
     </div>
   );
 };
