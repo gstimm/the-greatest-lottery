@@ -2,12 +2,13 @@ import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
-import AsideLogo from '../../components/AsideLogo';
+import { AsideLogo, Button } from '../../components';
 
 const SignInPage: React.FC = () => {
   return (
     <div id="page-auth">
       <AsideLogo />
+      <Button text="Log In" icon={FiArrowRight} color="#b5c401" />
       <main>
         <div className="main-content">
           <h1>Authentication</h1>
