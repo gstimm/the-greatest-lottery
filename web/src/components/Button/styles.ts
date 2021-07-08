@@ -9,7 +9,7 @@ export const StyledButton = styled.button<IButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  font: italic normal bold 35px/70px Helvetica Neue;
+  font: italic normal bold 35px sans-serif;
   background-color: transparent;
   border: none;
   max-width: 128px;
