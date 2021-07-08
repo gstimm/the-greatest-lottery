@@ -27,6 +27,7 @@
   "rules": {
     "react/jsx-one-expression-per-line": "off",
     "prettier/prettier": "error",
+    "react/prop-types": "off",
     "no-use-before-define": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
