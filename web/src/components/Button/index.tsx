@@ -21,9 +21,13 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <StyledButton color={color} fontSize={fontSize} margin={margin} {...rest}>
-      {Icon && Icon.name === 'FiArrowLeft' && <Icon size={24} />}
+      {Icon && Icon.name === 'FiArrowLeft' && (
+        <Icon size={24} style={{ marginRight: '10px' }} />
+      )}
       {children}
-      {Icon && Icon.name === 'FiArrowRight' && <Icon size={24} />}
+      {Icon && Icon.name === 'FiArrowRight' && (
+        <Icon size={24} style={{ marginLeft: '10px' }} />
+      )}
     </StyledButton>
   );
 };
