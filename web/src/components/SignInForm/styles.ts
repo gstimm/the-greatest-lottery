@@ -6,3 +6,7 @@ export const ResetPasswordLinkStyle = styled.div`
   width: 100%;
   padding: 30px 30px 0 30px;
 `;
+
+export const FormStyle = styled.div`
+  width: 100%;
+`;

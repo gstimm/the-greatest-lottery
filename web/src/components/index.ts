@@ -1,6 +1,8 @@
 export { default as AsideLogo } from './AsideLogo';
 export { default as SignInForm } from './SignInForm';
-export { default as MainRight } from './MainRight';
+export { default as ResetPasswordForm } from './ResetPasswordForm';
+export { default as MainRightSignIn } from './MainRightSignIn';
+export { default as MainRightResetPassword } from './MainRightResetPassword';
 export { default as Button } from './Button';
 export { default as Footer } from './Footer';
 export { default as Input } from './Input';
