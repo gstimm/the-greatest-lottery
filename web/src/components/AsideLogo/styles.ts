@@ -32,6 +32,6 @@ export const Aside = styled.aside`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 16px 0;
+    margin: 30px 0;
   }
 `;

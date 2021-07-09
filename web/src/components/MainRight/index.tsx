@@ -1,14 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { SignInForm } from '../index';
+import { FiArrowRight } from 'react-icons/fi';
+import { SignInForm, Button } from '../index';
 
-import { Container, H1 } from './styles';
+import { Container } from './styles';
 
 const MainRight: React.FC = () => {
   return (
     <Container>
-      <H1>Authentication</H1>
+      <h1>Authentication</h1>
       <SignInForm />
+      <Link to="/signup">
+        <Button
+          type="button"
+          icon={FiArrowRight}
+          color="#707070"
+          fontSize="35px"
+          margin="43px auto"
+        >
+          Sign Up
+        </Button>
+      </Link>
     </Container>
   );
 };

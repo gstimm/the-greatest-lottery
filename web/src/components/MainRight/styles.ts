@@ -6,8 +6,10 @@ export const Container = styled.main`
   justify-content: center;
   align-items: center;
   width: 50%;
-`;
 
-export const H1 = styled.h1`
-  color: #707070;
+  h1 {
+    color: #707070;
+    margin-bottom: 26px;
+    font-size: 35px;
+  }
 `;
