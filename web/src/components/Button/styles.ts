@@ -4,6 +4,9 @@ interface IButtonProps {
   color: string;
   fontSize: string;
   margin?: string;
+  border?: string;
+  padding?: string;
+  borderRadius?: string;
 }
 
 export const StyledButton = styled.button<IButtonProps>`
@@ -13,7 +16,9 @@ export const StyledButton = styled.button<IButtonProps>`
   align-items: center;
   font: italic normal bold 35px sans-serif;
   background-color: transparent;
-  border: none;
+  border: ${props => props.border || 'none'};
+  border-radius: ${props => props.borderRadius || '0'};
+  padding: ${props => props.padding || 0};
   min-width: 100px;
   margin: ${props => props.margin};
   cursor: pointer;

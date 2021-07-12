@@ -48,6 +48,22 @@ export const LeftSideDiv = styled.div`
     display: grid;
     grid-template-columns: repeat(10, 1fr);
   }
+
+  .aux-buttons {
+    display: flex;
+    justify-content: space-between;
+    height: 52px;
+    margin-top: 24px;
+    margin-bottom: 50px;
+  }
+
+  .left-side {
+    display: flex;
+
+    button {
+      margin-right: 25px;
+    }
+  }
 `;
 
 export const RightSideDiv = styled.div`
@@ -56,10 +72,4 @@ export const RightSideDiv = styled.div`
 
   display: flex;
   justify-content: flex-end;
-
-  button {
-    margin-top: 74px;
-    width: 100%;
-    align-content: right;
-  }
 `;

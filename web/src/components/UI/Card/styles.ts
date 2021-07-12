@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 
-export const StyledCard = styled.div`
+interface IProps {
+  width: string;
+  margin?: string;
+}
+
+export const StyledCard = styled.div<IProps>`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  max-width: 352px;
+  height: fit-content;
+  width: ${props => props.width};
+  margin: ${props => props.margin};
   min-height: 100px;
-  width: 100%;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 16px;

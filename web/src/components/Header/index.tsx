@@ -30,7 +30,7 @@ const Header: React.FC<IProps> = ({ isHomePage }) => {
               Account
             </Button>
           </Link>
-          <Link to="/logout">
+          <Link to="/">
             <Button
               type="button"
               fontSize="20px"

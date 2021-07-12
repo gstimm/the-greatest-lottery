@@ -8,6 +8,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color: string;
   fontSize: string;
   margin?: string;
+  padding?: string;
+  border?: string;
+  borderRadius?: string;
   icon?: React.ComponentType<IconBaseProps>;
 }
 
@@ -21,9 +24,10 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <StyledButton color={color} fontSize={fontSize} margin={margin} {...rest}>
-      {Icon && Icon.name === 'FiArrowLeft' && (
-        <Icon size={24} style={{ marginRight: '10px' }} />
-      )}
+      {Icon &&
+        (Icon.name === 'FiArrowLeft' || Icon.name === 'FiShoppingCart') && (
+          <Icon size={24} style={{ marginRight: '10px' }} />
+        )}
       {children}
       {Icon && Icon.name === 'FiArrowRight' && (
         <Icon size={24} style={{ marginLeft: '10px' }} />

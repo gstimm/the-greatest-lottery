@@ -1,14 +1,14 @@
 import React from 'react';
-import { FiArrowRight } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { FiShoppingCart } from 'react-icons/fi';
 import API from '../../utils/games.json';
 
 import {
   Header,
   Footer,
-  Button,
   GameButton,
   NumberButton,
+  Cart,
+  Button,
 } from '../../components';
 
 import { Container, RightSideDiv, LeftSideDiv } from './styles';
@@ -79,19 +79,94 @@ const NewBetPage: React.FC = () => {
             <NumberButton />
             <NumberButton />
             <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+            <NumberButton />
+          </div>
+
+          <div className="aux-buttons">
+            <div className="left-side">
+              <Button
+                type="button"
+                color="#27C383"
+                fontSize="16px"
+                border="1px solid #27C383"
+                padding="24px"
+                borderRadius="10px"
+              >
+                Complete game
+              </Button>
+              <Button
+                type="button"
+                color="#27C383"
+                fontSize="16px"
+                border="1px solid #27C383"
+                padding="24px"
+                borderRadius="10px"
+              >
+                Clear game
+              </Button>
+            </div>
+            <Button
+              type="button"
+              color="#27C383"
+              fontSize="16px"
+              border="1px solid #27C383"
+              padding="24px"
+              borderRadius="10px"
+              icon={FiShoppingCart}
+            >
+              Add to cart
+            </Button>
           </div>
         </LeftSideDiv>
         <RightSideDiv>
-          <Link to="/new-bet">
-            <Button
-              type="button"
-              color="#B5C401"
-              fontSize="24px"
-              icon={FiArrowRight}
-            >
-              New Bet
-            </Button>
-          </Link>
+          <Cart />
         </RightSideDiv>
       </Container>
       <Footer />

@@ -13,3 +13,6 @@ export { default as Input } from './Input';
 export { default as Footer } from './Footer';
 export { default as Header } from './Header';
 export { default as HeaderLogo } from './HeaderLogo';
+export { default as Cart } from './Cart';
+export { default as CartGameCard } from './CartGameCard';
+export { default as Card } from './UI/Card';

@@ -2,8 +2,7 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
-import { Input, Button } from '../index';
-import Card from '../UI/Card';
+import { Input, Button, Card } from '../index';
 import { ResetPasswordLinkStyle, FormStyle } from './styles';
 
 interface IFormInput {
@@ -21,7 +20,7 @@ const SignInForm: React.FC = () => {
   const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
 
   return (
-    <Card>
+    <Card width="352px">
       <FormStyle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
