@@ -5,7 +5,8 @@ import {
   SignInPage,
   SignUpPage,
   ResetPasswordPage,
-  LoggedHomePage,
+  HomePage,
+  NewBetPage,
 } from '../pages/index';
 
 const Routes: React.FC = () => {
@@ -14,7 +15,8 @@ const Routes: React.FC = () => {
       <Route path="/" exact component={SignInPage} />
       <Route path="/signup" exact component={SignUpPage} />
       <Route path="/reset-password" exact component={ResetPasswordPage} />
-      <Route path="/home" exact component={LoggedHomePage} />
+      <Route path="/home" exact component={HomePage} />
+      <Route path="/new-bet" exact component={NewBetPage} />
     </Switch>
   );
 };

@@ -7,6 +7,7 @@ export { default as MainRightSignUp } from './MainRightSignUp';
 export { default as MainRightResetPassword } from './MainRightResetPassword';
 export { default as Button } from './Button';
 export { default as GameButton } from './GameButton';
+export { default as NumberButton } from './NumberButton';
 export { default as RecentGamesCard } from './RecentGamesCard';
 export { default as Input } from './Input';
 export { default as Footer } from './Footer';

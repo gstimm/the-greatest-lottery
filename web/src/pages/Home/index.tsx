@@ -13,13 +13,27 @@ import {
 
 import { Container, RecentGamesDiv, NewGameDiv } from './styles';
 
-const SignInPage: React.FC = () => {
+const HomePage: React.FC = () => {
   return (
     <>
       <Header isHomePage />
       <Container>
         <RecentGamesDiv>
-          <h1>RECENT GAMES</h1>
+          <div className="recent-games-header">
+            <h1>RECENT GAMES</h1>
+            <p>Filters</p>
+            <div className="filter-by-game-name">
+              {API.types.map(game => (
+                <GameButton
+                  type="button"
+                  gameType={game.type}
+                  color={game.color}
+                  border={game.color}
+                  backgroundColor="#fff"
+                />
+              ))}
+            </div>
+          </div>
           <RecentGamesCard />
           <RecentGamesCard />
           <RecentGamesCard />
@@ -36,19 +50,10 @@ const SignInPage: React.FC = () => {
             </Button>
           </Link>
         </NewGameDiv>
-        {/* {API.types.map(game => (
-          <GameButton
-            type="button"
-            gameType={game.type}
-            color={game.color}
-            border={game.color}
-            backgroundColor="#fff"
-          />
-        ))} */}
       </Container>
       <Footer />
     </>
   );
 };
 
-export default SignInPage;
+export default HomePage;
