@@ -1,6 +1,8 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiArrowRight } from 'react-icons/fi';
+import { ResetPasswordSchema } from '../../utils/schemas';
 import { Input, Button, Card } from '../index';
 import { FormStyle } from './styles';
 
@@ -13,7 +15,10 @@ const ResetPasswordForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>({
+    mode: 'onSubmit',
+    resolver: yupResolver(ResetPasswordSchema),
+  });
 
   const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
 
@@ -21,18 +26,7 @@ const ResetPasswordForm: React.FC = () => {
     <Card width="352px">
       <FormStyle>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            type="text"
-            placeholder="Email"
-            {...register('email', {
-              required: 'This is a required field',
-              pattern: {
-                value:
-                  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                message: 'Invalid email address',
-              },
-            })}
-          />
+          <Input type="text" placeholder="Email" {...register('email')} />
           {errors.email && <p className="error">{errors.email.message}</p>}
           <Button
             type="submit"

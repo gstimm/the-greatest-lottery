@@ -1,6 +1,8 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiArrowRight } from 'react-icons/fi';
+import { SignUpSchema } from '../../utils/schemas';
 import { Input, Button, Card } from '../index';
 import { FormStyle } from './styles';
 
@@ -15,7 +17,10 @@ const SignUpForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>({
+    mode: 'onSubmit',
+    resolver: yupResolver(SignUpSchema),
+  });
 
   const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
 
@@ -23,37 +28,14 @@ const SignUpForm: React.FC = () => {
     <Card width="352px">
       <FormStyle>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            type="text"
-            placeholder="Name"
-            {...register('name', {
-              required: 'This is a required field',
-            })}
-          />
+          <Input type="text" placeholder="Name" {...register('name')} />
           {errors.name && <p className="error">{errors.name.message}</p>}
-          <Input
-            type="text"
-            placeholder="Email"
-            {...register('email', {
-              required: 'This is a required field',
-              pattern: {
-                value:
-                  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                message: 'Invalid email address',
-              },
-            })}
-          />
+          <Input type="text" placeholder="Email" {...register('email')} />
           {errors.email && <p className="error">{errors.email.message}</p>}
           <Input
             type="password"
             placeholder="Password"
-            {...register('password', {
-              required: 'This is a required field',
-              minLength: {
-                value: 8,
-                message: 'Password must be at least 8 characters',
-              },
-            })}
+            {...register('password')}
           />
           {errors.password && (
             <p className="error">{errors.password.message}</p>

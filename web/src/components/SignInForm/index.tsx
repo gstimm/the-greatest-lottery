@@ -26,49 +26,24 @@ const SignInForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>({
-    mode: 'onChange',
+    mode: 'onSubmit',
     resolver: yupResolver(SignInSchema),
   });
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     dispatch(loginRequest(data.email, data.password));
-
-    console.log(data, 'ok');
   };
-
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-  }, [error]);
 
   return (
     <Card width="352px">
       <FormStyle>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            type="text"
-            placeholder="Email"
-            {...register('email', {
-              required: 'This is a required field',
-              pattern: {
-                value:
-                  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                message: 'Invalid email address',
-              },
-            })}
-          />
+          <Input type="text" placeholder="Email" {...register('email')} />
           {errors.email && <p className="error">{errors.email.message}</p>}
           <Input
             type="password"
             placeholder="Password"
-            {...register('password', {
-              required: 'This is a required field',
-              minLength: {
-                value: 8,
-                message: 'Password must be at least 8 characters',
-              },
-            })}
+            {...register('password')}
           />
           {errors.password && (
             <p className="error">{errors.password.message}</p>

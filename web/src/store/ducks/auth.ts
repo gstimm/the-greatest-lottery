@@ -47,6 +47,7 @@ export const reducer: Reducer<AuthState> = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        isLogged: false,
         error: action.payload.error,
         user: {} as User,
       };
@@ -81,9 +82,7 @@ export const loginRequest = (email: string, password: string) => {
 export const loginFailure = (error: string) => {
   return {
     type: Types.LOGIN_FAILURE,
-    payload: {
-      error,
-    },
+    payload: error,
   };
 };
 

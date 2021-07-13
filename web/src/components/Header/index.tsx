@@ -19,7 +19,6 @@ const Header: React.FC<IProps> = ({ isHomePage }) => {
   const handleLogout = () => {
     dispatch(logout());
     push('/');
-    console.log('logged out');
   };
 
   return (

@@ -11,7 +11,8 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
     // Unique User Registered
     if (payload.email !== 'test@test.com' || payload.password !== '12345678') {
-      throw new Error('User not found');
+      console.log('Email or password incorrect');
+      return;
     }
     const user: User = {
       name: 'Gabriel Timm',
