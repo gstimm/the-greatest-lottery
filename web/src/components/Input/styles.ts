@@ -5,7 +5,7 @@ export const StyledInput = styled.input`
   width: 100%;
   border: none;
   padding: 0 32px;
-  font: italic bold 18px sans-serif;
+  font: italic bold 17px sans-serif;
   border-radius: 16px 16px 0 0;
   color: #707070;
 

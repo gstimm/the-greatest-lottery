@@ -25,6 +25,8 @@
     "prettier"
   ],
   "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": ["off"],
     "react/jsx-one-expression-per-line": "off",
     "prettier/prettier": "error",
     "react/prop-types": "off",

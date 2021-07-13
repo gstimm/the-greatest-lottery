@@ -2,14 +2,14 @@ import React, { forwardRef } from 'react';
 
 import { StyledInput } from './styles';
 
-type PropsInput = {
+type IProps = {
   type: string;
   placeholder: string;
   required: boolean;
   minLength?: number;
 };
 
-const Input = forwardRef<HTMLInputElement, PropsInput>((props, ref) => (
+const Input = forwardRef<HTMLInputElement, IProps>((props, ref) => (
   <StyledInput ref={ref} {...props} />
 ));
 
