@@ -56,6 +56,7 @@ export const reducer: Reducer<AuthState> = (state = initialState, action) => {
         loading: false,
         error: '',
         user: action.payload.user,
+        token: action.payload.token,
         isLogged: true,
       };
     case Types.LOGOUT:

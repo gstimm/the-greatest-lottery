@@ -9,17 +9,23 @@ interface User {
 
 export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
+    // Unique User Registered
+    if (payload.email !== 'test@test.com' || payload.password !== '12345678') {
+      throw new Error('User not found');
+    }
     const user: User = {
-      name: 'Timm',
+      name: 'Gabriel Timm',
       email: payload.email,
-      password: '12345678',
+      password: payload.password,
     };
 
-    yield put(loginSuccess(user, '5456465645da465sd46a465ad'));
+    yield put(loginSuccess(user, '6b6fd02ad383e3fe66652385aaa15653')); // MD5 HASH
+    console.log(user, 'Logged with success.');
   } catch (error) {
     yield put(loginFailure(error.message));
   }
 }
+
 function* watchOnHandleLogin() {
   yield takeEvery(Types.LOGIN_REQUEST, handleLogin);
 }

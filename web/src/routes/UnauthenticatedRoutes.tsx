@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { SignInPage, SignUpPage, ResetPasswordPage } from './pages/index';
+import { SignInPage, SignUpPage, ResetPasswordPage } from '../pages/index';
 
-const UnauthenticatedApp: React.FC = () => {
+const UnauthenticatedRoutes: React.FC = () => {
   return (
     <Switch>
       <Route path="/" exact component={SignInPage} />
@@ -15,4 +15,4 @@ const UnauthenticatedApp: React.FC = () => {
   );
 };
 
-export default UnauthenticatedApp;
+export default UnauthenticatedRoutes;

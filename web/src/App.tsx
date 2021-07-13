@@ -1,21 +1,23 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import AuthenticatedApp from './AuthenticatedApp';
-import UnauthenticatedApp from './UnauthenticatedApp';
-import store from './store';
+import { useSelector } from 'react-redux';
+import { AuthenticatedRoutes, UnauthenticatedRoutes } from './routes';
+import { ApplicationStore } from './store/index';
 import GlobalStyle from './styles/global';
+import { AuthState } from './store/ducks/auth';
 
 const App: React.FC = () => {
-  const isAuthenticated = false;
+  const { isLogged } = useSelector<ApplicationStore, AuthState>(
+    state => state.Auth,
+  );
 
   return (
-    <Provider store={store}>
+    <>
       <GlobalStyle />
       <BrowserRouter>
-        {isAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />}
+        {isLogged ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
       </BrowserRouter>
-    </Provider>
+    </>
   );
 };
 

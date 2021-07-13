@@ -26,25 +26,38 @@ const SignUpForm: React.FC = () => {
           <Input
             type="text"
             placeholder="Name"
-            required
-            {...register('name')}
+            {...register('name', {
+              required: 'This is a required field',
+            })}
           />
-          {errors.name && <p>{errors.name.message}</p>}
+          {errors.name && <p className="error">{errors.name.message}</p>}
           <Input
-            type="email"
+            type="text"
             placeholder="Email"
-            required
-            {...register('email')}
+            {...register('email', {
+              required: 'This is a required field',
+              pattern: {
+                value:
+                  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                message: 'Invalid email address',
+              },
+            })}
           />
-          {errors.email && <p>{errors.email.message}</p>}
+          {errors.email && <p className="error">{errors.email.message}</p>}
           <Input
             type="password"
             placeholder="Password"
-            required
-            minLength={8}
-            {...register('password')}
+            {...register('password', {
+              required: 'This is a required field',
+              minLength: {
+                value: 8,
+                message: 'Password must be at least 8 characters',
+              },
+            })}
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password && (
+            <p className="error">{errors.password.message}</p>
+          )}
           <Button
             type="submit"
             icon={FiArrowRight}

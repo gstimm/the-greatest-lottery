@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware, Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { AuthState } from './ducks/auth';
 
 import rootSaga from './rootSaga';
@@ -9,13 +11,22 @@ export interface ApplicationStore {
   Auth: AuthState;
 }
 
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];
 
 const store: Store<ApplicationStore> = createStore(
-  rootReducer,
+  persistedReducer,
   applyMiddleware(...middleware),
 );
+
+export const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);
 

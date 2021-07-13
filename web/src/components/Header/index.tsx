@@ -1,8 +1,10 @@
 import React from 'react';
 import { FiArrowRight } from 'react-icons/fi';
+import { useDispatch } from 'react-redux';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { HeaderLogo, Button } from '../index';
+import { logout } from '../../store/ducks/auth';
 
 import { HeaderDiv, HeaderDivContainer } from './styles';
 
@@ -11,6 +13,15 @@ interface IProps {
 }
 
 const Header: React.FC<IProps> = ({ isHomePage }) => {
+  const dispatch = useDispatch();
+  const { push } = useHistory();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    push('/');
+    console.log('logged out');
+  };
+
   return (
     <HeaderDivContainer>
       <HeaderDiv>
@@ -36,6 +47,7 @@ const Header: React.FC<IProps> = ({ isHomePage }) => {
               fontSize="20px"
               color="#707070"
               icon={FiArrowRight}
+              onClick={handleLogout}
             >
               Log out
             </Button>

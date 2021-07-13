@@ -22,12 +22,18 @@ const ResetPasswordForm: React.FC = () => {
       <FormStyle>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            type="email"
+            type="text"
             placeholder="Email"
-            required
-            {...register('email')}
+            {...register('email', {
+              required: 'This is a required field',
+              pattern: {
+                value:
+                  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                message: 'Invalid email address',
+              },
+            })}
           />
-          {errors.email && <p>{errors.email.message}</p>}
+          {errors.email && <p className="error">{errors.email.message}</p>}
           <Button
             type="submit"
             icon={FiArrowRight}
