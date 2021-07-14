@@ -8,6 +8,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const NumberButton: React.FC<ButtonProps> = ({
+  children,
   color,
   gameType,
   backgroundColor,
@@ -15,7 +16,7 @@ const NumberButton: React.FC<ButtonProps> = ({
 }) => {
   return (
     <StyledButton color={color} backgroundColor={backgroundColor} {...rest}>
-      10
+      {children}
     </StyledButton>
   );
 };

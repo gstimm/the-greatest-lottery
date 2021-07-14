@@ -5,7 +5,7 @@ export const Container = styled.div`
   max-width: 1106px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 70% 30%;
   grid-template-rows: 1fr;
 `;
 
