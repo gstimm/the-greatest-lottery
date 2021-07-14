@@ -1,6 +1,6 @@
 import React from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
-import API from '../../utils/games.json';
+import { types } from '../../utils/games.json';
 
 import {
   Header,
@@ -27,7 +27,7 @@ const NewBetPage: React.FC = () => {
               <strong>Choose a game</strong>
             </p>
             <div className="filter-by-game-name">
-              {API.types.map(game => (
+              {types.map(game => (
                 <GameButton
                   type="button"
                   gameType={game.type}

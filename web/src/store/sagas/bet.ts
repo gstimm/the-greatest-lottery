@@ -1,4 +1,4 @@
-import { all, takeEvery, fork, put } from 'redux-saga/effects';
+import { all, takeLatest, put } from 'redux-saga/effects';
 import {
   addBetRequest,
   addBetFailure,
@@ -14,10 +14,6 @@ export function* handleBet({ payload }: ReturnType<typeof addBetRequest>) {
   }
 }
 
-function* watchOnHandleBet() {
-  yield takeEvery(Types.ADD_BET_REQUEST, handleBet);
-}
-
-export default function* lyricsSaga() {
-  yield all([fork(watchOnHandleBet)]);
+export default function* watchOnHandleBet() {
+  yield all([takeLatest(Types.ADD_BET_REQUEST, handleBet)]);
 }
