@@ -3,12 +3,14 @@ import createSagaMiddleware from 'redux-saga';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { AuthState } from './ducks/auth';
+import { BetState } from './ducks/bet';
 
 import rootSaga from './rootSaga';
 import rootReducer from './rootReducer';
 
 export interface ApplicationStore {
   Auth: AuthState;
+  Bet: BetState;
 }
 
 const persistConfig = {

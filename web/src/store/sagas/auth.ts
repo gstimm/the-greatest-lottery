@@ -1,11 +1,11 @@
 import { put, all, takeEvery, fork } from 'redux-saga/effects';
-import { loginSuccess, loginRequest, loginFailure, Types } from '../ducks/auth';
-
-interface User {
-  name: string;
-  email: string;
-  password: string;
-}
+import {
+  loginSuccess,
+  loginRequest,
+  loginFailure,
+  Types,
+  User,
+} from '../ducks/auth';
 
 export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
@@ -14,6 +14,7 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
       console.log('Email or password incorrect');
       return;
     }
+
     const user: User = {
       name: 'Gabriel Timm',
       email: payload.email,
@@ -23,7 +24,7 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
     yield put(loginSuccess(user, '6b6fd02ad383e3fe66652385aaa15653')); // MD5 HASH
     console.log(user, 'Logged with success.');
   } catch (error) {
-    yield put(loginFailure(error.message));
+    yield put(loginFailure(error));
   }
 }
 

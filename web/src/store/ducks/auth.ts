@@ -43,6 +43,7 @@ export const reducer: Reducer<AuthState> = (state = initialState, action) => {
   switch (action.type) {
     case Types.LOGIN_REQUEST:
       return { ...state, loading: true };
+
     case Types.LOGIN_FAILURE:
       return {
         ...state,
@@ -51,6 +52,7 @@ export const reducer: Reducer<AuthState> = (state = initialState, action) => {
         error: action.payload.error,
         user: {} as User,
       };
+
     case Types.LOGIN_SUCCESS:
       return {
         ...state,
@@ -60,8 +62,10 @@ export const reducer: Reducer<AuthState> = (state = initialState, action) => {
         token: action.payload.token,
         isLogged: true,
       };
+
     case Types.LOGOUT:
       return initialState;
+
     default:
       return state;
   }
@@ -79,7 +83,7 @@ export const loginRequest = (email: string, password: string) => {
   };
 };
 
-export const loginFailure = (error: string) => {
+export const loginFailure = (error: Error) => {
   return {
     type: Types.LOGIN_FAILURE,
     payload: error,

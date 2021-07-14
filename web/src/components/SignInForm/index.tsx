@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,6 +20,12 @@ const SignInForm: React.FC = () => {
   const { error } = useSelector<ApplicationStore, AuthState>(
     state => state.Auth,
   );
+
+  useEffect(() => {
+    if (error) {
+      console.log(error, 'oi');
+    }
+  }, [error]);
 
   const {
     register,
