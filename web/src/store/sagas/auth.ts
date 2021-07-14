@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { put, all, takeEvery, fork } from 'redux-saga/effects';
 import {
   loginSuccess,
@@ -11,7 +12,7 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
     // Unique User Registered
     if (payload.email !== 'test@test.com' || payload.password !== '12345678') {
-      console.log('Email or password incorrect');
+      toast.error('Email or password incorrect');
       return;
     }
 

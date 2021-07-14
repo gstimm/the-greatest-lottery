@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 import { AuthenticatedRoutes, UnauthenticatedRoutes } from './routes';
 import { ApplicationStore } from './store/index';
 import GlobalStyle from './styles/global';
@@ -14,6 +15,7 @@ const App: React.FC = () => {
   return (
     <>
       <GlobalStyle />
+      <ToastContainer autoClose={3000} />
       <BrowserRouter>
         {isLogged ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
       </BrowserRouter>
