@@ -20,7 +20,7 @@ const NewBet: React.FC = () => {
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
 
   useEffect(() => {
-    setSelectedNumbers([]);
+    clearSelectedNumbersHandler();
     const newNumbers = [];
     for (let index = 1; index <= selectedGame.range; index++) {
       newNumbers.push(index);
@@ -52,7 +52,9 @@ const NewBet: React.FC = () => {
     return selectedNumbers.length < selectedGame['max-number'];
   };
 
-  const clearSelectedNumbersHandler = () => {};
+  const clearSelectedNumbersHandler = () => {
+    setSelectedNumbers([]);
+  };
 
   return (
     <Container>

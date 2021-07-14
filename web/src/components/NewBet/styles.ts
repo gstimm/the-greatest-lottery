@@ -54,6 +54,7 @@ export const Container = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 24px 0 145.5px 0;
+    height: 52px;
   }
 
   .left-buttons {
