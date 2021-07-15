@@ -1,5 +1,8 @@
 import React from 'react';
 import { FiTrash2 } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { ApplicationStore } from '../../store';
+import { CartState, removeBet } from '../../store/ducks/cart';
 import { formatPrice } from '../../utils/formatPrice';
 
 import { Container, Border, MainContent } from './styles';
@@ -16,9 +19,18 @@ interface IProps {
 }
 
 const RecentGamesCard: React.FC<IProps> = ({ bet }) => {
+  const dispatch = useDispatch();
+
+  const removeBetFromCartHandler = (id: string, price: number) => {
+    dispatch(removeBet(id, price));
+  };
+
   return (
     <Container>
-      <button type="button">
+      <button
+        type="button"
+        onClick={() => removeBetFromCartHandler(bet.id, bet.price)}
+      >
         <FiTrash2 size={32} color="#888888" className="icon" />
       </button>
       <Border backgroundColor={bet.color} />

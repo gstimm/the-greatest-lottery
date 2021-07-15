@@ -5,7 +5,6 @@ import { Reducer } from 'redux';
 export const Types = {
   ADD_BET: 'cart/ADD_BET',
   REMOVE_BET: 'cart/REMOVE_BET',
-  CLEAR_CART: 'cart/CLEAR_CART',
 };
 
 // Data Types
@@ -48,16 +47,9 @@ export const reducer: Reducer<CartState> = (state = initialState, action) => {
       return {
         ...state,
         bets: state.bets.filter(bet => bet.id !== action.payload.id),
-        totalBetValue:
-          state.totalBetValue - state.bets[action.payload.id].price,
+        totalBetValue: state.totalBetValue - action.payload.price,
       };
 
-    case Types.CLEAR_CART:
-      return {
-        ...state,
-        bets: [],
-        totalBetValue: 0,
-      };
     default:
       return state;
   }
@@ -74,16 +66,10 @@ export const addBet = (bet: Bet) => {
   };
 };
 
-export const removeBet = (id: string) => {
+export const removeBet = (id: string, price: number) => {
   return {
     type: Types.REMOVE_BET,
-    payload: { id },
-  };
-};
-
-export const clearCart = () => {
-  return {
-    type: Types.CLEAR_CART,
+    payload: { id, price },
   };
 };
 
