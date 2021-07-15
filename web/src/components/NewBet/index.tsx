@@ -1,8 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
+import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { v4 } from 'uuid';
 import { Container } from './styles';
 import { Button, GameButton, NumberButton } from '../index';
 import { types } from '../../utils/games.json';
+import { addBet } from '../../store/ducks/cart';
 
 interface Game {
   type: string;
@@ -14,9 +18,19 @@ interface Game {
   'max-number': number;
 }
 
+interface Bet {
+  id: string;
+  type: string;
+  color: string;
+  price: number;
+  date: string;
+  numbers: number[];
+}
+
 const NewBet: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<Game>(types[0]);
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
+  const dispatch = useDispatch();
 
   const numbers = useMemo(() => {
     setSelectedNumbers([]);
@@ -74,7 +88,24 @@ const NewBet: React.FC = () => {
   };
 
   const addToCartHandler = () => {
-    console.log(selectedNumbers);
+    if (selectedNumbers.length < selectedGame['max-number']) {
+      toast.warning('Please complete the bet before add to cart');
+      return;
+    }
+
+    const bet: Bet = {
+      id: v4(),
+      type: selectedGame.type,
+      color: selectedGame.color,
+      price: selectedGame.price,
+      date: new Date().toLocaleTimeString(),
+      numbers: selectedNumbers.sort((a, b) => a - b),
+    };
+
+    dispatch(addBet(bet));
+    clearSelectedNumbersHandler();
+
+    console.log(bet);
   };
 
   return (

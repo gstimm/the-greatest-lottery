@@ -4,6 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { AuthState } from './ducks/auth';
 import { BetState } from './ducks/bet';
+import { CartState } from './ducks/cart';
 
 import rootSaga from './rootSaga';
 import rootReducer from './rootReducer';
@@ -11,6 +12,7 @@ import rootReducer from './rootReducer';
 export interface ApplicationStore {
   Auth: AuthState;
   Bet: BetState;
+  Cart: CartState;
 }
 
 const persistConfig = {
