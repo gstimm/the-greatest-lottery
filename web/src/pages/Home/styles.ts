@@ -9,47 +9,10 @@ export const Container = styled.div`
   grid-template-rows: 1fr;
 `;
 
-export const RecentGamesDiv = styled.div`
-  height: 100%;
-  width: 100%;
-
-  .recent-games-header {
-    display: flex;
-    align-items: center;
-    height: 130px;
-  }
-
-  h1 {
-    margin-right: 45px;
-    color: #707070;
-    font-size: 24px;
-  }
-
-  p {
-    margin-right: 15px;
-    color: #868686;
-    font-size: 17px;
-  }
-
-  .filter-by-game-name {
-    display: flex;
-
-    button {
-      margin-right: 25px;
-    }
-  }
-`;
-
 export const NewGameDiv = styled.div`
-  height: 100%;
-  width: 100%;
-
-  display: flex;
-  justify-content: flex-end;
-
-  button {
+  div {
+    display: flex;
     margin-top: 74px;
-    width: 100%;
-    align-content: right;
+    justify-content: flex-end;
   }
 `;

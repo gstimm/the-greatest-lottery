@@ -17,13 +17,13 @@ interface BetProps {
 const RecentGamesCard: React.FC<BetProps> = ({ bet }) => {
   return (
     <Container>
-      <Border />
+      <Border backgroundColor={bet.color} />
       <MainContent>
         <h3>{bet.numbers.join(', ')}</h3>
         <span>
           {bet.date} - ({formatPrice(bet.price)})
         </span>
-        <h3>{bet.type}</h3>
+        <h3 style={{ color: bet.color }}>{bet.type}</h3>
       </MainContent>
     </Container>
   );

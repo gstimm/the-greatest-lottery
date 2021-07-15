@@ -64,4 +64,8 @@ export const Container = styled.div`
       margin-right: 25px;
     }
   }
+
+  .add-to-cart-button {
+    margin-right: 40px;
+  }
 `;

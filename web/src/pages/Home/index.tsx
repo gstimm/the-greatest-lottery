@@ -13,16 +13,18 @@ const HomePage: React.FC = () => {
       <Container>
         <RecentGames />
         <NewGameDiv>
-          <Link to="/new-bet">
-            <Button
-              type="button"
-              color="#B5C401"
-              fontSize="24px"
-              icon={FiArrowRight}
-            >
-              New Bet
-            </Button>
-          </Link>
+          <div>
+            <Link to="/new-bet">
+              <Button
+                type="button"
+                color="#B5C401"
+                fontSize="24px"
+                icon={FiArrowRight}
+              >
+                New Bet
+              </Button>
+            </Link>
+          </div>
         </NewGameDiv>
       </Container>
       <Footer />

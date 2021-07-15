@@ -12,9 +12,9 @@ const RecentGames: React.FC = () => {
   return (
     <Container>
       <div className="recent-games-header">
-        <h1>RECENT GAMES</h1>
-        <p>Filters</p>
         <div className="filter-by-game-name">
+          <h1>RECENT GAMES</h1>
+          <p>Filters</p>
           {types.map(game => (
             <GameButton
               key={game.type}

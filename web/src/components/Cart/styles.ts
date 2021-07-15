@@ -10,7 +10,7 @@ export const Container = styled.div`
   color: #707070;
 
   h1 {
-    margin: 32px 0 35px 19px;
+    margin: 32px 0 19px 19px;
     font-size: 24px;
   }
 

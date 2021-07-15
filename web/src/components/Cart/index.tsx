@@ -29,7 +29,7 @@ const Cart: React.FC = () => {
   };
 
   return (
-    <Card width="317px" margin="42px 0 0 0">
+    <Card width="317px" margin="42px auto">
       <Container>
         <h1>CART</h1>
         {bets.map(bet => (

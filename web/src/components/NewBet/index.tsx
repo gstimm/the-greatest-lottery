@@ -178,6 +178,7 @@ const NewBet: React.FC = () => {
           backgroundColor="#27C383"
           padding="24px"
           borderRadius="10px"
+          className="add-to-cart-button"
           icon={FiShoppingCart}
           onClick={addToCartHandler}
         >

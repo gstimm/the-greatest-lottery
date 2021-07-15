@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface BorderProps {
+  backgroundColor: string;
+}
+
 export const Container = styled.div`
   width: 438px;
   height: 94px;
@@ -26,10 +30,10 @@ export const MainContent = styled.div`
   }
 `;
 
-export const Border = styled.div`
+export const Border = styled.div<BorderProps>`
   height: 94px;
   width: 6px;
-  background-color: #f00;
+  background-color: ${props => props.backgroundColor};
   border-radius: 3px;
   margin-right: 15px;
 `;
