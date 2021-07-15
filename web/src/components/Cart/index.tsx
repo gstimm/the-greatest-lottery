@@ -23,7 +23,9 @@ const Cart: React.FC = () => {
       return;
     }
 
-    dispatch(addBetRequest(bets));
+    bets.forEach(bet => {
+      dispatch(addBetRequest(bet));
+    });
   };
 
   return (

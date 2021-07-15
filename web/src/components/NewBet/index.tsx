@@ -3,6 +3,7 @@ import { FiShoppingCart } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { v4 } from 'uuid';
+import { format } from 'date-fns';
 import { Container } from './styles';
 import { Button, GameButton, NumberButton } from '../index';
 import { types } from '../../utils/games.json';
@@ -98,7 +99,7 @@ const NewBet: React.FC = () => {
       type: selectedGame.type,
       color: selectedGame.color,
       price: selectedGame.price,
-      date: new Date().toLocaleTimeString(),
+      date: format(new Date(), 'dd/MM/yyyy'),
       numbers: selectedNumbers.sort((a, b) => a - b),
     };
 

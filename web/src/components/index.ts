@@ -17,3 +17,4 @@ export { default as Cart } from './Cart';
 export { default as CartGameCard } from './CartGameCard';
 export { default as Card } from './UI/Card';
 export { default as NewBet } from './NewBet';
+export { default as RecentGames } from './RecentGames';

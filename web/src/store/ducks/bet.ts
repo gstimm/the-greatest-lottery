@@ -6,7 +6,6 @@ export const Types = {
   ADD_BET_REQUEST: 'bet/ADD_BET_REQUEST',
   ADD_BET_SUCCESS: 'bet/ADD_BET_SUCCESS',
   ADD_BET_FAILURE: 'bet/ADD_BET_FAILURE',
-  REMOVE_BET: 'bet/REMOVE_BET',
 };
 
 // Data Types
@@ -24,7 +23,6 @@ export interface Bet {
 
 export interface BetState {
   readonly bets: Bet[];
-  readonly totalBetValue: number;
   readonly loading: boolean;
   readonly error: string;
 }
@@ -33,7 +31,6 @@ export interface BetState {
 
 const initialState: BetState = {
   bets: [],
-  totalBetValue: 0,
   loading: false,
   error: '',
 };
@@ -57,13 +54,8 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
-        bets: [...state.bets, action.payload.bets],
-      };
-
-    case Types.REMOVE_BET:
-      return {
-        ...state,
-        bets: state.bets.filter(bet => bet.id === action.payload.id),
+        // bets: [...state.bets, action.payload.bet],
+        bets: [],
       };
 
     default:
@@ -73,11 +65,11 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
 
 // Action Creators
 
-export const addBetRequest = (bets: Bet[]) => {
+export const addBetRequest = (bet: Bet) => {
   return {
     type: Types.ADD_BET_REQUEST,
     payload: {
-      bets,
+      bet,
     },
   };
 };
@@ -88,19 +80,12 @@ export const addBetFailure = (error: string) => {
   };
 };
 
-export const addBetSuccess = (bets: Bet[]) => {
+export const addBetSuccess = (bet: Bet) => {
   return {
     type: Types.ADD_BET_SUCCESS,
     payload: {
-      bets,
+      bet,
     },
-  };
-};
-
-export const removeBet = (id: string) => {
-  return {
-    type: Types.REMOVE_BET,
-    payload: { id },
   };
 };
 

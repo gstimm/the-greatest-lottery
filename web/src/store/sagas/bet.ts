@@ -1,4 +1,4 @@
-import { all, takeLatest, put } from 'redux-saga/effects';
+import { all, put, takeEvery } from 'redux-saga/effects';
 import {
   addBetRequest,
   addBetFailure,
@@ -8,12 +8,12 @@ import {
 
 export function* handleBet({ payload }: ReturnType<typeof addBetRequest>) {
   try {
-    yield put(addBetSuccess(payload.bets));
+    yield put(addBetSuccess(payload.bet));
   } catch (error) {
     yield put(addBetFailure(error));
   }
 }
 
 export default function* watchOnHandleBet() {
-  yield all([takeLatest(Types.ADD_BET_REQUEST, handleBet)]);
+  yield all([takeEvery(Types.ADD_BET_REQUEST, handleBet)]);
 }
