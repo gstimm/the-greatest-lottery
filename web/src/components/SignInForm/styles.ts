@@ -12,8 +12,9 @@ export const FormStyle = styled.div`
 
   .error {
     color: #f22;
-    font-size: 17px;
+    font-size: 14px;
     font-style: normal;
-    text-align: center;
+    text-align: left;
+    margin: 5px 0 0 30px;
   }
 `;

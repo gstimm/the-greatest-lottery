@@ -33,7 +33,7 @@ const Cart: React.FC = () => {
       <Container>
         <h1>CART</h1>
         {bets.map(bet => (
-          <CartGameCard bet={bet} />
+          <CartGameCard key={bet.id} bet={bet} />
         ))}
         <h2>
           <strong>CART</strong> TOTAL: {formatPrice(totalBetValue)}

@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiArrowRight } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 import { SignUpSchema } from '../../utils/schemas';
 import { Input, Button, Card } from '../index';
 import { FormStyle } from './styles';
@@ -22,7 +23,16 @@ const SignUpForm: React.FC = () => {
     resolver: yupResolver(SignUpSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = data => {
+    console.log(data);
+
+    if (Object.keys(errors).length) {
+      toast.error('Please fill all fields.');
+      return;
+    }
+
+    toast.warning('Service currently unavailable, server under maintenance.');
+  };
 
   return (
     <Card width="352px">

@@ -6,6 +6,7 @@ import { AuthenticatedRoutes, UnauthenticatedRoutes } from './routes';
 import { ApplicationStore } from './store/index';
 import GlobalStyle from './styles/global';
 import { AuthState } from './store/ducks/auth';
+import { Footer } from './components';
 
 const App: React.FC = () => {
   const { isLogged } = useSelector<ApplicationStore, AuthState>(
@@ -19,6 +20,7 @@ const App: React.FC = () => {
       <BrowserRouter>
         {isLogged ? <AuthenticatedRoutes /> : <UnauthenticatedRoutes />}
       </BrowserRouter>
+      <Footer />
     </>
   );
 };

@@ -5,6 +5,7 @@ export const Container = styled.div`
 
   .recent-games-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     margin: 70.5px 0 33px 0;
@@ -30,6 +31,9 @@ export const Container = styled.div`
       button + button {
         margin-left: 25px;
       }
+    }
+
+    .new-game-link {
     }
   }
 
