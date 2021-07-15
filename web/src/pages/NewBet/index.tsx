@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header, Footer, NewBet } from '../../components';
+import { Header, Footer, NewBet, Cart } from '../../components';
 
 import { Container } from './styles';
 
@@ -10,6 +10,7 @@ const NewBetPage: React.FC = () => {
       <Header />
       <Container>
         <NewBet />
+        <Cart />
       </Container>
       <Footer />
     </>

@@ -3,16 +3,30 @@ import { FiTrash2 } from 'react-icons/fi';
 
 import { Container, Border, MainContent } from './styles';
 
-const RecentGamesCard: React.FC = () => {
+interface IProps {
+  bet: {
+    id: string;
+    type: string;
+    color: string;
+    price: number;
+    date: string;
+    numbers: number[];
+  };
+}
+
+const RecentGamesCard: React.FC<IProps> = ({ bet }) => {
   return (
     <Container>
-      <FiTrash2 size={32} color="#888888" />
-      <Border />
+      <button type="button">
+        <FiTrash2 size={32} color="#888888" className="icon" />
+      </button>
+      <Border backgroundColor={bet.color} />
       <MainContent>
-        <h3>01, 02,04,05,06,07,09,15,17,20,21, 22,23,24,25</h3>
-        <h3>
-          <strong>Lotofácil</strong> R$ 4,50
-        </h3>
+        <h3>{bet.numbers.sort((a, b) => a - b).join(', ')}</h3>
+        <div>
+          <h3 style={{ color: bet.color }}>{bet.type}</h3>
+          <p>{bet.price}</p>
+        </div>
       </MainContent>
     </Container>
   );
