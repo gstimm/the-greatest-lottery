@@ -29,7 +29,7 @@ const RecentGames: React.FC = () => {
       </div>
       <div className="recent-bets-card">
         {bets.map(bet => (
-          <RecentGamesCard bet={bet} />
+          <RecentGamesCard key={bet.id} bet={bet} />
         ))}
       </div>
     </Container>
