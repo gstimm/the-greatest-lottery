@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiTrash2 } from 'react-icons/fi';
+import { formatPrice } from '../../utils/formatPrice';
 
 import { Container, Border, MainContent } from './styles';
 
@@ -25,7 +26,7 @@ const RecentGamesCard: React.FC<IProps> = ({ bet }) => {
         <h3>{bet.numbers.sort((a, b) => a - b).join(', ')}</h3>
         <div>
           <h3 style={{ color: bet.color }}>{bet.type}</h3>
-          <p>{bet.price}</p>
+          <p>{formatPrice(bet.price)}</p>
         </div>
       </MainContent>
     </Container>

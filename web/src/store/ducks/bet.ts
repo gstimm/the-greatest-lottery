@@ -57,7 +57,7 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
-        bets: [...state.bets, action.payload.bet],
+        bets: [...state.bets, action.payload.bets],
       };
 
     case Types.REMOVE_BET:
@@ -73,11 +73,11 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
 
 // Action Creators
 
-export const addBetRequest = (bet: Bet) => {
+export const addBetRequest = (bets: Bet[]) => {
   return {
     type: Types.ADD_BET_REQUEST,
     payload: {
-      bet,
+      bets,
     },
   };
 };
@@ -88,11 +88,11 @@ export const addBetFailure = (error: string) => {
   };
 };
 
-export const addBetSuccess = (bet: Bet) => {
+export const addBetSuccess = (bets: Bet[]) => {
   return {
     type: Types.ADD_BET_SUCCESS,
     payload: {
-      bet,
+      bets,
     },
   };
 };

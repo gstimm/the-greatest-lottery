@@ -8,7 +8,7 @@ import {
 
 export function* handleBet({ payload }: ReturnType<typeof addBetRequest>) {
   try {
-    yield put(addBetSuccess(payload.bet));
+    yield put(addBetSuccess(payload.bets));
   } catch (error) {
     yield put(addBetFailure(error));
   }

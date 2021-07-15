@@ -104,8 +104,6 @@ const NewBet: React.FC = () => {
 
     dispatch(addBet(bet));
     clearSelectedNumbersHandler();
-
-    console.log(bet);
   };
 
   return (

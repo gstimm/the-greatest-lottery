@@ -2,10 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { Button, CartGameCard, Card } from '../index';
 import { Container } from './styles';
 import { ApplicationStore } from '../../store';
 import { CartState } from '../../store/ducks/cart';
+import { addBetRequest } from '../../store/ducks/bet';
+import { formatPrice } from '../../utils/formatPrice';
 
 const Cart: React.FC = () => {
   const { bets, totalBetValue } = useSelector<ApplicationStore, CartState>(
@@ -13,6 +16,15 @@ const Cart: React.FC = () => {
   );
 
   const dispatch = useDispatch();
+
+  const saveBetHandler = () => {
+    if (totalBetValue < 30) {
+      toast.warning('The minimum valor for a bet is R$ 30,00.');
+      return;
+    }
+
+    dispatch(addBetRequest(bets));
+  };
 
   return (
     <Card width="317px" margin="42px 0 0 0">
@@ -22,15 +34,16 @@ const Cart: React.FC = () => {
           <CartGameCard bet={bet} />
         ))}
         <h2>
-          <strong>CART</strong> TOTAL: R$ {totalBetValue}
+          <strong>CART</strong> TOTAL: {formatPrice(totalBetValue)}
         </h2>
         <div className="button-container">
           <Link to="/home">
             <Button
-              type="submit"
+              type="button"
               color="#27C383"
               fontSize="35px"
               icon={FiArrowRight}
+              onClick={saveBetHandler}
             >
               Save
             </Button>
