@@ -7,6 +7,7 @@ interface IButtonProps {
   border?: string;
   padding?: string;
   borderRadius?: string;
+  backgroundColor?: string;
 }
 
 export const StyledButton = styled.button<IButtonProps>`
@@ -15,7 +16,7 @@ export const StyledButton = styled.button<IButtonProps>`
   justify-content: center;
   align-items: center;
   font: italic normal bold 35px sans-serif;
-  background-color: transparent;
+  background-color: ${props => props.backgroundColor || 'transparent'};
   border: ${props => props.border || 'none'};
   border-radius: ${props => props.borderRadius || '0'};
   padding: ${props => props.padding || 0};

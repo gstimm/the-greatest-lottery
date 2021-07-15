@@ -25,6 +25,7 @@ const HomePage: React.FC = () => {
             <div className="filter-by-game-name">
               {API.types.map(game => (
                 <GameButton
+                  key={game.type}
                   type="button"
                   gameType={game.type}
                   color={game.color}

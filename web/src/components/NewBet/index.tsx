@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Container } from './styles';
 import { Button, GameButton, NumberButton } from '../index';
@@ -16,16 +16,11 @@ interface Game {
 
 const NewBet: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<Game>(types[0]);
-  const [numbers, setNumbers] = useState<number[]>([]);
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
 
-  useEffect(() => {
-    clearSelectedNumbersHandler();
-    const newNumbers = [];
-    for (let index = 1; index <= selectedGame.range; index++) {
-      newNumbers.push(index);
-    }
-    setNumbers(newNumbers);
+  const numbers = useMemo(() => {
+    setSelectedNumbers([]);
+    return Array.from({ length: selectedGame.range }, (_, i) => i + 1);
   }, [selectedGame]);
 
   const selectedGameHandler = (game: Game) => {
@@ -44,7 +39,7 @@ const NewBet: React.FC = () => {
     }
   };
 
-  const numberAlreadySelected = (number: number) => {
+  const numberAlreadySelected = (number: number): boolean => {
     return selectedNumbers.some(arrayNumber => arrayNumber === number);
   };
 
@@ -56,6 +51,32 @@ const NewBet: React.FC = () => {
     setSelectedNumbers([]);
   };
 
+  const completeGameHandler = () => {
+    let auxArray = selectedNumbers;
+
+    if (auxArray.length === selectedGame['max-number']) {
+      auxArray = [];
+    }
+
+    while (auxArray.length < selectedGame['max-number']) {
+      const randomNumber = Math.ceil(Math.random() * selectedGame.range);
+
+      const hasInArray = auxArray.some(number => {
+        return number === randomNumber;
+      });
+
+      if (!hasInArray) {
+        auxArray.push(randomNumber);
+      }
+    }
+
+    setSelectedNumbers([...auxArray]);
+  };
+
+  const addToCartHandler = () => {
+    console.log(selectedNumbers);
+  };
+
   return (
     <Container>
       <h1>
@@ -65,6 +86,7 @@ const NewBet: React.FC = () => {
       <div className="filter-by-game-name">
         {types.map(game => (
           <GameButton
+            key={game.type}
             type="button"
             gameType={game.type}
             color={game.color}
@@ -79,15 +101,18 @@ const NewBet: React.FC = () => {
         <p>{selectedGame.description}</p>
       </div>
       <div className="numbers">
-        {numbers.map(number => (
-          <NumberButton
-            onClick={() => selectedNumbersHandler(number)}
-            className={numberAlreadySelected(number) ? 'active' : ''}
-            backgroundColor={selectedGame.color}
-          >
-            {number}
-          </NumberButton>
-        ))}
+        {numbers.map(number => {
+          return (
+            <NumberButton
+              key={`${selectedGame.type}-${number}`}
+              onClick={() => selectedNumbersHandler(number)}
+              className={numberAlreadySelected(number) ? 'active' : 'inactive'}
+              backgroundColor={selectedGame.color}
+            >
+              {number}
+            </NumberButton>
+          );
+        })}
       </div>
 
       <div className="action-buttons">
@@ -99,6 +124,7 @@ const NewBet: React.FC = () => {
             border="1px solid #27C383"
             padding="24px"
             borderRadius="10px"
+            onClick={completeGameHandler}
           >
             Complete game
           </Button>
@@ -116,12 +142,14 @@ const NewBet: React.FC = () => {
         </div>
         <Button
           type="button"
-          color="#27C383"
+          color="#fff"
           fontSize="16px"
           border="1px solid #27C383"
+          backgroundColor="#27C383"
           padding="24px"
           borderRadius="10px"
           icon={FiShoppingCart}
+          onClick={addToCartHandler}
         >
           Add to cart
         </Button>

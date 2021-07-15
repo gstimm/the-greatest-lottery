@@ -11,6 +11,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   padding?: string;
   border?: string;
   borderRadius?: string;
+  backgroundColor?: string;
   icon?: React.ComponentType<IconBaseProps>;
 }
 
