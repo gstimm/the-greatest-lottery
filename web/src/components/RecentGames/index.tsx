@@ -46,11 +46,7 @@ const RecentGames: React.FC = () => {
                 color={game.color}
                 border={game.color}
                 backgroundColor="#fff"
-                className={
-                  filters.some(filter => filter.includes(game.type))
-                    ? 'active'
-                    : ''
-                }
+                className={filters.includes(game.type) ? 'active' : ''}
                 onClick={() => betFilterHandler(game.type)}
               />
             ))}
