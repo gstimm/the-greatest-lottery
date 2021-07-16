@@ -28,4 +28,9 @@ export const StyledButton = styled.button<IButtonProps>`
   &:hover {
     filter: brightness(0.9);
   }
+
+  &.active {
+    background-color: ${props => props.color};
+    color: ${props => props.backgroundColor};
+  }
 `;

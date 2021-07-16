@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
@@ -6,10 +6,30 @@ import { Container } from './styles';
 import { RecentGamesCard, GameButton, Button } from '../index';
 import { types } from '../../utils/games.json';
 import { ApplicationStore } from '../../store';
-import { BetState } from '../../store/ducks/bet';
+import { Bet, BetState } from '../../store/ducks/bet';
 
 const RecentGames: React.FC = () => {
   const { bets } = useSelector<ApplicationStore, BetState>(state => state.Bet);
+  const [filters, setFilters] = useState<string[]>([]);
+  const [filteredArray, setFilteredArray] = useState<Bet[]>([]);
+
+  const betFilterHandler = (type: string) => {
+    let auxArray = filters;
+    const options = bets.find(bet => bet.type === type);
+
+    if (options?.type) {
+      if (filters.includes(options.type)) {
+        auxArray = filters.filter(filter => filter !== options.type);
+      } else {
+        auxArray = [...filters, options.type];
+      }
+    }
+
+    const array = bets.filter(bet => auxArray.includes(bet.type));
+
+    setFilters(auxArray);
+    setFilteredArray([...array]);
+  };
 
   return (
     <Container>
@@ -26,6 +46,12 @@ const RecentGames: React.FC = () => {
                 color={game.color}
                 border={game.color}
                 backgroundColor="#fff"
+                className={
+                  filters.some(filter => filter.includes(game.type))
+                    ? 'active'
+                    : ''
+                }
+                onClick={() => betFilterHandler(game.type)}
               />
             ))}
           </div>
@@ -45,9 +71,10 @@ const RecentGames: React.FC = () => {
         </div>
       </div>
       <div className="recent-bets-card">
-        {bets.map(bet => (
-          <RecentGamesCard key={bet.id} bet={bet} />
-        ))}
+        {filters.length === 0 &&
+          bets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />)}
+        {filters.length > 0 &&
+          filteredArray.map(bet => <RecentGamesCard key={bet.id} bet={bet} />)}
       </div>
     </Container>
   );

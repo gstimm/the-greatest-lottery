@@ -22,6 +22,7 @@ const Cart: React.FC = () => {
       toast.warning('The minimum valor for a bet is R$ 30,00.');
       return;
     }
+    // dispatch(addBetRequest(bets[0])); // CLEAR BETS FROM RECENT GAMES
 
     bets.forEach(bet => {
       dispatch(addBetRequest(bet));
