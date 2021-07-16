@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { HeaderLogo, Button } from '../index';
 import { logout } from '../../store/ducks/auth';
 
-import { HeaderDiv, HeaderDivContainer } from './styles';
+import { HeaderDiv, Container } from './styles';
 
 interface IProps {
   isHomePage?: boolean;
@@ -22,7 +22,7 @@ const Header: React.FC<IProps> = ({ isHomePage }) => {
   };
 
   return (
-    <HeaderDivContainer>
+    <Container>
       <HeaderDiv>
         <div className="left-side">
           <HeaderLogo />
@@ -53,7 +53,7 @@ const Header: React.FC<IProps> = ({ isHomePage }) => {
           </Link>
         </div>
       </HeaderDiv>
-    </HeaderDivContainer>
+    </Container>
   );
 };
 

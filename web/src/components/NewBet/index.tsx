@@ -113,18 +113,20 @@ const NewBet: React.FC = () => {
         <span>NEW BET</span> FOR {selectedGame.type}
       </h1>
       <p className="choose-game">Choose a game</p>
-      <div className="filter-by-game-name">
-        {types.map(game => (
-          <GameButton
-            key={game.type}
-            type="button"
-            gameType={game.type}
-            color={game.color}
-            border={game.color}
-            backgroundColor="#fff"
-            onClick={() => selectedGameHandler(game)}
-          />
-        ))}
+      <div className="smaller">
+        <div className="filter-by-game-name">
+          {types.map(game => (
+            <GameButton
+              key={game.type}
+              type="button"
+              gameType={game.type}
+              color={game.color}
+              border={game.color}
+              backgroundColor="#fff"
+              onClick={() => selectedGameHandler(game)}
+            />
+          ))}
+        </div>
       </div>
       <div className="description">
         <p className="fill-bet">Fill your bet</p>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const HeaderDivContainer = styled.div`
+export const Container = styled.div`
   border-bottom: 2px solid #ebebeb;
   height: 76px;
   display: flex;
@@ -11,7 +11,7 @@ export const HeaderDivContainer = styled.div`
 
 export const HeaderDiv = styled.header`
   width: 100%;
-  max-width: 1106px;
+  max-width: 1040px;
 
   display: flex;
   justify-content: space-between;
@@ -23,15 +23,21 @@ export const HeaderDiv = styled.header`
     align-items: center;
   }
 
-  .left-side {
+  a {
+    margin-left: 40px;
+  }
+
+  @media screen and (max-width: 554px) {
+    .right-side {
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
     a {
-      margin-left: 40px;
+      margin-left: 0;
     }
   }
 
-  .right-side {
-    a {
-      margin-left: 40px;
-    }
+  @media screen and (max-width: 1040px) {
+    margin: 0 10px;
   }
 `;

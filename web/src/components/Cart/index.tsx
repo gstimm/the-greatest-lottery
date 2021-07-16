@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { Button, CartGameCard, Card } from '../index';
 import { Container } from './styles';
 import { ApplicationStore } from '../../store';
-import { CartState } from '../../store/ducks/cart';
+import { CartState, removeBet } from '../../store/ducks/cart';
 import { addBetRequest } from '../../store/ducks/bet';
 import { formatPrice } from '../../utils/formatPrice';
 
@@ -25,6 +25,10 @@ const Cart: React.FC = () => {
 
     bets.forEach(bet => {
       dispatch(addBetRequest(bet));
+    });
+
+    bets.forEach(bet => {
+      dispatch(removeBet(bet.id, bet.price));
     });
   };
 

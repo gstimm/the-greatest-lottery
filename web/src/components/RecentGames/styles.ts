@@ -3,9 +3,10 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 414px) {
     .filters {
-      flex-direction: column;
+      grid-template-columns: repeat(1, 1fr);
+      max-width: 138px;
     }
     .filter-by-game-name {
       flex-direction: column;
@@ -25,15 +26,11 @@ export const Container = styled.div`
       margin: 0 0 10px 0;
     }
     button {
-      margin: 0;
-    }
-
-    button + button {
-      margin: 0;
+      margin: 0 12.5px 6px;
     }
   }
 
-  @media screen and (min-width: 401px) and (max-width: 566px) {
+  @media screen and (min-width: 415px) and (max-width: 590px) {
     .filter-by-game-name {
       flex-direction: column;
     }
@@ -50,12 +47,17 @@ export const Container = styled.div`
     p {
       margin: 0 0 10px 0;
     }
-    button + button {
-      margin-left: 25px;
+    button {
+      margin: 0 12.5px 6px;
+    }
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 414px;
     }
   }
 
-  @media screen and (min-width: 567px) and (max-width: 842px) {
+  @media screen and (min-width: 590px) and (max-width: 870px) {
     .filter-by-game-name {
       flex-direction: column;
     }
@@ -65,29 +67,36 @@ export const Container = styled.div`
     p {
       margin: 0 0 10px 0;
     }
-    button:first-child {
-      margin-left: 25px;
+    button {
+      margin: 0 12.5px 6px;
     }
     .new-game-link {
       align-self: flex-start;
     }
-    button + button {
-      margin-left: 25px;
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 414px;
     }
   }
 
-  @media screen and (min-width: 843px) {
+  @media screen and (min-width: 871px) {
     h1 {
       margin-right: 45px;
     }
     p {
       margin-right: 15px;
     }
+    button {
+      margin: 0 12.5px 6px;
+    }
     .new-game-link {
       align-self: flex-start;
     }
-    button + button {
-      margin-left: 25px;
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 414px;
     }
   }
 
@@ -109,10 +118,6 @@ export const Container = styled.div`
       color: #707070;
       font-size: 17px;
       align-self: center;
-    }
-
-    .filters {
-      display: flex;
     }
 
     .filter-by-game-name {

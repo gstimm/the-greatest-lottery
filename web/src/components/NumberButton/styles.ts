@@ -29,4 +29,8 @@ export const StyledButton = styled.button<IButtonProps>`
   &.active {
     background-color: ${props => props.backgroundColor};
   }
+
+  @media screen and (max-width: 394px) {
+    margin: 0 8px 8px 0;
+  }
 `;

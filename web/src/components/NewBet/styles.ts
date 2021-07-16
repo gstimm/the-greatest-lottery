@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  max-width: 720px;
   width: 100%;
   height: 100%;
 
@@ -37,11 +38,13 @@ export const Container = styled.div`
   }
 
   .filter-by-game-name {
-    display: flex;
+    display: grid;
+    max-width: 414px;
+    grid-template-columns: repeat(3, 1fr);
     margin-bottom: 20px;
 
-    button + button {
-      margin-left: 25px;
+    button {
+      margin: 0 12.5px 8px 0;
     }
   }
 
@@ -67,5 +70,63 @@ export const Container = styled.div`
 
   .add-to-cart-button {
     margin-right: 40px;
+  }
+
+  @media screen and (min-width: 435px) and (max-width: 586px) {
+    .action-buttons {
+      flex-direction: column;
+    }
+    .add-to-cart-button {
+      margin-right: 0;
+      margin-top: 16px;
+    }
+    .left-buttons {
+      justify-content: space-between;
+
+      button:nth-child(n) {
+        width: 170px;
+      }
+
+      button:first-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width: 434px) {
+    .filter-by-game-name {
+      grid-template-columns: repeat(1, 1fr);
+      max-width: 138px;
+    }
+    text-align: center;
+
+    .smaller {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .choose-game {
+      text-align: center;
+    }
+
+    .action-buttons {
+      flex-direction: column;
+    }
+    .add-to-cart-button {
+      margin-right: 0;
+      margin-top: 16px;
+    }
+    .left-buttons {
+      justify-content: space-between;
+
+      button:nth-child(n) {
+        width: 170px;
+      }
+
+      button:first-child {
+        margin-right: 0;
+      }
+    }
   }
 `;
