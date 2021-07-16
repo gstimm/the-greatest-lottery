@@ -123,6 +123,7 @@ const NewBet: React.FC = () => {
               color={game.color}
               border={game.color}
               backgroundColor="#fff"
+              className={selectedGame.type.includes(game.type) ? 'active' : ''}
               onClick={() => selectedGameHandler(game)}
             />
           ))}
