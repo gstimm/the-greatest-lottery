@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -31,12 +31,13 @@ interface Bet {
 const NewBet: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<Game>(types[0]);
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
+  const [numbers, setNumbers] = useState<number[]>([]);
   const dispatch = useDispatch();
 
-  const numbers = useMemo(() => {
+  useEffect(() => {
     setSelectedNumbers([]);
-    return Array.from({ length: selectedGame.range }, (_, i) => i + 1);
-  }, [selectedGame]);
+    setNumbers(Array.from({ length: selectedGame.range }, (_, i) => i + 1));
+  }, [selectedGame, setNumbers]);
 
   const selectedGameHandler = (game: Game) => {
     setSelectedGame(prevState =>
