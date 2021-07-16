@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header, Footer, NewBet, Cart } from '../../components';
+import { Header, NewBet, Cart } from '../../components';
 
 import { Container } from './styles';
 
@@ -12,7 +12,6 @@ const NewBetPage: React.FC = () => {
         <NewBet />
         <Cart />
       </Container>
-      <Footer />
     </>
   );
 };

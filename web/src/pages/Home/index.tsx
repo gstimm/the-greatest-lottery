@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header, Footer, RecentGames } from '../../components';
+import { Header, RecentGames } from '../../components';
 
 import { Container } from './styles';
 
@@ -11,7 +11,6 @@ const HomePage: React.FC = () => {
       <Container>
         <RecentGames />
       </Container>
-      <Footer />
     </>
   );
 };

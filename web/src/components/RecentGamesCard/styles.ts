@@ -5,13 +5,17 @@ interface BorderProps {
 }
 
 export const Container = styled.div`
-  width: 438px;
+  max-width: 450px;
   height: 94px;
 
   margin-bottom: 30px;
 
   display: flex;
   flex-direction: row;
+
+  @media screen and (max-width: 450px) {
+    width: 100%;
+  }
 `;
 
 export const MainContent = styled.div`

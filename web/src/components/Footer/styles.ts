@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const FooterDiv = styled.footer`
   height: 79.5px;
-  padding: auto;
   font-size: 14px;
   display: flex;
   justify-content: center;

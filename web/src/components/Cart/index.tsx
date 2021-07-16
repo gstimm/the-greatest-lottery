@@ -18,7 +18,7 @@ const Cart: React.FC = () => {
   const dispatch = useDispatch();
 
   const saveBetHandler = () => {
-    if (totalBetValue < 30) {
+    if (totalBetValue > 30) {
       toast.warning('The minimum valor for a bet is R$ 30,00.');
       return;
     }

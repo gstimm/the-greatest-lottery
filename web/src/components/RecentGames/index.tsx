@@ -17,27 +17,32 @@ const RecentGames: React.FC = () => {
         <div className="filter-by-game-name">
           <h1>RECENT GAMES</h1>
           <p>Filters</p>
-          {types.map(game => (
-            <GameButton
-              key={game.type}
-              type="button"
-              gameType={game.type}
-              color={game.color}
-              border={game.color}
-              backgroundColor="#fff"
-            />
-          ))}
+          <div className="filters">
+            {types.map(game => (
+              <GameButton
+                key={game.type}
+                type="button"
+                gameType={game.type}
+                color={game.color}
+                border={game.color}
+                backgroundColor="#fff"
+              />
+            ))}
+          </div>
         </div>
-        <Link to="/new-bet" className="new-game-link">
-          <Button
-            type="button"
-            color="#B5C401"
-            fontSize="24px"
-            icon={FiArrowRight}
-          >
-            New Bet
-          </Button>
-        </Link>
+        <div className="new-game-link">
+          <Link to="/new-bet">
+            <Button
+              type="button"
+              color="#B5C401"
+              fontSize="24px"
+              icon={FiArrowRight}
+              margin="0 0 0 25px;"
+            >
+              New Bet
+            </Button>
+          </Link>
+        </div>
       </div>
       <div className="recent-bets-card">
         {bets.map(bet => (
