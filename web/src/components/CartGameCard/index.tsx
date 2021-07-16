@@ -1,8 +1,7 @@
 import React from 'react';
 import { FiTrash2 } from 'react-icons/fi';
-import { useDispatch, useSelector } from 'react-redux';
-import { ApplicationStore } from '../../store';
-import { CartState, removeBet } from '../../store/ducks/cart';
+import { useDispatch } from 'react-redux';
+import { removeBet } from '../../store/ducks/cart';
 import { formatPrice } from '../../utils/formatPrice';
 
 import { Container, Border, MainContent } from './styles';

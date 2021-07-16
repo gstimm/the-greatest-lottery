@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiArrowRight } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 import { ResetPasswordSchema } from '../../utils/schemas';
 import { Input, Button, Card } from '../index';
 import { FormStyle } from './styles';
@@ -20,7 +21,16 @@ const ResetPasswordForm: React.FC = () => {
     resolver: yupResolver(ResetPasswordSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = data => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = data => {
+    console.log(data);
+
+    if (Object.keys(errors).length) {
+      toast.error('Please fill email field.');
+      return;
+    }
+
+    toast.warning('Service currently unavailable, server under maintenance.');
+  };
 
   return (
     <Card width="352px">
