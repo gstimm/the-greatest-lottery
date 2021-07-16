@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: 0 auto;
   flex-wrap: wrap;
 
-  @media screen and (max-width: 732px) {
+  @media screen and (max-width: 1040px) {
     padding: 0 10px;
   }
 `;

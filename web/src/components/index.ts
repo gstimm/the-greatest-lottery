@@ -18,3 +18,4 @@ export { default as CartGameCard } from './CartGameCard';
 export { default as Card } from './Card';
 export { default as NewBet } from './NewBet';
 export { default as RecentGames } from './RecentGames';
+export { default as AccountData } from './AccountData';
