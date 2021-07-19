@@ -23,7 +23,6 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
     };
 
     yield put(loginSuccess(user, '6b6fd02ad383e3fe66652385aaa15653')); // MD5 HASH
-    toast.success('Logged with success');
   } catch (error) {
     yield put(loginFailure(error));
   }
