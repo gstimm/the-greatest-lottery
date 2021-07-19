@@ -1,29 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { FiArrowRight } from 'react-icons/fi';
-import { SignInForm, Button } from '../index';
+import { FiArrowLeft } from 'react-icons/fi';
+import { ResetPasswordForm, Button } from '../index';
 
 import { Container } from './styles';
 
-const MainRightSignIn: React.FC = () => {
+const ResetPassword: React.FC = () => {
   return (
     <Container>
-      <h1>Authentication</h1>
-      <SignInForm />
-      <Link to="/signup">
+      <h1>Reset password</h1>
+      <ResetPasswordForm />
+      <Link to="/">
         <Button
           type="button"
-          icon={FiArrowRight}
+          icon={FiArrowLeft}
           color="#707070"
           fontSize="35px"
           margin="43px auto"
         >
-          Sign Up
+          Back
         </Button>
       </Link>
     </Container>
   );
 };
 
-export default MainRightSignIn;
+export default ResetPassword;

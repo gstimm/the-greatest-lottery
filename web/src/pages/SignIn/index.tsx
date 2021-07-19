@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AsideLogo, MainRightSignIn } from '../../components';
+import { AsideLogo, SignIn } from '../../components';
 
 import { Container } from './styles';
 
@@ -8,7 +8,7 @@ const SignInPage: React.FC = () => {
   return (
     <Container>
       <AsideLogo />
-      <MainRightSignIn />
+      <SignIn />
     </Container>
   );
 };

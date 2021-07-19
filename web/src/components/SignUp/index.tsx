@@ -6,7 +6,7 @@ import { SignUpForm, Button } from '../index';
 
 import { Container } from './styles';
 
-const MainRightSignUp: React.FC = () => {
+const SignUp: React.FC = () => {
   return (
     <Container>
       <h1>Registration</h1>
@@ -26,4 +26,4 @@ const MainRightSignUp: React.FC = () => {
   );
 };
 
-export default MainRightSignUp;
+export default SignUp;
