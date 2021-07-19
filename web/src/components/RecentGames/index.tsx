@@ -14,20 +14,20 @@ const RecentGames: React.FC = () => {
   const [filteredArray, setFilteredArray] = useState<Bet[]>([]);
 
   const betFilterHandler = (type: string) => {
-    let auxArray = filters;
+    let auxFiltersArray = filters;
     const options = bets.find(bet => bet.type === type);
 
     if (options?.type) {
       if (filters.includes(options.type)) {
-        auxArray = filters.filter(filter => filter !== options.type);
+        auxFiltersArray = filters.filter(filter => filter !== options.type);
       } else {
-        auxArray = [...filters, options.type];
+        auxFiltersArray = [...filters, options.type];
       }
     }
 
-    const array = bets.filter(bet => auxArray.includes(bet.type));
+    const array = bets.filter(bet => auxFiltersArray.includes(bet.type));
 
-    setFilters(auxArray);
+    setFilters(auxFiltersArray);
     setFilteredArray([...array]);
   };
 

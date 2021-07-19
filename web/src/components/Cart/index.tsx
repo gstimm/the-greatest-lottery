@@ -18,7 +18,7 @@ const Cart: React.FC = () => {
   const dispatch = useDispatch();
 
   const saveBetHandler = () => {
-    if (totalBetValue > 30) {
+    if (totalBetValue < 30) {
       toast.warning('The minimum valor for a bet is R$ 30,00.');
       return;
     }
@@ -26,6 +26,9 @@ const Cart: React.FC = () => {
 
     bets.forEach(bet => {
       dispatch(addBetRequest(bet));
+    });
+
+    bets.forEach(bet => {
       dispatch(removeBet(bet.id, bet.price));
     });
   };
@@ -34,9 +37,16 @@ const Cart: React.FC = () => {
     <Card width="317px" margin="42px auto">
       <Container>
         <h1>CART</h1>
-        {bets.map(bet => (
-          <CartGameCard key={bet.id} bet={bet} />
-        ))}
+        {bets.length === 0 && (
+          <p style={{ margin: '0 0 12px 20px' }}>
+            No bets yet? Lets insert a new one!
+          </p>
+        )}
+        <div className="cards">
+          {bets.map(bet => (
+            <CartGameCard key={bet.id} bet={bet} />
+          ))}
+        </div>
         <h2>
           <strong>CART</strong> TOTAL: {formatPrice(totalBetValue)}
         </h2>
