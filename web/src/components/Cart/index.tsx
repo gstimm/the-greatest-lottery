@@ -18,19 +18,19 @@ const Cart: React.FC = () => {
   const dispatch = useDispatch();
 
   const saveBetHandler = () => {
-    if (totalBetValue < 30) {
+    if (totalBetValue > 30) {
       toast.warning('The minimum valor for a bet is R$ 30,00.');
       return;
     }
-    // dispatch(addBetRequest(bets[0])); // CLEAR BETS FROM RECENT GAMES
+    dispatch(addBetRequest(bets[0])); // CLEAR BETS FROM RECENT GAMES
 
-    bets.forEach(bet => {
-      dispatch(addBetRequest(bet));
-    });
+    // bets.forEach(bet => {
+    //   dispatch(addBetRequest(bet));
+    // });
 
-    bets.forEach(bet => {
-      dispatch(removeBet(bet.id, bet.price));
-    });
+    // bets.forEach(bet => {
+    //   dispatch(removeBet(bet.id, bet.price));
+    // });
   };
 
   return (

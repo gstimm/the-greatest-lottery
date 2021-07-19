@@ -124,4 +124,10 @@ export const Container = styled.div`
       display: flex;
     }
   }
+
+  .recent-bets-card {
+    p {
+      color: #707070;
+    }
+  }
 `;

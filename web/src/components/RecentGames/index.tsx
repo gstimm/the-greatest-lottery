@@ -15,9 +15,10 @@ const RecentGames: React.FC = () => {
 
   const betFilterHandler = (type: string) => {
     let auxFiltersArray = filters;
-    const options = bets.find(bet => bet.type === type);
 
-    if (options?.type) {
+    const options = types.find(gameType => gameType.type === type);
+
+    if (options) {
       if (filters.includes(options.type)) {
         auxFiltersArray = filters.filter(filter => filter !== options.type);
       } else {
@@ -59,7 +60,7 @@ const RecentGames: React.FC = () => {
               color="#B5C401"
               fontSize="24px"
               icon={FiArrowRight}
-              margin="0 0 0 25px;"
+              margin="0 0 0 25px"
             >
               New Bet
             </Button>
@@ -71,6 +72,12 @@ const RecentGames: React.FC = () => {
           bets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />)}
         {filters.length > 0 &&
           filteredArray.map(bet => <RecentGamesCard key={bet.id} bet={bet} />)}
+        {bets.length === 0 && filters.length === 0 && (
+          <p>No games yet? Lets make some new ones!</p>
+        )}
+        {filters.length > 0 && bets.length === 0 && (
+          <p>No games found for this filters!</p>
+        )}
       </div>
     </Container>
   );
