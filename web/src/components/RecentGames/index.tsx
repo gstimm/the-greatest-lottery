@@ -32,6 +32,21 @@ const RecentGames: React.FC = () => {
     setFilteredArray([...array]);
   };
 
+  let data;
+
+  if (filters.length === 0) {
+    data = bets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
+  }
+  if (filters.length > 0) {
+    data = filteredArray.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
+  }
+  if (bets.length === 0 && filters.length === 0) {
+    data = <p>No games yet? Lets make some new ones!</p>;
+  }
+  if (filters.length > 0 && filteredArray.length === 0) {
+    data = <p>No games found for this filters!</p>;
+  }
+
   return (
     <Container>
       <div className="recent-games-header">
@@ -67,18 +82,7 @@ const RecentGames: React.FC = () => {
           </Link>
         </div>
       </div>
-      <div className="recent-bets-card">
-        {filters.length === 0 &&
-          bets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />)}
-        {filters.length > 0 &&
-          filteredArray.map(bet => <RecentGamesCard key={bet.id} bet={bet} />)}
-        {bets.length === 0 && filters.length === 0 && (
-          <p>No games yet? Lets make some new ones!</p>
-        )}
-        {filters.length > 0 && filteredArray.length === 0 && (
-          <p>No games found for this filters!</p>
-        )}
-      </div>
+      <div className="recent-bets-card">{data}</div>
     </Container>
   );
 };
