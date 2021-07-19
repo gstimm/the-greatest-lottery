@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -16,21 +16,24 @@ const Cart: React.FC = () => {
   );
 
   const dispatch = useDispatch();
+  const { push } = useHistory();
 
   const saveBetHandler = () => {
-    if (totalBetValue > 30) {
-      toast.warning('The minimum valor for a bet is R$ 30,00.');
+    if (totalBetValue < 30) {
+      toast.warning('The minimum value for a bet is R$ 30,00.');
       return;
     }
-    dispatch(addBetRequest(bets[0])); // CLEAR BETS FROM RECENT GAMES
+    // dispatch(addBetRequest(bets[0])); // CLEAR BETS FROM RECENT GAMES
 
-    // bets.forEach(bet => {
-    //   dispatch(addBetRequest(bet));
-    // });
+    bets.forEach(bet => {
+      dispatch(addBetRequest(bet));
+    });
 
-    // bets.forEach(bet => {
-    //   dispatch(removeBet(bet.id, bet.price));
-    // });
+    bets.forEach(bet => {
+      dispatch(removeBet(bet.id, bet.price));
+    });
+
+    push('/home');
   };
 
   return (
@@ -51,17 +54,15 @@ const Cart: React.FC = () => {
           <strong>CART</strong> TOTAL: {formatPrice(totalBetValue)}
         </h2>
         <div className="button-container">
-          <Link to="/home">
-            <Button
-              type="button"
-              color="#27C383"
-              fontSize="35px"
-              icon={FiArrowRight}
-              onClick={saveBetHandler}
-            >
-              Save
-            </Button>
-          </Link>
+          <Button
+            type="button"
+            color="#27C383"
+            fontSize="35px"
+            icon={FiArrowRight}
+            onClick={saveBetHandler}
+          >
+            Save
+          </Button>
         </div>
       </Container>
     </Card>

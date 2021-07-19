@@ -75,7 +75,7 @@ const RecentGames: React.FC = () => {
         {bets.length === 0 && filters.length === 0 && (
           <p>No games yet? Lets make some new ones!</p>
         )}
-        {filters.length > 0 && bets.length === 0 && (
+        {filters.length > 0 && filteredArray.length === 0 && (
           <p>No games found for this filters!</p>
         )}
       </div>

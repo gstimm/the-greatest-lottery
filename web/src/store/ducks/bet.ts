@@ -54,8 +54,8 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
-        // bets: [...state.bets, action.payload.bet],
-        bets: [], // Clear Recent Bets
+        bets: [...state.bets, action.payload.bet],
+        // bets: [], // Clear Recent Bets
       };
 
     default:
