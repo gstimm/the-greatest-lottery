@@ -22,25 +22,37 @@ export default class UsersController {
     }
   }
 
-  // public async show({ params }: HttpContextContract) {
-  //   const user = await User.findOrFail(params.id)
+  public async show({ params, response }: HttpContextContract) {
+    try {
+      const user = await User.findOrFail(params.id)
 
-  //   return user
-  // }
+      if (!user) {
+        return response.send({ message: 'User not found' })
+      }
 
-  // public async update({ request, params }: HttpContextContract) {
-  //   const user = await User.findOrFail(params.id)
+      return user
+    } catch (err) {
+      return response.send({ error: { message: err.message } })
+    }
+  }
 
-  //   const data = request.only(['password'])
+  public async update({ request, params }: HttpContextContract) {
+    const user = await User.findOrFail(params.id)
 
-  //   user.merge(data)
+    const data = request.only(['name', 'email', 'password'])
 
-  //   return user
-  // }
+    user.merge(data)
 
-  // public async destroy({ params }: HttpContextContract) {
-  //   const user = await User.findOrFail(params.id)
+    user.save()
 
-  //   await user.delete()
-  // }
+    return user
+  }
+
+  public async destroy({ params, response }: HttpContextContract) {
+    const user = await User.findOrFail(params.id)
+
+    await user.delete()
+
+    return response.status(204)
+  }
 }
