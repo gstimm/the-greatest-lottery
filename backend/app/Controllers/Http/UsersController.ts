@@ -18,7 +18,7 @@ export default class UsersController {
 
       const user = await User.create(data)
 
-      const { token } = await auth.attempt(data.email, data.password)
+      const token = await auth.attempt(data.email, data.password)
 
       return { user, token }
     } catch (err) {
@@ -40,11 +40,17 @@ export default class UsersController {
     }
   }
 
-  public async update({ request, response, params }: HttpContextContract) {
+  public async update({ request, response, params, auth }: HttpContextContract) {
     await request.validate(UpdateUser)
 
     try {
       const user = await User.findOrFail(params.id)
+
+      if (auth.user?.id !== user.id) {
+        return response
+          .status(401)
+          .send({ error: { message: 'You dont have permission to update this user.' } })
+      }
 
       const data = request.only(['name', 'email', 'password'])
 
@@ -58,9 +64,15 @@ export default class UsersController {
     }
   }
 
-  public async destroy({ params, response }: HttpContextContract) {
+  public async destroy({ params, response, auth }: HttpContextContract) {
     try {
       const user = await User.findOrFail(params.id)
+
+      if (auth.user?.id !== user.id) {
+        return response
+          .status(401)
+          .send({ error: { message: 'You dont have permission to delete this user.' } })
+      }
 
       await user.delete()
 

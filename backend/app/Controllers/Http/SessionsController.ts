@@ -1,6 +1,4 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Hash from '@ioc:Adonis/Core/Hash'
-import User from '../../Models/User'
 import Session from 'App/Validators/SessionValidator'
 
 export default class SessionsController {
@@ -10,23 +8,21 @@ export default class SessionsController {
     try {
       const { email, password } = request.only(['email', 'password'])
 
-      const user = await User.findBy('email', email)
-
-      if (!user) {
-        return response.status(404).json({ message: 'User not found' })
-      }
-
-      const isValid = await Hash.verify(user.password, password)
-
-      if (!isValid) {
-        return response.status(403).json({ message: 'Email or password incorrect.' })
-      }
-
-      const token = await auth.use('api').generate(user, {
-        expiresIn: '60mins',
-      })
+      const token = await auth.use('api').attempt(email, password, { expiresIn: '60mins' })
 
       return token
+    } catch (err) {
+      return response.status(err.status).send({ error: { message: err.message } })
+    }
+  }
+
+  public async destroy({ response, auth }: HttpContextContract) {
+    try {
+      await auth.use('api').revoke()
+
+      return {
+        revoked: true,
+      }
     } catch (err) {
       return response.status(err.status).send({ error: { message: err.message } })
     }
