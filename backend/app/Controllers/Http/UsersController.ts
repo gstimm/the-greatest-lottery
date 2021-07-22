@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import CreateUser from 'App/Validators/CreateUserValidator'
+import UpdateUser from 'App/Validators/UpdateUserValidator'
 
 export default class UsersController {
   public async index({}: HttpContextContract) {
@@ -21,7 +22,7 @@ export default class UsersController {
 
       return { user, token }
     } catch (err) {
-      response.status(err.status).send({ error: { message: err.message } })
+      return response.status(err.status).send({ error: { message: err.message } })
     }
   }
 
@@ -35,27 +36,37 @@ export default class UsersController {
 
       return user
     } catch (err) {
-      return response.send({ error: { message: err.message } })
+      return response.status(err.status).send({ error: { message: err.message } })
     }
   }
 
-  public async update({ request, params }: HttpContextContract) {
-    const user = await User.findOrFail(params.id)
+  public async update({ request, response, params }: HttpContextContract) {
+    await request.validate(UpdateUser)
 
-    const data = request.only(['name', 'email', 'password'])
+    try {
+      const user = await User.findOrFail(params.id)
 
-    user.merge(data)
+      const data = request.only(['name', 'email', 'password'])
 
-    user.save()
+      user.merge(data)
 
-    return user
+      user.save()
+
+      return user
+    } catch (err) {
+      return response.status(err.status).send({ error: { message: err.message } })
+    }
   }
 
   public async destroy({ params, response }: HttpContextContract) {
-    const user = await User.findOrFail(params.id)
+    try {
+      const user = await User.findOrFail(params.id)
 
-    await user.delete()
+      await user.delete()
 
-    return response.status(204)
+      return response.status(204)
+    } catch (err) {
+      return response.status(err.status).send({ error: { message: err.message } })
+    }
   }
 }
