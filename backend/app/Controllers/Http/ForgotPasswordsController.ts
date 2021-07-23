@@ -4,9 +4,12 @@ import { string } from '@ioc:Adonis/Core/Helpers'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import Env from '@ioc:Adonis/Core/Env'
 import moment from 'moment'
+import ForgotPasswordStoreValidator from 'App/Validators/ForgotPasswordStoreValidator'
+import ForgotPasswordUpdateValidator from 'App/Validators/ForgotPasswordUpdateValidator'
 
 export default class ForgotPasswordsController {
   public async store({ request, response }: HttpContextContract) {
+    await request.validate(ForgotPasswordStoreValidator)
     try {
       const data = request.only(['email'])
 
@@ -36,6 +39,7 @@ export default class ForgotPasswordsController {
   }
 
   public async update({ request, response, params }: HttpContextContract) {
+    await request.validate(ForgotPasswordUpdateValidator)
     try {
       const data = request.only(['newPassword'])
       const token = params.token
