@@ -2,6 +2,8 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import CreateUser from 'App/Validators/CreateUserValidator'
 import UpdateUser from 'App/Validators/UpdateUserValidator'
+import Mail from '@ioc:Adonis/Addons/Mail'
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class UsersController {
   public async index({}: HttpContextContract) {
@@ -15,14 +17,20 @@ export default class UsersController {
 
     try {
       const data = request.only(['name', 'email', 'password'])
-
       const user = await User.create(data)
+      const { token } = await auth.attempt(data.email, data.password)
 
-      const token = await auth.attempt(data.email, data.password)
+      await Mail.sendLater((message) => {
+        message
+          .from(Env.get('ADMIN_EMAIL'))
+          .to('e8843b72d8-a5925f@inbox.mailtrap.io')
+          .subject('Welcome Onboard!')
+          .htmlView('emails/welcome.edge', { user: user.name })
+      })
 
       return { user, token }
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      return response.send({ error: { message: err.message } })
     }
   }
 
