@@ -16,7 +16,10 @@ export default class User extends BaseModel {
   public password: string
 
   @column()
-  public token: string
+  public token: string | null
+
+  @column()
+  public token_created_at: Date | null
 
   @column.dateTime({
     autoCreate: true,

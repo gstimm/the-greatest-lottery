@@ -4,6 +4,8 @@ Route.post('/login', 'SessionsController.store')
 
 Route.resource('/users', 'UsersController').only(['store'])
 
+Route.post('/forgot-password', 'ForgotPasswordsController.store')
+
 Route.group(() => {
   Route.resource('/users', 'UsersController').apiOnly().except(['store'])
   Route.delete('/logout', 'SessionsController.destroy')
