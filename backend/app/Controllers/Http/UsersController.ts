@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
-import CreateUser from 'App/Validators/CreateUserValidator'
-import UpdateUser from 'App/Validators/UpdateUserValidator'
+import UserStoreValidator from 'App/Validators/UserStoreValidator'
+import UserUpdateValidator from 'App/Validators/UserUpdateValidator'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import Env from '@ioc:Adonis/Core/Env'
 
@@ -13,10 +13,8 @@ export default class UsersController {
   }
 
   public async store({ request, response, auth }: HttpContextContract) {
-    await request.validate(CreateUser)
-
     try {
-      const data = request.only(['name', 'email', 'password'])
+      const data = await request.validate(UserStoreValidator)
       const user = await User.create(data)
       const { token } = await auth.attempt(data.email, data.password)
 
@@ -36,7 +34,7 @@ export default class UsersController {
 
   public async show({ params, response }: HttpContextContract) {
     try {
-      const user = await User.findOrFail(params.id)
+      const user = await User.findByOrFail('id', params.id)
 
       if (!user) {
         return response.send({ message: 'User not found' })
@@ -49,18 +47,15 @@ export default class UsersController {
   }
 
   public async update({ request, response, params, auth }: HttpContextContract) {
-    await request.validate(UpdateUser)
-
     try {
-      const user = await User.findOrFail(params.id)
+      const data = await request.validate(UserUpdateValidator)
+      const user = await User.findByOrFail('id', params.id)
 
       if (auth.user?.id !== user.id) {
         return response
           .status(401)
           .send({ error: { message: 'You dont have permission to update this user.' } })
       }
-
-      const data = request.only(['name', 'email', 'password'])
 
       user.merge(data)
 
@@ -74,7 +69,7 @@ export default class UsersController {
 
   public async destroy({ params, response, auth }: HttpContextContract) {
     try {
-      const user = await User.findOrFail(params.id)
+      const user = await User.findByOrFail('id', params.id)
 
       if (auth.user?.id !== user.id) {
         return response
