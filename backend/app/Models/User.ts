@@ -16,10 +16,13 @@ export default class User extends BaseModel {
   public password: string
 
   @column()
+  public isAdmin: boolean
+
+  @column()
   public token: string | null
 
   @column()
-  public token_created_at: Date | null
+  public tokenCreatedAt: Date | null
 
   @column.dateTime({
     autoCreate: true,
