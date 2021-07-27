@@ -37,12 +37,12 @@ export default class BetsController {
       await Mail.send((message) => {
         message
           .from(Env.get('ADMIN_EMAIL'))
-          .to('e8843b72d8-a5925f@inbox.mailtrap.io')
+          .to(user.email)
           .subject('New Bet!')
           .htmlView('emails/new_bet.edge', {
             user: user.name,
             totalPrice: totalPrice.toFixed(2).replace('.', ','),
-            link: `https://localhost:3000/home`,
+            link: `${Env.get('FRONTEND_LINK')}/home`,
           })
       })
 

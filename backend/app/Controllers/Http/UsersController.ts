@@ -7,8 +7,10 @@ import Env from '@ioc:Adonis/Core/Env'
 import Bet from 'App/Models/Bet'
 
 export default class UsersController {
-  public async index({}: HttpContextContract) {
-    const users = await User.all()
+  public async index({ request }: HttpContextContract) {
+    const { page, perPage } = request.qs()
+
+    const users = await User.query().paginate(page, perPage)
 
     return users
   }
@@ -22,7 +24,7 @@ export default class UsersController {
       await Mail.sendLater((message) => {
         message
           .from(Env.get('ADMIN_EMAIL'))
-          .to('e8843b72d8-a5925f@inbox.mailtrap.io')
+          .to(user.email)
           .subject('Welcome Onboard!')
           .htmlView('emails/welcome.edge', { user: user.name })
       })

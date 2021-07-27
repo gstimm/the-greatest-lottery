@@ -23,12 +23,12 @@ export default class ForgotPasswordsController {
       await Mail.sendLater((message) => {
         message
           .from(Env.get('ADMIN_EMAIL'))
-          .to('e8843b72d8-a5925f@inbox.mailtrap.io')
-          .subject('Password Reset Request for TGL')
+          .to(user.email)
+          .subject('Password Reset | TGL')
           .htmlView('emails/forgot_password.edge', {
             user: user.name,
             email: user.email,
-            link: `https://localhost:3000/forgot-password/${user.token}`,
+            link: `${Env.get('FRONTEND_LINK')}/forgot-password/${user.token}`,
           })
       })
 
