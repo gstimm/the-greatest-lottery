@@ -1,30 +1,22 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Game from './Game'
 
-export default class Game extends BaseModel {
+export default class Bet extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public type: string
+  public userId: number
 
   @column()
-  public description: string
+  public gameId: number
 
   @column()
-  public color: string
-
-  @column()
-  public range: number
+  public numbers: string
 
   @column()
   public price: number
-
-  @column()
-  public maxNumber: number
-
-  @column()
-  public minCartValue: number
 
   @column.dateTime({
     autoCreate: true,
@@ -42,4 +34,7 @@ export default class Game extends BaseModel {
     },
   })
   public updatedAt: DateTime
+
+  @belongsTo(() => Game)
+  public game: BelongsTo<typeof Game>
 }

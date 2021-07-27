@@ -16,7 +16,7 @@ export default class ForgotPasswordsController {
       const user = await User.findByOrFail('email', data.email)
 
       user.token = string.generateRandom(32)
-      user.token_created_at = new Date()
+      user.tokenCreatedAt = new Date()
 
       await user.save()
 
@@ -46,14 +46,14 @@ export default class ForgotPasswordsController {
 
       const user = await User.findByOrFail('token', token)
 
-      const tokenExpired = moment().subtract('2', 'days').isAfter(user.token_created_at)
+      const tokenExpired = moment().subtract('2', 'days').isAfter(user.tokenCreatedAt)
 
       if (tokenExpired) {
         return response.status(401).send({ error: { message: 'Expired or Invalid Token' } })
       }
 
       user.token = null
-      user.token_created_at = null
+      user.tokenCreatedAt = null
       user.password = data.newPassword
 
       await user.save()
