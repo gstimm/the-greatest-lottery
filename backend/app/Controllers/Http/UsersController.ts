@@ -4,6 +4,7 @@ import UserStoreValidator from 'App/Validators/UserStoreValidator'
 import UserUpdateValidator from 'App/Validators/UserUpdateValidator'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import Env from '@ioc:Adonis/Core/Env'
+import Bet from 'App/Models/Bet'
 
 export default class UsersController {
   public async index({}: HttpContextContract) {
@@ -36,11 +37,13 @@ export default class UsersController {
     try {
       const user = await User.findByOrFail('id', params.id)
 
+      const bets = await Bet.query().where('user_id', user.id)
+
       if (!user) {
         return response.send({ message: 'User not found' })
       }
 
-      return user
+      return { user, bets }
     } catch (err) {
       return response.status(err.status).send({ error: { message: err.message } })
     }

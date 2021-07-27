@@ -44,7 +44,7 @@ export default class BetsController {
           })
       })
 
-      return bets
+      return { bets, totalPrice }
     } catch (err) {
       return response.send({ error: { message: err.message } })
     }
