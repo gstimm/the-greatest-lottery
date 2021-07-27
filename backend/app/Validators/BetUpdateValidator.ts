@@ -6,7 +6,6 @@ export default class BetUpdateValidator {
 
   public schema = schema.create({
     numbers: schema.string(),
-    price: schema.number(),
   })
 
   public messages = {

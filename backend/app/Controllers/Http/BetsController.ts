@@ -7,11 +7,13 @@ import Env from '@ioc:Adonis/Core/Env'
 import BetUpdateValidator from 'App/Validators/BetUpdateValidator'
 
 export default class BetsController {
-  public async index({ auth }: HttpContextContract) {
+  public async index({ auth, request }: HttpContextContract) {
+    const { page, perPage } = request.qs()
     const bets = await Bet.query()
       .where('user_id', `${auth.user?.id}`)
       .preload('game')
       .orderBy('id', 'desc')
+      .paginate(page, perPage)
 
     return bets
   }
@@ -44,7 +46,7 @@ export default class BetsController {
           })
       })
 
-      return { bets, totalPrice }
+      return bets
     } catch (err) {
       return response.send({ error: { message: err.message } })
     }
