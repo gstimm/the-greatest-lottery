@@ -21,18 +21,11 @@ export default class BetsController {
   public async store({ request, response, auth }: HttpContextContract) {
     try {
       const user = await User.findByOrFail('id', auth.user?.id)
-
       const data = await request.validate(BetStoreValidator)
-
-      console.log(data)
 
       const bets = await Bet.createMany(
         data.bets.map((item: {}) => (item = { ...item, userId: auth.user?.id }))
       )
-
-      let totalPrice = 0
-
-      data.bets.map((item) => (totalPrice += item.price))
 
       await Mail.send((message) => {
         message
@@ -41,7 +34,6 @@ export default class BetsController {
           .subject('New Bet!')
           .htmlView('emails/new_bet.edge', {
             user: user.name,
-            totalPrice: totalPrice.toFixed(2).replace('.', ','),
             link: `${Env.get('FRONTEND_LINK')}/home`,
           })
       })
@@ -68,7 +60,6 @@ export default class BetsController {
       const data = await request.validate(BetUpdateValidator)
 
       bet.merge(data)
-
       bet.save()
 
       return bet

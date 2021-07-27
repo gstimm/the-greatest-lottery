@@ -35,7 +35,6 @@ export default class GamesController {
   public async update({ request, response, params }: HttpContextContract) {
     try {
       const data = await request.validate(GameUpdateValidator)
-
       const game = await Game.findByOrFail('id', params.id)
 
       game.merge(data)

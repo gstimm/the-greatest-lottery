@@ -12,7 +12,6 @@ export default class ForgotPasswordsController {
     await request.validate(ForgotPasswordStoreValidator)
     try {
       const data = request.only(['email'])
-
       const user = await User.findByOrFail('email', data.email)
 
       user.token = string.generateRandom(32)
