@@ -9,9 +9,8 @@ import ForgotPasswordUpdateValidator from 'App/Validators/ForgotPasswordUpdateVa
 
 export default class ForgotPasswordsController {
   public async store({ request, response }: HttpContextContract) {
-    await request.validate(ForgotPasswordStoreValidator)
+    const data = await request.validate(ForgotPasswordStoreValidator)
     try {
-      const data = request.only(['email'])
       const user = await User.findBy('email', data.email)
 
       if (!user) {
@@ -44,9 +43,8 @@ export default class ForgotPasswordsController {
   }
 
   public async update({ request, response, params }: HttpContextContract) {
-    await request.validate(ForgotPasswordUpdateValidator)
+    const data = await request.validate(ForgotPasswordUpdateValidator)
     try {
-      const data = request.only(['newPassword'])
       const token = params.token
 
       const user = await User.findBy('token', token)

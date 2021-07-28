@@ -20,9 +20,9 @@ export default class BetsController {
   }
 
   public async store({ request, response, auth }: HttpContextContract) {
+    const data = await request.validate(BetStoreValidator)
     try {
       const user = await User.findByOrFail('id', auth.user?.id)
-      const data = await request.validate(BetStoreValidator)
       const games = await Game.query()
 
       const hasGameId = data.bets.every((bet) => games.some((game) => game.id === bet.game_id))
@@ -72,14 +72,13 @@ export default class BetsController {
   }
 
   public async update({ request, response, params }: HttpContextContract) {
+    const data = await request.validate(BetUpdateValidator)
     try {
       const bet = await Bet.findBy('id', params.id)
 
       if (!bet) {
         return response.status(404).send({ error: { message: 'No bet found for this ID.' } })
       }
-
-      const data = await request.validate(BetUpdateValidator)
 
       bet.merge(data)
       bet.save()
