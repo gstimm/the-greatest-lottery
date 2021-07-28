@@ -35,7 +35,9 @@ export default class ForgotPasswordsController {
           })
       })
 
-      console.log(user.token)
+      return response
+        .status(200)
+        .send({ message: 'Request made successfully! Check your email to change your password!' })
     } catch (err) {
       return response.status(err.status).send({ error: { message: err.message } })
     }
@@ -47,7 +49,11 @@ export default class ForgotPasswordsController {
       const data = request.only(['newPassword'])
       const token = params.token
 
-      const user = await User.findByOrFail('token', token)
+      const user = await User.findBy('token', token)
+
+      if (!user) {
+        return response.status(404).send({ error: { message: 'No user found for this Token.' } })
+      }
 
       const tokenExpired = moment().subtract('2', 'days').isAfter(user.tokenCreatedAt)
 
