@@ -5,6 +5,7 @@ import User from 'App/Models/User'
 import BetStoreValidator from 'App/Validators/BetStoreValidator'
 import Env from '@ioc:Adonis/Core/Env'
 import BetUpdateValidator from 'App/Validators/BetUpdateValidator'
+import Game from 'App/Models/Game'
 
 export default class BetsController {
   public async index({ auth, request }: HttpContextContract) {
@@ -22,6 +23,18 @@ export default class BetsController {
     try {
       const user = await User.findByOrFail('id', auth.user?.id)
       const data = await request.validate(BetStoreValidator)
+      const games = await Game.query()
+
+      const hasGameId = data.bets.every((bet) => games.some((game) => game.id === bet.game_id))
+
+      if (!hasGameId) {
+        return response.status(404).send({
+          error: {
+            message:
+              'At least one of the IDs provided does not match the games registered in the system!',
+          },
+        })
+      }
 
       const bets = await Bet.createMany(
         data.bets.map((item: {}) => (item = { ...item, userId: auth.user?.id }))
