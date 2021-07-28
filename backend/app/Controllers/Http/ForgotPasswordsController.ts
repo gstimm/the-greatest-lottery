@@ -34,9 +34,10 @@ export default class ForgotPasswordsController {
           })
       })
 
-      return response
-        .status(200)
-        .send({ message: 'Request made successfully! Check your email to change your password!' })
+      return response.status(200).send({
+        message: 'Request made successfully! Check your email to change your password!',
+        token: user.token,
+      })
     } catch (err) {
       return response.status(err.status).send({ error: { message: err.message } })
     }
