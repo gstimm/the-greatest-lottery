@@ -59,7 +59,11 @@ export default class BetsController {
 
   public async show({ params, response }: HttpContextContract) {
     try {
-      const bet = await Bet.findByOrFail('id', params.id)
+      const bet = await Bet.findBy('id', params.id)
+
+      if (!bet) {
+        return response.status(404).send({ error: { message: 'No bet found for this ID.' } })
+      }
 
       return bet
     } catch (err) {
@@ -69,7 +73,12 @@ export default class BetsController {
 
   public async update({ request, response, params }: HttpContextContract) {
     try {
-      const bet = await Bet.findByOrFail('id', params.id)
+      const bet = await Bet.findBy('id', params.id)
+
+      if (!bet) {
+        return response.status(404).send({ error: { message: 'No bet found for this ID.' } })
+      }
+
       const data = await request.validate(BetUpdateValidator)
 
       bet.merge(data)
@@ -83,7 +92,11 @@ export default class BetsController {
 
   public async destroy({ params, response }: HttpContextContract) {
     try {
-      const bet = await Bet.findByOrFail('id', params.id)
+      const bet = await Bet.findBy('id', params.id)
+
+      if (!bet) {
+        return response.status(404).send({ error: { message: 'No bet found for this ID.' } })
+      }
 
       await bet.delete()
 

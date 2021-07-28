@@ -12,7 +12,11 @@ export default class ForgotPasswordsController {
     await request.validate(ForgotPasswordStoreValidator)
     try {
       const data = request.only(['email'])
-      const user = await User.findByOrFail('email', data.email)
+      const user = await User.findBy('email', data.email)
+
+      if (!user) {
+        return response.status(404).send({ error: { message: 'No user found for this Email.' } })
+      }
 
       user.token = string.generateRandom(32)
       user.tokenCreatedAt = new Date()
