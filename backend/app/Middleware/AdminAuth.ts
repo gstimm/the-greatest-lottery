@@ -6,6 +6,6 @@ export default class AdminAuth {
       return await next()
     }
 
-    return response.status(401).send('You dont have permission to access this route.')
+    return response.status(401).send({ message: 'Only Admin Users can access this route.' })
   }
 }

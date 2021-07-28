@@ -54,7 +54,11 @@ export default class UsersController {
   public async update({ request, response, params, auth }: HttpContextContract) {
     try {
       const data = await request.validate(UserUpdateValidator)
-      const user = await User.findByOrFail('id', params.id)
+      const user = await User.findBy('id', params.id)
+
+      if (!user) {
+        return response.status(404).send({ error: { message: 'User not found for this ID.' } })
+      }
 
       if (auth.user?.id !== user.id) {
         return response
@@ -74,7 +78,11 @@ export default class UsersController {
 
   public async destroy({ params, response, auth }: HttpContextContract) {
     try {
-      const user = await User.findByOrFail('id', params.id)
+      const user = await User.findBy('id', params.id)
+
+      if (!user) {
+        return response.status(404).send({ error: { message: 'User not found for this ID.' } })
+      }
 
       if (auth.user?.id !== user.id) {
         return response

@@ -1,8 +1,10 @@
+import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import ValidationException from 'App/Exceptions/ValidationException'
 import SessionStoreValidator from 'App/Validators/SessionStoreValidator'
 
 export default class SessionsController {
-  public async store({ request, response, auth }: HttpContextContract) {
+  public async store({ request, auth }: HttpContextContract) {
     try {
       const data = await request.validate(SessionStoreValidator)
 
@@ -12,11 +14,11 @@ export default class SessionsController {
 
       return token
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      throw new ValidationException(err.message, err.status, err.code)
     }
   }
 
-  public async destroy({ response, auth }: HttpContextContract) {
+  public async destroy({ auth }: HttpContextContract) {
     try {
       await auth.use('api').revoke()
 
@@ -24,7 +26,7 @@ export default class SessionsController {
         revoked: true,
       }
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      throw new AuthenticationException(err.message, err.status, err.code)
     }
   }
 }

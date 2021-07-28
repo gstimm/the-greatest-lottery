@@ -1,4 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import RowNotFoundException from 'App/Exceptions/RowNotFoundException'
+import ValidationException from 'App/Exceptions/ValidationException'
 import Game from 'App/Models/Game'
 import GameStoreValidator from 'App/Validators/GameStoreValidator'
 import GameUpdateValidator from 'App/Validators/GameUpdateValidator'
@@ -10,7 +12,7 @@ export default class GamesController {
     return games
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request }: HttpContextContract) {
     try {
       const data = await request.validate(GameStoreValidator)
 
@@ -18,7 +20,7 @@ export default class GamesController {
 
       return game
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      throw new ValidationException(err.message, err.status, err.code)
     }
   }
 
@@ -26,16 +28,24 @@ export default class GamesController {
     try {
       const game = await Game.findByOrFail('id', params.id)
 
+      if (!game) {
+        return response.status(404).send({ error: { message: 'No game found for this ID.' } })
+      }
+
       return game
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      throw new RowNotFoundException(err.message, err.status, err.code)
     }
   }
 
   public async update({ request, response, params }: HttpContextContract) {
+    const data = await request.validate(GameUpdateValidator)
     try {
-      const data = await request.validate(GameUpdateValidator)
-      const game = await Game.findByOrFail('id', params.id)
+      const game = await Game.findBy('id', params.id)
+
+      if (!game) {
+        return response.status(404).send({ error: { message: 'No game found for this ID.' } })
+      }
 
       game.merge(data)
 
@@ -43,13 +53,17 @@ export default class GamesController {
 
       return game
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      throw new ValidationException(err.message, err.status, err.code)
     }
   }
 
   public async destroy({ params, response }: HttpContextContract) {
     try {
-      const game = await Game.findByOrFail('id', params.id)
+      const game = await Game.findBy('id', params.id)
+
+      if (!game) {
+        return response.status(404).send({ error: { message: 'No game found for this ID.' } })
+      }
 
       await game.delete()
 
