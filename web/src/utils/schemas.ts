@@ -28,4 +28,7 @@ export const SignUpSchema = yup.object().shape({
     .string()
     .min(8, 'Password must be at least 8 characters')
     .required('This field is required'),
+  password_confirmation: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Password must match'),
 });

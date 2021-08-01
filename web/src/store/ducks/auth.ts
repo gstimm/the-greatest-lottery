@@ -12,7 +12,7 @@ export const Types = {
 // Data Types
 
 export interface User {
-  name: string;
+  // name: string;
   email: string;
   password: string;
 }
@@ -39,7 +39,7 @@ const initialState: AuthState = {
 
 // Reducer
 
-export const reducer: Reducer<AuthState> = (state = initialState, action) => {
+const reducer: Reducer<AuthState> = (state = initialState, action) => {
   switch (action.type) {
     case Types.LOGIN_REQUEST:
       return { ...state, loading: true };
@@ -83,10 +83,10 @@ export const loginRequest = (email: string, password: string) => {
   };
 };
 
-export const loginFailure = (error: Error) => {
+export const loginFailure = (error: string) => {
   return {
     type: Types.LOGIN_FAILURE,
-    payload: error,
+    payload: { error },
   };
 };
 

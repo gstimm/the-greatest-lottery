@@ -17,7 +17,7 @@ const AccountData: React.FC = () => {
 
   return (
     <Container>
-      <h1>Welcome back, {user.name}.</h1>
+      {/* <h1>Welcome back, {user.name}.</h1> */}
       <h2>Details</h2>
       <div>
         <h3>Your Email</h3>

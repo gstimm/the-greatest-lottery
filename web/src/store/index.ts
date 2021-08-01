@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, Store } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
+import { encryptTransform } from 'redux-persist-transform-encrypt';
 import { AuthState } from './ducks/auth';
 import { BetState } from './ducks/bet';
 import { CartState } from './ducks/cart';
@@ -18,6 +19,14 @@ export interface ApplicationStore {
 const persistConfig = {
   key: 'root',
   storage,
+  // transforms: [
+  //   encryptTransform({
+  //     secretKey: 'TGL-KEY',
+  //     onError: () => {
+  //       sessionStorage.clear();
+  //     },
+  //   }),
+  // ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -30,8 +39,8 @@ const store: Store<ApplicationStore> = createStore(
   applyMiddleware(...middleware),
 );
 
-export const persistor = persistStore(store);
+const persistor = persistStore(store);
 
 sagaMiddleware.run(rootSaga);
 
-export default store;
+export { store, persistor };

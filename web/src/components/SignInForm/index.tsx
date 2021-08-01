@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { toast } from 'react-toastify';
 import { Input, Button, Card } from '../index';
 import { SignInSchema } from '../../utils/schemas';
 import { ResetPasswordLinkStyle, FormStyle } from './styles';
@@ -17,28 +18,31 @@ interface IFormInput {
 
 const SignInForm: React.FC = () => {
   const dispatch = useDispatch();
-  const { error } = useSelector<ApplicationStore, AuthState>(
+  const { push } = useHistory();
+  const { error, isLogged } = useSelector<ApplicationStore, AuthState>(
     state => state.Auth,
   );
-
-  useEffect(() => {
-    if (error) {
-      console.log(error);
-    }
-  }, [error]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>({
-    mode: 'onSubmit',
     resolver: yupResolver(SignInSchema),
   });
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
     dispatch(loginRequest(data.email, data.password));
   };
+
+  useEffect(() => {
+    if (isLogged === true) {
+      push('/home');
+    }
+    if (error) {
+      toast.error(error);
+    }
+  }, [error, isLogged, push]);
 
   return (
     <Card width="352px">

@@ -8,11 +8,11 @@ export default class SessionsController {
     try {
       const data = await request.validate(SessionStoreValidator)
 
-      const token = await auth
+      const { user, token } = await auth
         .use('api')
         .attempt(data.email, data.password, { expiresIn: '60mins' })
 
-      return token
+      return { user, token }
     } catch (err) {
       throw new ValidationException(err.message, err.status, err.code)
     }

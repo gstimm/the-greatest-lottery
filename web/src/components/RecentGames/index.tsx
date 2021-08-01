@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { Container } from './styles';
@@ -9,7 +9,10 @@ import { ApplicationStore } from '../../store';
 import { Bet, BetState } from '../../store/ducks/bet';
 
 const RecentGames: React.FC = () => {
-  const { bets } = useSelector<ApplicationStore, BetState>(state => state.Bet);
+  const { bets, page } = useSelector<ApplicationStore, BetState>(
+    state => state.Bet,
+  );
+
   const [filters, setFilters] = useState<string[]>([]);
   const [filteredArray, setFilteredArray] = useState<Bet[]>([]);
 
@@ -34,18 +37,18 @@ const RecentGames: React.FC = () => {
 
   let data;
 
-  if (filters.length === 0) {
-    data = bets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
-  }
-  if (filters.length > 0) {
-    data = filteredArray.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
-  }
-  if (bets.length === 0 && filters.length === 0) {
-    data = <p>No games yet? Lets make some new ones!</p>;
-  }
-  if (filters.length > 0 && filteredArray.length === 0) {
-    data = <p>No games found for this filters!</p>;
-  }
+  // if (bets.length === 0 && filters.length === 0) {
+  //   data = <p>No games yet? Lets make some new ones!</p>;
+  // }
+  // if (filters.length > 0 && filteredArray.length === 0) {
+  //   data = <p>No games found for this filters!</p>;
+  // }
+  // if (filters.length === 0) {
+  //   data = bets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
+  // }
+  // if (filters.length > 0) {
+  //   data = filteredArray.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
+  // }
 
   return (
     <Container>

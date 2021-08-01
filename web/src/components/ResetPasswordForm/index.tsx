@@ -22,7 +22,7 @@ const ResetPasswordForm: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<IFormInput> = data => {
-    console.log(data);
+    // console.log(data);
 
     if (Object.keys(errors).length) {
       toast.error('Please fill email field.');

@@ -31,7 +31,7 @@ export default class UsersController {
 
       return { user, token }
     } catch (err) {
-      return response.send({ error: { message: err.message } })
+      return response.status(err.status).send({ error: { message: err.message } })
     }
   }
 
