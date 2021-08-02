@@ -3,7 +3,7 @@ import { put, all, call, takeEvery, fork } from 'redux-saga/effects';
 import { loginSuccess, loginRequest, loginFailure, Types } from '../ducks/auth';
 import api from '../../services/api';
 
-export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
+function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
     const { data } = yield call(api.post, '/login', payload);
     api.defaults.headers.authorization = `Bearer ${data.token}`;
@@ -15,7 +15,7 @@ export function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   }
 }
 
-export function* handleLogout() {
+function* handleLogout() {
   yield sessionStorage.removeItem('token');
 }
 

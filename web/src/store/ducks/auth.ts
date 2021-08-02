@@ -1,4 +1,5 @@
 import { Reducer } from 'redux';
+import { User } from '../../interfaces';
 
 // Action Types
 
@@ -8,14 +9,6 @@ export const Types = {
   LOGIN_FAILURE: 'auth/LOGIN_FAILURE',
   LOGOUT: 'auth/LOGOUT',
 };
-
-// Data Types
-
-export interface User {
-  // name: string;
-  email: string;
-  password: string;
-}
 
 // State Type
 

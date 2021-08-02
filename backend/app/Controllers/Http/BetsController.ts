@@ -7,6 +7,14 @@ import Env from '@ioc:Adonis/Core/Env'
 import BetUpdateValidator from 'App/Validators/BetUpdateValidator'
 import Game from 'App/Models/Game'
 
+interface BetInterface {
+  userId: number
+  gameId: number
+  price: number
+  numbers: string
+  color: string
+}
+
 export default class BetsController {
   public async index({ auth, request }: HttpContextContract) {
     const { page, perPage } = request.qs()
@@ -20,27 +28,62 @@ export default class BetsController {
   }
 
   public async store({ request, response, auth }: HttpContextContract) {
-    const data = await request.validate(BetStoreValidator)
+    const { bets } = await request.validate(BetStoreValidator)
+    let minCartValue = 0
+    let totalCartValue = 0
+    const newBets: BetInterface[] = []
     try {
-      const user = await User.findByOrFail('id', auth.user?.id)
-      const games = await Game.query()
+      const user = await User.findBy('id', auth.user?.id)
 
-      const hasGameId = data.bets.every((bet) => games.some((game) => game.id === bet.game_id))
-
-      if (!hasGameId) {
-        return response.status(404).send({
-          error: {
-            message:
-              'At least one of the IDs provided does not match the games registered in the system!',
-          },
-        })
+      if (!user) {
+        return response.status(404).send({ error: { message: `User not found!` } })
       }
 
-      const bets = await Bet.createMany(
-        data.bets.map((item: {}) => (item = { ...item, userId: auth.user?.id }))
-      )
+      for (const bet of bets) {
+        const game = await Game.findBy('id', bet.game_id)
 
-      await Mail.send((message) => {
+        if (game) {
+          if (bet.numbers.length !== game.maxNumber) {
+            return response.status(400).send({
+              error: {
+                message: `Incorrect amount of numbers in ${game?.type}(ID: ${game?.id}) bet.`,
+              },
+            })
+          }
+
+          console.log(bet)
+
+          totalCartValue += game.price
+
+          // if (minCartValue < game.minCartValue) {
+          //   minCartValue = game.minCartValue
+          // }
+
+          let data = {
+            userId: user.id,
+            gameId: game.id,
+            price: game.price,
+            numbers: bet.numbers.join(','),
+            color: game.color,
+          }
+
+          newBets.push(data)
+
+          if (totalCartValue < minCartValue) {
+            return response.status(400).send({
+              error: { message: `Your bet needs to be at least R$${minCartValue}.` },
+            })
+          }
+        } else {
+          return response
+            .status(404)
+            .send({ error: { message: `No game found for ID: ${bet.game_id}` } })
+        }
+      }
+
+      await Bet.createMany(newBets)
+
+      await Mail.sendLater((message) => {
         message
           .from(Env.get('ADMIN_EMAIL'))
           .to(user.email)
@@ -51,7 +94,7 @@ export default class BetsController {
           })
       })
 
-      return bets
+      return newBets
     } catch (err) {
       return response.send({ error: { message: err.message } })
     }
@@ -72,7 +115,7 @@ export default class BetsController {
   }
 
   public async update({ request, response, params }: HttpContextContract) {
-    const data = await request.validate(BetUpdateValidator)
+    const { numbers } = await request.validate(BetUpdateValidator)
     try {
       const bet = await Bet.findBy('id', params.id)
 
@@ -80,8 +123,21 @@ export default class BetsController {
         return response.status(404).send({ error: { message: 'No bet found for this ID.' } })
       }
 
-      bet.merge(data)
-      bet.save()
+      const game = await Game.find(bet.gameId)
+
+      if (game) {
+        if (numbers.length !== game.maxNumber) {
+          return response.status(400).send({
+            error: {
+              message: `Incorrect amount of numbers in ${game?.type}(ID: ${game?.id}) bet.`,
+            },
+          })
+        }
+        bet.merge({ numbers: numbers.join(',') })
+        bet.save()
+      } else {
+        return response.status(404).send({ error: { message: 'No game found for this id.' } })
+      }
 
       return bet
     } catch (err) {

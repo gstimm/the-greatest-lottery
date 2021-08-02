@@ -8,8 +8,7 @@ export default class BetStoreValidator {
     bets: schema.array().members(
       schema.object().members({
         game_id: schema.number(),
-        numbers: schema.string({ trim: true }),
-        price: schema.number(),
+        numbers: schema.array().members(schema.number()),
       })
     ),
   })

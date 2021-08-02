@@ -22,6 +22,7 @@ export default class Bets extends BaseSchema {
         .onDelete('CASCADE')
       table.float('price', 2).notNullable()
       table.string('numbers').notNullable()
+      table.string('color').notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

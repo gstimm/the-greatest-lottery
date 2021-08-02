@@ -1,17 +1,11 @@
 import React from 'react';
+import { Bet } from '../../interfaces';
 import { formatPrice } from '../../utils/formatPrice';
 
 import { Container, Border, MainContent } from './styles';
 
 interface BetProps {
-  bet: {
-    id: string;
-    type: string;
-    color: string;
-    price: number;
-    date: string;
-    numbers: number[];
-  };
+  bet: Bet;
 }
 
 const RecentGamesCard: React.FC<BetProps> = ({ bet }) => {

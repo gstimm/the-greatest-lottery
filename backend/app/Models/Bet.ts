@@ -18,6 +18,9 @@ export default class Bet extends BaseModel {
   @column()
   public price: number
 
+  @column()
+  public color: string
+
   @column.dateTime({
     autoCreate: true,
     serialize: (value: DateTime | null) => {

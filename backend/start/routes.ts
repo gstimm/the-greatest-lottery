@@ -11,8 +11,9 @@ Route.group(() => {
   Route.resource('/users', 'UsersController').apiOnly().except(['store'])
   Route.delete('/logout', 'SessionsController.destroy')
   Route.resource('/bets', 'BetsController').apiOnly()
+  Route.get('/games', 'GamesController.index')
 }).middleware(['auth'])
 
 Route.group(() => {
-  Route.resource('/games', 'GamesController').apiOnly()
+  Route.resource('/games', 'GamesController').apiOnly().except(['index'])
 }).middleware(['auth', 'adminAuth'])

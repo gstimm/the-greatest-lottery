@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { Container } from './styles';
 import { RecentGamesCard, GameButton, Button } from '../index';
-import { types } from '../../utils/games.json';
+import { useTypes } from '../../hooks/useTypes';
 import { ApplicationStore } from '../../store';
-import { Bet, BetState } from '../../store/ducks/bet';
+import { BetState } from '../../store/ducks/bet';
+import { Bet } from '../../interfaces';
 
 const RecentGames: React.FC = () => {
-  const { bets, page } = useSelector<ApplicationStore, BetState>(
-    state => state.Bet,
-  );
+  const { types } = useTypes();
+  const { bets } = useSelector<ApplicationStore, BetState>(state => state.Bet);
 
   const [filters, setFilters] = useState<string[]>([]);
   const [filteredArray, setFilteredArray] = useState<Bet[]>([]);
@@ -36,6 +36,8 @@ const RecentGames: React.FC = () => {
   };
 
   let data;
+
+  console.log(bets);
 
   // if (bets.length === 0 && filters.length === 0) {
   //   data = <p>No games yet? Lets make some new ones!</p>;

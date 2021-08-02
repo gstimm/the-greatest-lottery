@@ -5,7 +5,7 @@ export default class BetUpdateValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    numbers: schema.string(),
+    numbers: schema.array().members(schema.number()),
   })
 
   public messages = {
