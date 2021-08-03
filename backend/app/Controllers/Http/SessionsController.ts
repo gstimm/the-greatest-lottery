@@ -1,20 +1,18 @@
 import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import ValidationException from 'App/Exceptions/ValidationException'
 import SessionStoreValidator from 'App/Validators/SessionStoreValidator'
 
 export default class SessionsController {
-  public async store({ request, auth }: HttpContextContract) {
+  public async store({ request, response, auth }: HttpContextContract) {
+    const { email, password } = await request.validate(SessionStoreValidator)
     try {
-      const data = await request.validate(SessionStoreValidator)
-
       const { user, token } = await auth
         .use('api')
-        .attempt(data.email, data.password, { expiresIn: '60mins' })
+        .attempt(email, password, { expiresIn: '60mins' })
 
       return { user, token }
     } catch (err) {
-      throw new ValidationException(err.message, err.status, err.code)
+      return response.status(err.status).send({ error: { message: 'Invalid Email or Password.' } })
     }
   }
 

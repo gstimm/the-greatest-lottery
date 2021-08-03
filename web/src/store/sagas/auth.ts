@@ -1,6 +1,12 @@
 import { put, all, call, takeEvery, fork } from 'redux-saga/effects';
 
-import { loginSuccess, loginRequest, loginFailure, Types } from '../ducks/auth';
+import {
+  loginSuccess,
+  loginRequest,
+  loginFailure,
+  Types,
+  clearPersistedAuth,
+} from '../ducks/auth';
 import api from '../../services/api';
 import { Bet, LongBetData } from '../../interfaces';
 import { clearRecentBets, getBetSuccess } from '../ducks/bet';
@@ -31,12 +37,8 @@ function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
     yield put(clearRecentBets());
     yield put(getBetSuccess(bets));
   } catch (error) {
-    if (error.response) {
-      yield put(loginFailure(error.response.data.error.message));
-
-      return;
-    }
-    yield put(loginFailure(error));
+    yield put(loginFailure(error.response.data.error.message));
+    yield put(clearPersistedAuth());
   }
 }
 

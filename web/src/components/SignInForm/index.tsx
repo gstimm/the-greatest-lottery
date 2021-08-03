@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,8 +18,7 @@ interface IFormInput {
 
 const SignInForm: React.FC = () => {
   const dispatch = useDispatch();
-  const { push } = useHistory();
-  const { error, isLogged } = useSelector<ApplicationStore, AuthState>(
+  const { error } = useSelector<ApplicationStore, AuthState>(
     state => state.Auth,
   );
 
@@ -36,13 +35,10 @@ const SignInForm: React.FC = () => {
   };
 
   useEffect(() => {
-    if (isLogged === true) {
-      push('/home');
-    }
     if (error) {
       toast.error(error);
     }
-  }, [error, isLogged, push]);
+  }, [error]);
 
   return (
     <Card width="352px">
