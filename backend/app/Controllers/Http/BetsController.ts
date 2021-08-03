@@ -16,17 +16,20 @@ interface BetInterface {
 }
 
 export default class BetsController {
-  public async index({ auth, request }: HttpContextContract) {
-    const { page } = request.params()
-    const bets = await Bet.query()
-      .where('user_id', `${auth.user?.id}`)
-      .preload('game')
-      .orderBy('id', 'desc')
-    // .paginate(page)
+  public async index({ auth, response }: HttpContextContract) {
+    try {
+      const user = await User.findBy('id', auth.user?.id)
 
-    console.log(bets)
+      if (!user) {
+        return response.status(404).send({ error: { message: `User not found!` } })
+      }
 
-    return bets
+      const bets = await Bet.query().where('user_id', user.id).preload('game')
+
+      return bets
+    } catch (err) {
+      return response.send({ error: { message: err.message } })
+    }
   }
 
   public async store({ request, response, auth }: HttpContextContract) {
@@ -44,41 +47,45 @@ export default class BetsController {
       for (const bet of bets) {
         const game = await Game.findBy('id', bet.game_id)
 
-        if (game) {
-          if (bet.numbers.length !== game.maxNumber) {
-            return response.status(400).send({
-              error: {
-                message: `Incorrect amount of numbers in ${game?.type}(ID: ${game?.id}) bet.`,
-              },
-            })
-          }
-
-          totalCartValue += game.price
-
-          if (minCartValue < game.minCartValue) {
-            minCartValue = game.minCartValue
-          }
-
-          let data = {
-            userId: user.id,
-            gameId: game.id,
-            price: game.price,
-            numbers: bet.numbers.join(','),
-            color: game.color,
-          }
-
-          newBets.push(data)
-
-          if (totalCartValue < minCartValue) {
-            return response.status(400).send({
-              error: { message: `Your bet needs to be at least R$${minCartValue}.` },
-            })
-          }
-        } else {
-          return response
-            .status(404)
-            .send({ error: { message: `No game found for ID: ${bet.game_id}` } })
+        if (!game) {
+          return response.status(404).send({
+            error: {
+              message: `Game not found for ID ${bet.game_id}`,
+            },
+          })
         }
+
+        if (bet.numbers.length !== game.maxNumber) {
+          return response.status(400).send({
+            error: {
+              message: `Incorrect amount of numbers in ${game?.type}(ID: ${game?.id}) bet.`,
+            },
+          })
+        }
+
+        totalCartValue += game.price
+
+        if (minCartValue < game.minCartValue) {
+          minCartValue = game.minCartValue
+        }
+
+        let data = {
+          userId: user.id,
+          gameId: game.id,
+          price: game.price,
+          numbers: bet.numbers.join(','),
+          color: game.color,
+        }
+
+        newBets.push(data)
+      }
+
+      if (totalCartValue < minCartValue) {
+        return response.status(400).send({
+          error: {
+            message: `Your bet needs to be at least R$${minCartValue}  ${totalCartValue}.`,
+          },
+        })
       }
 
       await Bet.createMany(newBets)
@@ -94,6 +101,7 @@ export default class BetsController {
           })
       })
 
+      newBets.splice(0)
       return newBets
     } catch (err) {
       return response.send({ error: { message: err.message } })

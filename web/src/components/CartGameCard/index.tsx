@@ -9,20 +9,21 @@ import { Container, Border, MainContent } from './styles';
 
 interface IProps {
   bet: Bet;
+  index: number;
 }
 
-const RecentGamesCard: React.FC<IProps> = ({ bet }) => {
+const RecentGamesCard: React.FC<IProps> = ({ bet, index }) => {
   const dispatch = useDispatch();
 
-  const removeBetFromCartHandler = (id: number, price: number) => {
-    dispatch(removeBet(id, price));
+  const removeBetFromCartHandler = (betIndex: number, price: number) => {
+    dispatch(removeBet(betIndex, price));
   };
 
   return (
     <Container>
       <button
         type="button"
-        onClick={() => removeBetFromCartHandler(bet.id, bet.price)}
+        onClick={() => removeBetFromCartHandler(index, bet.price)}
       >
         <FiTrash2 size={32} color="#888888" className="icon" />
       </button>

@@ -5,8 +5,8 @@ export interface Game {
   color: string;
   range: number;
   price: number;
-  'max-number': number;
-  'min-cart-value': number;
+  max_number: number;
+  min_cart_value: number;
 }
 
 export interface Bet {
@@ -22,6 +22,11 @@ export interface User {
   name: string;
   email: string;
   password: string;
+}
+
+export interface NewBet {
+  game_id: number;
+  numbers: number[];
 }
 
 export interface GetBet {

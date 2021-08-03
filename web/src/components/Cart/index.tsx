@@ -6,13 +6,12 @@ import { toast } from 'react-toastify';
 import { Button, CartGameCard, Card } from '../index';
 import { Container } from './styles';
 import { ApplicationStore } from '../../store';
-import { CartState, removeBet } from '../../store/ducks/cart';
+import { CartState } from '../../store/ducks/cart';
 import { addBetRequest } from '../../store/ducks/bet';
 import { formatPrice } from '../../utils/formatData';
-import { Bet } from '../../interfaces';
 
 const Cart: React.FC = () => {
-  const { bets, totalBetValue } = useSelector<ApplicationStore, CartState>(
+  const { cartBets, totalBetValue } = useSelector<ApplicationStore, CartState>(
     state => state.Cart,
   );
 
@@ -24,16 +23,15 @@ const Cart: React.FC = () => {
       toast.warning('The minimum value for a bet is R$ 30,00.');
       return;
     }
-    // dispatch(addBetRequest(bets[0])); // CLEAR BETS FROM RECENT GAMES
 
-    // bets.forEach((bet: Bet) => {
-    //   dispatch(addBetRequest(bet));
-    // });
-    dispatch(bets);
-
-    bets.forEach((bet: Bet) => {
-      dispatch(removeBet(bet.id, bet.price));
+    const bets = cartBets.map(bet => {
+      return {
+        game_id: bet.id,
+        numbers: bet.numbers,
+      };
     });
+
+    dispatch(addBetRequest(bets));
 
     push('/home');
   };
@@ -42,14 +40,15 @@ const Cart: React.FC = () => {
     <Card width="317px" margin="42px auto">
       <Container>
         <h1>CART</h1>
-        {bets.length === 0 && (
+        {cartBets?.length === 0 && (
           <p style={{ margin: '0 0 12px 20px' }}>
             No bets yet? Lets insert a new one!
           </p>
         )}
         <div className="cards">
-          {bets.map(bet => (
-            <CartGameCard key={bet.id} bet={bet} />
+          {cartBets.map((bet, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <CartGameCard key={index} bet={bet} index={index} />
           ))}
         </div>
         <h2>

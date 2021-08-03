@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { Bet } from '../../interfaces';
+import { Bet, NewBet } from '../../interfaces';
 
 // Action Types
 
@@ -10,6 +10,7 @@ export const Types = {
   GET_BET_REQUEST: 'bet/GET_BET_REQUEST',
   GET_BET_SUCCESS: 'bet/GET_BET_SUCCESS',
   GET_BET_FAILURE: 'bet/GET_BET_FAILURE',
+  CLEAR_RECENT_BETS: 'bet/CLEAR_RECENT_BETS',
 };
 
 // State Type
@@ -18,7 +19,6 @@ export interface BetState {
   readonly bets: Bet[];
   readonly loading: boolean;
   readonly error: string;
-  readonly page: number;
 }
 
 // Initial State
@@ -27,7 +27,6 @@ const initialState: BetState = {
   bets: [],
   loading: false,
   error: '',
-  page: 1,
 };
 
 // Reducer
@@ -49,8 +48,7 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
-        bets: [...state.bets, ...action.payload.bet],
-        // bets: [], // Clear Recent Bets
+        // bets: [...state.bets, ...action.payload.bets],
       };
     case Types.GET_BET_REQUEST:
       return { ...state, loading: true };
@@ -67,9 +65,14 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
-        // bets: state.bets.concat(action.payload.bets),
         bets: [...state.bets, ...action.payload.bets],
-        page: action.payload.page,
+      };
+
+    case Types.CLEAR_RECENT_BETS:
+      return {
+        bets: [],
+        loading: false,
+        error: '',
       };
 
     default:
@@ -79,7 +82,7 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
 
 // Action Creators
 
-export const addBetRequest = (bets: Bet[]) => {
+export const addBetRequest = (bets: NewBet[]) => {
   return {
     type: Types.ADD_BET_REQUEST,
     payload: {
@@ -103,12 +106,11 @@ export const addBetSuccess = () => {
   };
 };
 
-export const getBetRequest = (page: number, total: number) => {
+export const getBetRequest = (page: number) => {
   return {
     type: Types.GET_BET_REQUEST,
     payload: {
       page,
-      total,
     },
   };
 };
@@ -120,13 +122,18 @@ export const getBetFailure = (error: string) => {
   };
 };
 
-export const getBetSuccess = (bets: Bet[], page: number) => {
+export const getBetSuccess = (bets: Bet[]) => {
   return {
     type: Types.GET_BET_SUCCESS,
     payload: {
       bets,
-      page,
     },
+  };
+};
+
+export const clearRecentBets = () => {
+  return {
+    type: Types.CLEAR_RECENT_BETS,
   };
 };
 

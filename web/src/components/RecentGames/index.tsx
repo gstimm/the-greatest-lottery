@@ -1,28 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { Container } from './styles';
 import { RecentGamesCard, GameButton, Button } from '../index';
 import { useTypes } from '../../hooks/useTypes';
 import { ApplicationStore } from '../../store';
-import { BetState, getBetRequest } from '../../store/ducks/bet';
+import { BetState } from '../../store/ducks/bet';
 import { Bet } from '../../interfaces';
 
 const RecentGames: React.FC = () => {
-  const dispatch = useDispatch();
   const { types } = useTypes();
-  const { bets, loading } = useSelector<ApplicationStore, BetState>(
-    state => state.Bet,
-  );
-
-  console.log(`FIRST     ${bets}`);
-  console.log(bets);
-  console.log(loading);
+  const { bets } = useSelector<ApplicationStore, BetState>(state => state.Bet);
+  const [recentBets, setRecentBets] = useState<Bet[]>([]);
 
   useEffect(() => {
-    dispatch(getBetRequest(1, 20));
-  }, []);
+    setRecentBets(bets);
+  }, [bets]);
 
   const [filters, setFilters] = useState<string[]>([]);
   const [filteredArray, setFilteredArray] = useState<Bet[]>([]);
@@ -40,7 +34,7 @@ const RecentGames: React.FC = () => {
       }
     }
 
-    const array = bets.filter(bet => auxFiltersArray.includes(bet.type));
+    const array = recentBets.filter(bet => auxFiltersArray.includes(bet.type));
 
     setFilters(auxFiltersArray);
     setFilteredArray([...array]);
@@ -48,18 +42,14 @@ const RecentGames: React.FC = () => {
 
   let data;
 
-  // eslint-disable-next-line prefer-spread
-  const newBets = bets.flat(1);
-  console.log(`NOVO  ${newBets}`);
-
-  if (bets.length === 0 && filters.length === 0) {
+  if (recentBets.length === 0 && filters.length === 0) {
     data = <p>No games yet? Lets make some new ones!</p>;
   }
   if (filters.length > 0 && filteredArray.length === 0) {
     data = <p>No games found for this filters!</p>;
   }
-  if (filters.length === 0 && bets.length > 0) {
-    data = newBets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
+  if (filters.length === 0 && recentBets.length > 0) {
+    data = recentBets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
   }
   if (filters.length > 0 && filteredArray.length > 0) {
     data = filteredArray.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);

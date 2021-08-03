@@ -9,7 +9,6 @@ interface BetProps {
 }
 
 const RecentGamesCard: React.FC<BetProps> = ({ bet }) => {
-  console.log(`CARD: ${bet}`);
   return (
     <Container>
       <Border backgroundColor={bet.color} />

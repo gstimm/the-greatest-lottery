@@ -6,19 +6,20 @@ import { Bet } from '../../interfaces';
 export const Types = {
   ADD_BET: 'cart/ADD_BET',
   REMOVE_BET: 'cart/REMOVE_BET',
+  CLEAR_CART: 'cart/CLEAR_CART',
 };
 
 // State Type
 
 export interface CartState {
-  readonly bets: Bet[];
+  readonly cartBets: Bet[];
   readonly totalBetValue: number;
 }
 
 // Initial State
 
 const initialState: CartState = {
-  bets: [],
+  cartBets: [],
   totalBetValue: 0,
 };
 
@@ -29,15 +30,27 @@ export const reducer: Reducer<CartState> = (state = initialState, action) => {
     case Types.ADD_BET:
       return {
         ...state,
-        bets: [...state.bets, action.payload.bet],
+        cartBets: [...state.cartBets, action.payload.bet],
         totalBetValue: state.totalBetValue + action.payload.bet.price,
       };
 
     case Types.REMOVE_BET:
       return {
         ...state,
-        bets: state.bets.filter(bet => bet.id !== action.payload.id),
-        totalBetValue: state.totalBetValue - action.payload.price,
+        cartBets: state.cartBets.filter(
+          bet => bet !== state.cartBets[action.payload.id],
+        ),
+        totalBetValue: state.cartBets
+          .filter(bet => bet !== state.cartBets[action.payload.id])
+          .reduce((accumulator, current) => {
+            return accumulator + current.price;
+          }, 0),
+      };
+
+    case Types.CLEAR_CART:
+      return {
+        cartBets: [],
+        totalBetValue: 0,
       };
 
     default:
@@ -60,6 +73,12 @@ export const removeBet = (id: number, price: number) => {
   return {
     type: Types.REMOVE_BET,
     payload: { id, price },
+  };
+};
+
+export const clearCart = () => {
+  return {
+    type: Types.CLEAR_CART,
   };
 };
 
