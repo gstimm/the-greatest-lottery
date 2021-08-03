@@ -1,6 +1,6 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import api from '../../services/api';
-import { Bet } from '../../interfaces';
+import { Bet, Game, GetBet, LongBetData } from '../../interfaces';
 import {
   addBetRequest,
   addBetFailure,
@@ -11,37 +11,48 @@ import {
   Types,
 } from '../ducks/bet';
 
-// }
-
 export function* handleGetBet({ payload }: ReturnType<typeof getBetRequest>) {
   try {
-    const { data } = yield call(api.get, `/bets?page=${payload.page}`);
+    const response: LongBetData[] = yield call(api.get, `/bets`);
 
-    if (data.total > payload.total) {
-      const bets = data.data.map((bet: Bet) => {
-        return {
-          id: bet.id,
-          type: bet.type,
-          color: bet.color,
-          date: bet.date,
-          price: bet.price,
-          numbers: bet.numbers,
-        };
-      });
+    const bets: Bet[] = response.map((bet: LongBetData) => {
+      return {
+        id: bet.id,
+        type: bet.game.type,
+        color: bet.color,
+        date: bet.created_at,
+        price: bet.price,
+        numbers: bet.numbers.split(',').map(item => {
+          return parseInt(item, 10);
+        }),
+      };
+    });
 
-      const page = data.length < 20 ? payload.page : payload.page + 1;
+    const page = response.length < 20 ? payload.page : payload.page + 1;
 
-      yield put(getBetSuccess(bets, page));
-    }
+    yield put(getBetSuccess(bets, page));
   } catch (error) {
     yield put(getBetFailure(error));
+  }
+}
+
+export function* handleAddBet({ payload }: ReturnType<typeof addBetRequest>) {
+  try {
+    yield call(api.post, '/bets', payload.bets);
+
+    yield put(addBetSuccess());
+  } catch (error) {
+    yield put(addBetFailure(error));
   }
 }
 
 export function* watchOnHandleGetBet() {
   yield all([takeEvery(Types.GET_BET_REQUEST, handleGetBet)]);
 }
+export function* watchOnHandleAddBet() {
+  yield all([takeEvery(Types.ADD_BET_REQUEST, handleAddBet)]);
+}
 
 export default function* lyricsSaga() {
-  yield all([fork(watchOnHandleGetBet)]);
+  yield all([fork(watchOnHandleGetBet), fork(watchOnHandleAddBet)]);
 }

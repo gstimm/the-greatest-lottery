@@ -1,6 +1,6 @@
 import React from 'react';
 import { Bet } from '../../interfaces';
-import { formatPrice } from '../../utils/formatPrice';
+import { formatPrice, formatDate } from '../../utils/formatData';
 
 import { Container, Border, MainContent } from './styles';
 
@@ -9,13 +9,14 @@ interface BetProps {
 }
 
 const RecentGamesCard: React.FC<BetProps> = ({ bet }) => {
+  console.log(`CARD: ${bet}`);
   return (
     <Container>
       <Border backgroundColor={bet.color} />
       <MainContent>
         <h3>{bet.numbers.join(', ')}</h3>
         <span>
-          {bet.date} - ({formatPrice(bet.price)})
+          {formatDate(bet.date)} - ({formatPrice(bet.price)})
         </span>
         <h3 style={{ color: bet.color }}>{bet.type}</h3>
       </MainContent>

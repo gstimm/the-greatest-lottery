@@ -8,7 +8,8 @@ import { Container } from './styles';
 import { ApplicationStore } from '../../store';
 import { CartState, removeBet } from '../../store/ducks/cart';
 import { addBetRequest } from '../../store/ducks/bet';
-import { formatPrice } from '../../utils/formatPrice';
+import { formatPrice } from '../../utils/formatData';
+import { Bet } from '../../interfaces';
 
 const Cart: React.FC = () => {
   const { bets, totalBetValue } = useSelector<ApplicationStore, CartState>(
@@ -25,11 +26,12 @@ const Cart: React.FC = () => {
     }
     // dispatch(addBetRequest(bets[0])); // CLEAR BETS FROM RECENT GAMES
 
-    bets.forEach(bet => {
-      dispatch(addBetRequest(bet));
-    });
+    // bets.forEach((bet: Bet) => {
+    //   dispatch(addBetRequest(bet));
+    // });
+    dispatch(bets);
 
-    bets.forEach(bet => {
+    bets.forEach((bet: Bet) => {
       dispatch(removeBet(bet.id, bet.price));
     });
 

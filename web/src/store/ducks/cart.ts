@@ -1,4 +1,5 @@
 import { Reducer } from 'redux';
+import { Bet } from '../../interfaces';
 
 // Action Types
 
@@ -6,17 +7,6 @@ export const Types = {
   ADD_BET: 'cart/ADD_BET',
   REMOVE_BET: 'cart/REMOVE_BET',
 };
-
-// Data Types
-
-export interface Bet {
-  id: string;
-  type: string;
-  date: string;
-  price: number;
-  numbers: number[];
-  color: string;
-}
 
 // State Type
 
@@ -66,7 +56,7 @@ export const addBet = (bet: Bet) => {
   };
 };
 
-export const removeBet = (id: string, price: number) => {
+export const removeBet = (id: number, price: number) => {
   return {
     type: Types.REMOVE_BET,
     payload: { id, price },

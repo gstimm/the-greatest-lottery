@@ -17,12 +17,14 @@ interface BetInterface {
 
 export default class BetsController {
   public async index({ auth, request }: HttpContextContract) {
-    const { page, perPage } = request.qs()
+    const { page } = request.params()
     const bets = await Bet.query()
       .where('user_id', `${auth.user?.id}`)
       .preload('game')
       .orderBy('id', 'desc')
-      .paginate(page, perPage)
+    // .paginate(page)
+
+    console.log(bets)
 
     return bets
   }
@@ -51,13 +53,11 @@ export default class BetsController {
             })
           }
 
-          console.log(bet)
-
           totalCartValue += game.price
 
-          // if (minCartValue < game.minCartValue) {
-          //   minCartValue = game.minCartValue
-          // }
+          if (minCartValue < game.minCartValue) {
+            minCartValue = game.minCartValue
+          }
 
           let data = {
             userId: user.id,

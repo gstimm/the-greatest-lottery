@@ -1,26 +1,20 @@
 import React from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
+import { Bet } from '../../interfaces';
 import { removeBet } from '../../store/ducks/cart';
-import { formatPrice } from '../../utils/formatPrice';
+import { formatPrice } from '../../utils/formatData';
 
 import { Container, Border, MainContent } from './styles';
 
 interface IProps {
-  bet: {
-    id: string;
-    type: string;
-    color: string;
-    price: number;
-    date: string;
-    numbers: number[];
-  };
+  bet: Bet;
 }
 
 const RecentGamesCard: React.FC<IProps> = ({ bet }) => {
   const dispatch = useDispatch();
 
-  const removeBetFromCartHandler = (id: string, price: number) => {
+  const removeBetFromCartHandler = (id: number, price: number) => {
     dispatch(removeBet(id, price));
   };
 

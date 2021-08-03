@@ -6,29 +6,12 @@ import { v4 } from 'uuid';
 import { format } from 'date-fns';
 import { Container } from './styles';
 import { Button, GameButton, NumberButton } from '../index';
-import { types } from '../../utils/games.json';
 import { addBet } from '../../store/ducks/cart';
-
-interface Game {
-  type: string;
-  description: string;
-  range: number;
-  price: number;
-  color: string;
-  'min-cart-value': number;
-  'max-number': number;
-}
-
-interface Bet {
-  id: string;
-  type: string;
-  color: string;
-  price: number;
-  date: string;
-  numbers: number[];
-}
+import { Bet, Game } from '../../interfaces';
+import { useTypes } from '../../hooks/useTypes';
 
 const NewBet: React.FC = () => {
+  const { types } = useTypes();
   const [selectedGame, setSelectedGame] = useState<Game>(types[0]);
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
   const [numbers, setNumbers] = useState<number[]>([]);
@@ -95,16 +78,15 @@ const NewBet: React.FC = () => {
       return;
     }
 
-    const bet: Bet = {
-      id: v4(),
-      type: selectedGame.type,
-      color: selectedGame.color,
-      price: selectedGame.price,
-      date: format(new Date(), 'dd/MM/yyyy'),
-      numbers: selectedNumbers.sort((a, b) => a - b),
-    };
+    // const bet: Bet = {
+    //   type: selectedGame.type,
+    //   color: selectedGame.color,
+    //   price: selectedGame.price,
+    //   date: format(new Date(), 'dd/MM/yyyy'),
+    //   numbers: selectedNumbers.sort((a, b) => a - b),
+    // };
 
-    dispatch(addBet(bet));
+    // dispatch(addBet(bet));
     clearSelectedNumbersHandler();
   };
 
