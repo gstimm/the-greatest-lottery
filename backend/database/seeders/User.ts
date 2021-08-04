@@ -9,13 +9,13 @@ export default class UserSeeder extends BaseSeeder {
       {
         name: 'Admin',
         email: 'admin@tgl.com',
-        password: '1234',
+        password: '123123123',
         isAdmin: true,
       },
       {
         name: 'User',
         email: 'user@tgl.com',
-        password: '1234',
+        password: '123123123',
       },
     ])
   }
