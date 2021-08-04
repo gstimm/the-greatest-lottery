@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TGL</title>
+    <style>
+      body {
+        color: #707070;
+        font-family: sans-serif;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        background-color: #f7f7f7;
+        overflow-x: hidden;
+        font-style: italic;
+      }
+      a {
+        text-decoration: none;
+        color: #B5C401;
+      }
+      .header {
+        color: #B5C401;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid #ddd;
+      }
+      .main {
+        height: calc(100vh - 155px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .footer {
+        width: 100%;
+        min-height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        border-top: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    @include('partials/header')
+
+    <main class="main">
+      @if(template === 'welcome')
+        @include('../emails/welcome.edge')
+      @endif
+
+      @if(template === 'new_bet')
+        @include('../emails/new_bet.edge')
+      @endif
+
+      @if(template === 'forgot_password')
+        @include('../emails/forgot_password.edge')
+      @endif
+    </main>
+
+    @include('partials/footer')
+  </body>
+</html>

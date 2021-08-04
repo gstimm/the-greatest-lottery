@@ -95,7 +95,8 @@ export default class BetsController {
           .from(Env.get('ADMIN_EMAIL'))
           .to(user.email)
           .subject('New Bet!')
-          .htmlView('emails/new_bet.edge', {
+          .htmlView('layout/main.edge', {
+            template: 'new_bet',
             user: user.name,
             link: `${Env.get('FRONTEND_LINK')}/home`,
           })

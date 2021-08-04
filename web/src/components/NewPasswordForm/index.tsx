@@ -34,8 +34,8 @@ const SignUpForm: React.FC = () => {
 
       push('/');
     } catch (error) {
-      error.response.data.errors.map((err: { message: string }) =>
-        toast.error(err.message),
+      toast.error(
+        'An Error has ocurred! Please check your token and try again.',
       );
     }
   };

@@ -27,7 +27,8 @@ export default class ForgotPasswordsController {
           .from(Env.get('ADMIN_EMAIL'))
           .to(user.email)
           .subject('Password Reset | TGL')
-          .htmlView('emails/forgot_password.edge', {
+          .htmlView('layout/main.edge', {
+            template: 'forgot_password',
             user: user.name,
             email: user.email,
             link: `${Env.get('FRONTEND_LINK')}/forgot-password/${user.token}`,

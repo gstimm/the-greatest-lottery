@@ -26,7 +26,11 @@ export default class UsersController {
           .from(Env.get('ADMIN_EMAIL'))
           .to(user.email)
           .subject('Welcome Onboard!')
-          .htmlView('emails/welcome.edge', { user: user.name })
+          .htmlView('layout/main.edge', {
+            template: 'welcome',
+            user: user.name,
+            link: Env.get('FRONTEND_LINK'),
+          })
       })
 
       return { user, token }
