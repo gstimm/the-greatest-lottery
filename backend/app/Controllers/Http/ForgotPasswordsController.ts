@@ -48,6 +48,10 @@ export default class ForgotPasswordsController {
     try {
       const token = params.token
 
+      if (!token) {
+        return response.status(404).send({ error: { message: 'No token found.' } })
+      }
+
       const user = await User.findBy('token', token)
 
       if (!user) {

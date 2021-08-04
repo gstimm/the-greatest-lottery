@@ -3,6 +3,8 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { FiArrowRight } from 'react-icons/fi';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
+import api from '../../services/api';
 import { ResetPasswordSchema } from '../../utils/schemas';
 import { Input, Button, Card } from '../index';
 import { FormStyle } from './styles';
@@ -12,6 +14,7 @@ interface IFormInput {
 }
 
 const ResetPasswordForm: React.FC = () => {
+  const { push } = useHistory();
   const {
     register,
     handleSubmit,
@@ -21,15 +24,23 @@ const ResetPasswordForm: React.FC = () => {
     resolver: yupResolver(ResetPasswordSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = data => {
-    // console.log(data);
-
+  const onSubmit: SubmitHandler<IFormInput> = async data => {
     if (Object.keys(errors).length) {
       toast.error('Please fill email field.');
       return;
     }
 
-    toast.warning('Service currently unavailable, server under maintenance.');
+    try {
+      await api.post('/forgot-password', data);
+
+      toast.success('Check your email to change your password.');
+
+      push('/');
+    } catch (error) {
+      error.response.data.errors.map((err: { message: string }) =>
+        toast.error(err.message),
+      );
+    }
   };
 
   return (

@@ -32,3 +32,13 @@ export const SignUpSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password'), null], 'Password must match'),
 });
+
+export const NewPasswordSchema = yup.object().shape({
+  newPassword: yup
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .required('This field is required'),
+  newPassword_confirmation: yup
+    .string()
+    .oneOf([yup.ref('newPassword'), null], 'Password must match'),
+});
