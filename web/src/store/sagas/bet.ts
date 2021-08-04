@@ -1,12 +1,14 @@
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects';
 import api from '../../services/api';
-import { NewBet } from '../../interfaces';
+import { Bet, LongBetData, NewBet } from '../../interfaces';
 import {
   addBetRequest,
   addBetFailure,
   addBetSuccess,
   Types,
+  getBetRequest,
   clearRecentBets,
+  getBetSuccess,
 } from '../ducks/bet';
 import { clearCart } from '../ducks/cart';
 
@@ -19,18 +21,41 @@ export function* handleAddBet({ payload }: ReturnType<typeof addBetRequest>) {
   });
   try {
     yield call(api.post, '/bets', { bets });
-    yield put(addBetSuccess());
     yield put(clearCart());
-    yield put(clearRecentBets());
+    yield put(addBetSuccess());
+    yield put(getBetRequest());
   } catch (error) {
     yield put(addBetFailure(error));
   }
+}
+
+export function* handleGetBet(action: ReturnType<typeof getBetRequest>) {
+  const { data: allBets } = yield call(api.get, `/bets`);
+
+  const bets: Bet[] = allBets.map((bet: LongBetData) => {
+    return {
+      id: bet.id,
+      type: bet.game.type,
+      color: bet.color,
+      date: bet.created_at,
+      price: bet.price,
+      numbers: bet.numbers.split(',').map(number => {
+        return parseInt(number, 10);
+      }),
+    };
+  });
+  yield put(clearRecentBets());
+  yield put(getBetSuccess(bets));
 }
 
 export function* watchOnHandleAddBet() {
   yield all([takeEvery(Types.ADD_BET_REQUEST, handleAddBet)]);
 }
 
+export function* watchOnHandleGetBet() {
+  yield all([takeEvery(Types.GET_BET_REQUEST, handleGetBet)]);
+}
+
 export default function* lyricsSaga() {
-  yield all([fork(watchOnHandleAddBet)]);
+  yield all([fork(watchOnHandleAddBet), fork(watchOnHandleGetBet)]);
 }

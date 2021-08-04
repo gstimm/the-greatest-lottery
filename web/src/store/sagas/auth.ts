@@ -8,8 +8,7 @@ import {
   clearPersistedAuth,
 } from '../ducks/auth';
 import api from '../../services/api';
-import { Bet, LongBetData } from '../../interfaces';
-import { clearRecentBets, getBetSuccess } from '../ducks/bet';
+import { clearRecentBets } from '../ducks/bet';
 import { clearCart } from '../ducks/cart';
 
 function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
@@ -19,23 +18,6 @@ function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
     yield sessionStorage.setItem('token', userInfo.token);
 
     yield put(loginSuccess(userInfo.user, userInfo.token));
-
-    const { data: allBets } = yield call(api.get, `/bets`);
-
-    const bets: Bet[] = allBets.map((bet: LongBetData) => {
-      return {
-        id: bet.id,
-        type: bet.game.type,
-        color: bet.color,
-        date: bet.created_at,
-        price: bet.price,
-        numbers: bet.numbers.split(',').map(number => {
-          return parseInt(number, 10);
-        }),
-      };
-    });
-    yield put(clearRecentBets());
-    yield put(getBetSuccess(bets));
   } catch (error) {
     yield put(loginFailure(error.response.data.error.message));
     yield put(clearPersistedAuth());

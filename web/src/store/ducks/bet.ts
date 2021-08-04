@@ -48,8 +48,8 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
-        // bets: [...state.bets, ...action.payload.bets],
       };
+
     case Types.GET_BET_REQUEST:
       return { ...state, loading: true };
 
@@ -100,18 +100,12 @@ export const addBetFailure = (error: string) => {
 export const addBetSuccess = () => {
   return {
     type: Types.ADD_BET_SUCCESS,
-    // payload: {
-    //   bets,
-    // },
   };
 };
 
-export const getBetRequest = (page: number) => {
+export const getBetRequest = () => {
   return {
     type: Types.GET_BET_REQUEST,
-    payload: {
-      page,
-    },
   };
 };
 

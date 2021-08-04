@@ -11,9 +11,9 @@ const AccountData: React.FC = () => {
     state => state.Auth,
   );
 
-  const changePasswordHandler = () => {
-    toast.warning('This function needs to be implemented.');
-  };
+  // const changePasswordHandler = () => {
+  //   toast.warning('This function needs to be implemented.');
+  // };
 
   return (
     <Container>
@@ -23,7 +23,7 @@ const AccountData: React.FC = () => {
         <h3>Your Email</h3>
         <p>{user.email}</p>
       </div>
-      <Button
+      {/* <Button
         type="button"
         fontSize="16px"
         color="#707070"
@@ -33,7 +33,7 @@ const AccountData: React.FC = () => {
         onClick={changePasswordHandler}
       >
         Change Password
-      </Button>
+      </Button> */}
     </Container>
   );
 };

@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { Container } from './styles';
 import { RecentGamesCard, GameButton, Button } from '../index';
 import { useTypes } from '../../hooks/useTypes';
 import { ApplicationStore } from '../../store';
-import { BetState } from '../../store/ducks/bet';
+import { BetState, getBetRequest } from '../../store/ducks/bet';
 import { Bet } from '../../interfaces';
 
 const RecentGames: React.FC = () => {
   const { types } = useTypes();
   const { bets } = useSelector<ApplicationStore, BetState>(state => state.Bet);
-  const [recentBets, setRecentBets] = useState<Bet[]>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setRecentBets(bets);
-  }, [bets]);
+    dispatch(getBetRequest());
+  }, []);
 
   const [filters, setFilters] = useState<string[]>([]);
   const [filteredArray, setFilteredArray] = useState<Bet[]>([]);
@@ -34,7 +34,7 @@ const RecentGames: React.FC = () => {
       }
     }
 
-    const array = recentBets.filter(bet => auxFiltersArray.includes(bet.type));
+    const array = bets.filter(bet => auxFiltersArray.includes(bet.type));
 
     setFilters(auxFiltersArray);
     setFilteredArray([...array]);
@@ -42,14 +42,14 @@ const RecentGames: React.FC = () => {
 
   let data;
 
-  if (recentBets.length === 0 && filters.length === 0) {
+  if (bets.length === 0 && filters.length === 0) {
     data = <p>No games yet? Lets make some new ones!</p>;
   }
   if (filters.length > 0 && filteredArray.length === 0) {
     data = <p>No games found for this filters!</p>;
   }
-  if (filters.length === 0 && recentBets.length > 0) {
-    data = recentBets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
+  if (filters.length === 0 && bets.length > 0) {
+    data = bets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
   }
   if (filters.length > 0 && filteredArray.length > 0) {
     data = filteredArray.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);

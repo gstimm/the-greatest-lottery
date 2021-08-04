@@ -16,7 +16,7 @@ interface BetInterface {
 }
 
 export default class BetsController {
-  public async index({ auth, request, response }: HttpContextContract) {
+  public async index({ auth, response }: HttpContextContract) {
     try {
       const user = await User.findBy('id', auth.user?.id)
 
@@ -24,9 +24,7 @@ export default class BetsController {
         return response.status(404).send({ error: { message: `User not found!` } })
       }
 
-      const { page } = request.qs()
-
-      const bets = await Bet.query().where('user_id', user.id).preload('game').paginate(page)
+      const bets = await Bet.query().where('user_id', user.id).preload('game')
 
       return bets
     } catch (err) {
