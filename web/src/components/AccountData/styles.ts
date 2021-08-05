@@ -2,6 +2,13 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   color: #707070;
+  margin-bottom: 48px;
+
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 355px;
 
   h1 {
     margin: 73.5px 0 32px 0;
@@ -12,23 +19,16 @@ export const Container = styled.div`
     margin-bottom: 10px;
     color: #b5c401;
   }
+`;
 
-  h3 {
+export const FormStyle = styled.div`
+  width: 100%;
+
+  .error {
+    color: #f22;
     font-size: 14px;
-    margin-bottom: 6px;
-  }
-
-  div {
-    background-color: #eee;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 16px;
-    max-width: 50%;
-    min-width: 355px;
-  }
-
-  p {
-    font-size: 18px;
+    font-style: normal;
+    text-align: left;
+    margin: 5px 0 0 30px;
   }
 `;

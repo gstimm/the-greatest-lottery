@@ -42,3 +42,16 @@ export const NewPasswordSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('newPassword'), null], 'Password must match'),
 });
+
+export const EditProfileSchema = yup.object().shape({
+  name: yup.string().nullable().notRequired(),
+  email: yup
+    .string()
+    .nullable()
+    .notRequired()
+    .email('Insert a valid email address'),
+  password: yup.string().nullable().notRequired(),
+  password_confirmation: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Password must match'),
+});
