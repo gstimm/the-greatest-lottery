@@ -9,6 +9,7 @@ export const Types = {
   LOGIN_FAILURE: 'auth/LOGIN_FAILURE',
   LOGOUT: 'auth/LOGOUT',
   CLEAR_PERSISTED_AUTH: 'auth/CLEAR_PERSISTED_AUTH',
+  REFRESH_AUTH_DATA: 'auth/REFRESH_AUTH_DATA',
 };
 
 // State Type
@@ -69,6 +70,11 @@ const reducer: Reducer<AuthState> = (state = initialState, action) => {
         error: '',
       };
 
+    case Types.REFRESH_AUTH_DATA:
+      return {
+        ...state,
+      };
+
     default:
       return state;
   }
@@ -112,6 +118,12 @@ export const logout = () => {
 export const clearPersistedAuth = () => {
   return {
     type: Types.CLEAR_PERSISTED_AUTH,
+  };
+};
+
+export const refreshAuthData = () => {
+  return {
+    type: Types.REFRESH_AUTH_DATA,
   };
 };
 

@@ -1,14 +1,13 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { FiArrowRight } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Card, Input } from '../index';
 import { ApplicationStore } from '../../store';
-import { AuthState } from '../../store/ducks/auth';
+import { AuthState, refreshAuthData } from '../../store/ducks/auth';
 import { Container, FormStyle } from './styles';
 import { EditProfileSchema } from '../../utils/schemas';
 
@@ -26,6 +25,7 @@ const AccountData: React.FC = () => {
     state => state.Auth,
   );
 
+  const dispatch = useDispatch();
   const { push } = useHistory();
   const {
     register,
@@ -45,6 +45,8 @@ const AccountData: React.FC = () => {
       await api.put(`/users/${user.id}`, data);
 
       toast.success('Profile edited successfully.');
+
+      dispatch(refreshAuthData());
 
       push('/');
     } catch (error) {
