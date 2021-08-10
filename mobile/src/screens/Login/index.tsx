@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const LoginScreen: React.FC = () => {
   return (
-    <ScrollView>
+    <>
       <Container>
         <Logo />
         <Title>Authentication</Title>
@@ -39,7 +39,7 @@ const LoginScreen: React.FC = () => {
         </ButtonView>
       </Container>
       <Footer />
-    </ScrollView>
+    </>
   );
 };
 

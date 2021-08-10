@@ -6,8 +6,8 @@ const UnAuthStack = createNativeStackNavigator();
 
 export default function UnAuthRoutes() {
   return (
-      <UnAuthStack.Navigator screenOptions={{headerShown: false}}>
-        <UnAuthStack.Screen name="Login" component={LoginScreen} />
-      </UnAuthStack.Navigator>
+    <UnAuthStack.Navigator screenOptions={{ headerShown: false }}>
+      <UnAuthStack.Screen name="Login" component={LoginScreen} />
+    </UnAuthStack.Navigator>
   )
 }
