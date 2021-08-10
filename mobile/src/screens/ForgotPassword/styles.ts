@@ -18,16 +18,16 @@ export const Title = styled.Text`
   margin-bottom: 26px;
 `;
 
-export const RegisterButtonView = styled.View`
+export const SendLinkButtonView = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 21px 0 30px 0;
+  margin: 16px 0 20px 0;
 `;
 
-export const BackButtonView = styled.View`
+export const AuxButtonView = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 38px 0 30px 0;
+  margin: 45px 0 20px 0;
 `;

@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { UnAuthStackList } from '../../routes/UnAuthRoutes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Logo, Input, Card, Button, Footer } from '../../components/index';
-import { Container, Title, ForgotText, ButtonView } from './styles';
+import { Container, Title, ForgotText, ButtonView, ForgotButton } from './styles';
 import colors from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -22,7 +22,9 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
         <Card>
           <Input type='email' label='Email' value={''} onChangeText={() => console.log('dsad')} />
           <Input type='password' label='Password' value={''} onChangeText={() => console.log('dsad')} />
-          <ForgotText>I forget my password</ForgotText>
+          <ForgotButton onPress={() => navigation.push('ForgotPassword')}>
+            <ForgotText>I forget my password</ForgotText>
+          </ForgotButton>
           <ButtonView>
             <Button color={colors.lightGreen}>
               Log In

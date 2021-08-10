@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import colors from '../../utils/colors'
 
-export const ScrollView = styled.ScrollView``;
+export const ForgotButton = styled.TouchableOpacity``;
 
 export const Container = styled.View`
   align-items: center;

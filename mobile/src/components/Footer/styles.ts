@@ -8,7 +8,6 @@ export const Container = styled.View`
   justify-content: flex-end;
   position: relative;
   margin: auto;
-  margin-bottom: 22px;
 `;
 
 export const FooterText = styled.Text`
