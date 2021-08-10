@@ -3,29 +3,29 @@ import 'react-native-gesture-handler';
 import { UnAuthStackList } from '../../routes/UnAuthRoutes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Logo, Input, Card, Button, Footer } from '../../components/index';
-import { Container, Title, ForgotText, ButtonView } from './styles';
+import { Container, Title, ButtonView } from './styles';
 import colors from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-type LoginScreenNavigationProp = StackNavigationProp<UnAuthStackList, 'Login'>
+type LoginScreenNavigationProp = StackNavigationProp<UnAuthStackList, 'SignUp'>
 
 interface NavProps {
   navigation: LoginScreenNavigationProp;
 }
 
-const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
+const SignUpScreen: React.FC<NavProps> = ({ navigation }) => {
   return (
     <>
       <Container>
         <Logo />
-        <Title>Authentication</Title>
+        <Title>Registration</Title>
         <Card>
+          <Input type='text' label='Name' value={''} onChangeText={() => console.log('dsad')} />
           <Input type='email' label='Email' value={''} onChangeText={() => console.log('dsad')} />
           <Input type='password' label='Password' value={''} onChangeText={() => console.log('dsad')} />
-          <ForgotText>I forget my password</ForgotText>
           <ButtonView>
             <Button color={colors.lightGreen}>
-              Log In
+              Register
             </Button>
             <MaterialCommunityIcons
               name="arrow-right"
@@ -36,15 +36,15 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
           </ButtonView>
         </Card>
         <ButtonView>
-          <Button onPress={() => navigation.push('SignUp')} >
-            Sign Up
-          </Button>
           <MaterialCommunityIcons
-            name="arrow-right"
+            name="arrow-left"
             size={30}
             color={colors.titleGray}
-            style={{ marginLeft: 17 }}
+            style={{ marginRight: 17 }}
           />
+          <Button onPress={() => navigation.goBack()}>
+            Back
+          </Button>
         </ButtonView>
       </Container>
       <Footer />
@@ -52,4 +52,4 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
   );
 };
 
-export default LoginScreen;
+export default SignUpScreen;
