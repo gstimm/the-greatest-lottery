@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { UnAuthStackList } from '../../routes/UnAuthRoutes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Logo, Input, Card, Button, Footer } from '../../components/index';
-import { Container, Title, RegisterButtonView, BackButtonView } from './styles';
+import { Container, Title } from './styles';
 import colors from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -23,29 +23,33 @@ const SignUpScreen: React.FC<NavProps> = ({ navigation }) => {
           <Input type='text' label='Name' value={''} onChangeText={() => console.log('dsad')} />
           <Input type='email' label='Email' value={''} onChangeText={() => console.log('dsad')} />
           <Input type='password' label='Password' value={''} onChangeText={() => console.log('dsad')} />
-          <RegisterButtonView>
-            <Button color={colors.lightGreen}>
-              Register
-            </Button>
+          <Button
+            color={colors.lightGreen}
+            title="Register"
+            iconSide="right"
+            style={{ marginTop: 21, marginBottom: 30 }}
+            onPress={() => navigation.push('Login')}
+          >
             <MaterialCommunityIcons
               name="arrow-right"
               size={30}
               color={colors.lightGreen}
-              style={{ marginLeft: 17 }}
             />
-          </RegisterButtonView>
+          </Button>
         </Card>
-        <BackButtonView>
+        <Button
+          color={colors.titleGray}
+          title="Back"
+          iconSide="left"
+          style={{ marginTop: 38, marginBottom: 20 }}
+          onPress={() => navigation.goBack()}
+        >
           <MaterialCommunityIcons
             name="arrow-left"
             size={30}
             color={colors.titleGray}
-            style={{ marginRight: 17 }}
           />
-          <Button onPress={() => navigation.goBack()}>
-            Back
-          </Button>
-        </BackButtonView>
+        </Button>
       </Container>
       <Footer />
     </>

@@ -17,17 +17,3 @@ export const Title = styled.Text`
   margin-top: 46px;
   margin-bottom: 26px;
 `;
-
-export const SendLinkButtonView = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 16px 0 20px 0;
-`;
-
-export const AuxButtonView = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 45px 0 20px 0;
-`;

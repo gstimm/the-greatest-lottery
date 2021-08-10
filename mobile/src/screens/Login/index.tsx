@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { UnAuthStackList } from '../../routes/UnAuthRoutes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Logo, Input, Card, Button, Footer } from '../../components/index';
-import { Container, Title, ForgotText, ButtonView, ForgotButton } from './styles';
+import { Container, Title, ForgotText, ForgotButton } from './styles';
 import colors from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -25,29 +25,33 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
           <ForgotButton onPress={() => navigation.push('ForgotPassword')}>
             <ForgotText>I forget my password</ForgotText>
           </ForgotButton>
-          <ButtonView>
-            <Button color={colors.lightGreen}>
-              Log In
-            </Button>
+          <Button
+            color={colors.lightGreen}
+            title="Log In"
+            iconSide="right"
+            style={{ marginTop: 45, marginBottom: 33 }}
+            onPress={() => navigation.push('Login')}
+          >
             <MaterialCommunityIcons
               name="arrow-right"
               size={30}
               color={colors.lightGreen}
-              style={{ marginLeft: 17 }}
             />
-          </ButtonView>
-        </Card>
-        <ButtonView>
-          <Button onPress={() => navigation.push('SignUp')} >
-            Sign Up
           </Button>
+        </Card>
+        <Button
+          color={colors.titleGray}
+          title="Sign Up"
+          iconSide="right"
+          style={{ marginTop: 45, marginBottom: 33 }}
+          onPress={() => navigation.push('SignUp')}
+        >
           <MaterialCommunityIcons
             name="arrow-right"
             size={30}
             color={colors.titleGray}
-            style={{ marginLeft: 17 }}
           />
-        </ButtonView>
+        </Button>
       </Container>
       <Footer />
     </>

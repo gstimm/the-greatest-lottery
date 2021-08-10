@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { UnAuthStackList } from '../../routes/UnAuthRoutes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Logo, Input, Card, Button, Footer } from '../../components/index';
-import { Container, Title, SendLinkButtonView, AuxButtonView } from './styles';
+import { Container, Title } from './styles';
 import colors from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -21,40 +21,44 @@ const ForgotPasswordScreen: React.FC<NavProps> = ({ navigation }) => {
         <Title>Reset password</Title>
         <Card>
           <Input type='email' label='Email' value={''} onChangeText={() => console.log('dsad')} />
-          <SendLinkButtonView>
-            <Button color={colors.lightGreen}>
-              Send link
-            </Button>
+          <Button
+            color={colors.lightGreen}
+            title="Send link"
+            iconSide="right"
+            style={{ marginTop: 16, marginBottom: 20 }}
+            onPress={() => navigation.push('Login')}
+          >
             <MaterialCommunityIcons
               name="arrow-right"
               size={30}
               color={colors.lightGreen}
-              style={{ marginLeft: 17 }}
             />
-          </SendLinkButtonView>
+          </Button>
         </Card>
-        <AuxButtonView>
+        <Button
+          onPress={() => navigation.goBack()}
+          title="Back"
+          iconSide="left"
+          style={{ marginTop: 45, marginBottom: 20 }}
+        >
           <MaterialCommunityIcons
             name="arrow-left"
             size={30}
             color={colors.titleGray}
-            style={{ marginRight: 17 }}
           />
-          <Button onPress={() => navigation.goBack()} >
-            Back
-          </Button>
-        </AuxButtonView>
-        <AuxButtonView>
-          <Button onPress={() => navigation.push('SignUp')} >
-            Sign Up
-          </Button>
+        </Button>
+        <Button
+          onPress={() => navigation.push('SignUp')}
+          title="Sign Up"
+          iconSide="right"
+          style={{ marginTop: 45, marginBottom: 20 }}
+        >
           <MaterialCommunityIcons
             name="arrow-right"
             size={30}
             color={colors.titleGray}
-            style={{ marginLeft: 17 }}
           />
-        </AuxButtonView>
+        </Button>
       </Container>
       <Footer />
     </>

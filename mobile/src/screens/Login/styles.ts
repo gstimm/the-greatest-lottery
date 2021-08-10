@@ -24,12 +24,5 @@ export const ForgotText = styled.Text`
   font-style: italic;
   text-align: right;
   padding: 24px 31px 0 0;
-  margin-bottom: 7px;
 `;
 
-export const ButtonView = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 38px 0 33px 0;
-`;
