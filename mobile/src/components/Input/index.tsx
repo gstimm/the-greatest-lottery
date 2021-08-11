@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, TextInput } from './styles';
+import { Container, TextInput, ErrorText } from './styles';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import colors from '../../utils/colors';
 
@@ -7,13 +7,13 @@ interface InputProps {
   label: string;
   type: string;
   value: string;
+  error?: string;
   onChangeText: (value: string) => void;
 }
 
-const index = ({ label, type, value, onChangeText }: InputProps) => {
+const index = ({ label, type, value, onChangeText, error }: InputProps) => {
   const [focus, setFocus] = useState(false);
-  const [hidePassword, setHidePassword] = useState(false);
-
+  const [hidePassword, setHidePassword] = useState(true);
 
   return (
     <Container>
@@ -50,7 +50,7 @@ const index = ({ label, type, value, onChangeText }: InputProps) => {
         <FontAwesomeIcon
           name='eye'
           size={24}
-          color={!hidePassword ? colors.iconsGray : colors.lightGreen}
+          color={hidePassword ? colors.iconsGray : colors.lightGreen}
           style={{
             position: 'absolute',
             top: 24,
@@ -59,6 +59,7 @@ const index = ({ label, type, value, onChangeText }: InputProps) => {
           onPress={() => setHidePassword(prevState => !prevState)}
         />
       )}
+      {error && <ErrorText>{error}</ErrorText>}
     </Container>
   )
 }

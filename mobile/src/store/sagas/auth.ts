@@ -9,16 +9,25 @@ import {
 import api from '../../services/api';
 import { clearRecentBets } from '../ducks/bet';
 import { clearCart } from '../ducks/cart';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+async function storeToken(token: any) {
+  try {
+    await AsyncStorage.setItem('token', token);
+  } catch (error) {
+    console.log('AsyncStorage error during token store:', error);
+  }
+}
 
 function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
     const { data: userInfo } = yield call(api.post, '/login', payload);
     api.defaults.headers.Authorization = `Bearer ${userInfo.token}`;
-    yield sessionStorage.setItem('token', userInfo.token);
+    yield call(storeToken, userInfo.token)
 
     yield put(loginSuccess(userInfo.user, userInfo.token));
   } catch (error) {
-    yield put(loginFailure(error.response.data.error.message));
+    yield put(loginFailure(error.response));
     yield put(clearPersistedAuth());
   }
 }
@@ -27,7 +36,7 @@ function* handleLogout() {
   try {
     yield put(clearRecentBets());
     yield put(clearCart());
-    yield sessionStorage.removeItem('token');
+    // yield await AsyncStorage.removeItem('token');
   } catch (error) {
     if (error.response) {
       yield put(loginFailure(error.response.data.error.message));

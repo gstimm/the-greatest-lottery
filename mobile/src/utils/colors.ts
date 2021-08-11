@@ -8,6 +8,7 @@ const colors = {
   numbersBackground: '#ADC0C4',
   placeholder: '#9d9d9d',
   border: '#dddddd',
-  white: '#ffffff'
+  white: '#ffffff',
+  errorRed: '#ff0000'
 }
 export default colors;
