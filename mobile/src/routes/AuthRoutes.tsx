@@ -1,11 +1,11 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RecentBetsScreen } from '../screens'
+import { RecentGamesScreen } from '../screens'
 
 const AuthStack = createNativeStackNavigator();
 
 export type AuthStackList = {
-  RecentBets: undefined;
+  RecentGames: undefined;
   NewBet: undefined;
   Account: undefined;
 }
@@ -13,7 +13,7 @@ export type AuthStackList = {
 export default function AuthRoutes() {
   return (
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-      <AuthStack.Screen name="RecentBets" component={RecentBetsScreen} />
+      <AuthStack.Screen name="RecentGames" component={RecentGamesScreen} />
     </AuthStack.Navigator>
   )
 }

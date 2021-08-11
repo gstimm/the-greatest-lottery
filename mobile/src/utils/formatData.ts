@@ -5,5 +5,5 @@ export const formatDate = (date: string) => {
 };
 
 export const formatPrice = (price: number) => {
-  return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  return `R$ ${price.toFixed(2).toString().replace('.', ',')}`;
 };

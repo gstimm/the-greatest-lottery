@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { UnAuthStackList } from '../../routes/UnAuthRoutes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Logo, Input, Card, Button, Footer } from '../../components/index';
-import { Container, Title, ForgotText, ForgotButton } from './styles';
+import { Container, Title, ForgotText, ForgotButton, ScrollView } from './styles';
 import colors from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -55,7 +55,7 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
   }
 
   return (
-    <>
+    <ScrollView>
       <Container>
         <Logo />
         <Title>Authentication</Title>
@@ -120,7 +120,7 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
         </Button>
       </Container>
       <Footer />
-    </>
+    </ScrollView>
   );
 };
 

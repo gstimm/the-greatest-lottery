@@ -3,10 +3,12 @@ import colors from '../../utils/colors'
 
 export const ForgotButton = styled.TouchableOpacity``;
 
+export const ScrollView = styled.ScrollView``;
+
 export const Container = styled.View`
   align-items: center;
   justify-content: center;
-  padding-top: 76px;
+  margin-top: 76px;
 `;
 
 export const Title = styled.Text`
