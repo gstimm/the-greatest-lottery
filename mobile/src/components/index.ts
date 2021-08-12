@@ -6,4 +6,5 @@ export { default as Button } from './Button';
 export { default as Header } from './Header';
 export { default as Footer } from './Footer';
 export { default as ButtonGame } from './ButtonGame';
+export { default as ButtonNumber } from './ButtonNumber';
 export { default as RecentGamesCard } from './RecentGamesCard';

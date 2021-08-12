@@ -1,10 +1,10 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { RecentGamesScreen } from '../screens'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { RecentGamesScreen, NewBetScreen } from '../screens'
 
-const AuthStack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export type AuthStackList = {
+export type TabList = {
   RecentGames: undefined;
   NewBet: undefined;
   Account: undefined;
@@ -12,8 +12,9 @@ export type AuthStackList = {
 
 export default function AuthRoutes() {
   return (
-    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-      <AuthStack.Screen name="RecentGames" component={RecentGamesScreen} />
-    </AuthStack.Navigator>
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="RecentGames" component={RecentGamesScreen} />
+      <Tab.Screen name="NewBet" component={NewBetScreen} />
+    </Tab.Navigator>
   )
 }
