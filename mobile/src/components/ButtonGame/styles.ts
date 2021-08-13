@@ -24,15 +24,9 @@ export const StyledButton = styled.TouchableOpacity<ButtonProps>`
   border: 2px solid ${props => props.borderColor};
   margin: ${props => props.margin};
   font-size: 14px;
-  /* &.active {
-    background-color: ${props => props.color};
-  } */
 `;
 
 export const ButtonText = styled.Text<TextProps>`
   font: italic normal bold 14px sans-serif;
   color: ${props => props.color};
-  /* &.active {
-    color: ${props => props.backgroundColor};
-  } */
 `;

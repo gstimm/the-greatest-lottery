@@ -115,11 +115,10 @@ const NewBetScreen: React.FC = () => {
                   key={game.type}
                   type="button"
                   gameType={game.type}
-                  color={game.color}
-                  borderColor={game.color}
+                  color={selectedGame.type === game.type ? '#fff' : game.color}
+                  borderColor={selectedGame.type === game.type ? selectedGame.color : game.color}
+                  backgroundColor={selectedGame.type === game.type ? game.color : '#fff'}
                   margin="0 9px 0 0"
-                  backgroundColor="#fff"
-                  // className={filters.includes(game.type) ? 'active' : ''}
                   onPress={() => selectedGameHandler(game)}
                 />
               ))}

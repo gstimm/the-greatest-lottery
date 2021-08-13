@@ -40,21 +40,6 @@ const RecentGamesScreen: React.FC = () => {
     setFilteredArray([...array]);
   };
 
-  // let data;
-
-  // if (bets.length === 0 && filters.length === 0) {
-  //   data = <NoItemsText>No games yet? Lets make some new ones!</NoItemsText>;
-  // }
-  // if (filters.length > 0 && filteredArray.length === 0) {
-  //   data = <NoItemsText>No games found for this filters!</NoItemsText>;
-  // }
-  // if (filters.length === 0 && bets.length > 0) {
-  //   data = bets.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
-  // }
-  // if (filters.length > 0 && filteredArray.length > 0) {
-  //   data = filteredArray.map(bet => <RecentGamesCard key={bet.id} bet={bet} />);
-  // }
-
   return (
     <>
       <Header />
@@ -72,11 +57,10 @@ const RecentGamesScreen: React.FC = () => {
                   key={game.type}
                   type="button"
                   gameType={game.type}
-                  color={game.color}
+                  color={filters.includes(game.type) ? '#fff' : game.color}
                   borderColor={game.color}
+                  backgroundColor={filters.includes(game.type) ? game.color : '#fff'}
                   margin="0 9px 0 0"
-                  backgroundColor="#fff"
-                  // className={filters.includes(game.type) ? 'active' : ''}
                   onPress={() => betFilterHandler(game.type)}
                 />
               ))}
