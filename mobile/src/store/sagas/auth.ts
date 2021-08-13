@@ -19,6 +19,14 @@ async function storeToken(token: any) {
   }
 }
 
+async function removeToken() {
+  try {
+    await AsyncStorage.removeItem('token');
+  } catch (error) {
+    console.log('AsyncStorage error during token remove:', error);
+  }
+}
+
 function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
   try {
     const { data: userInfo } = yield call(api.post, '/login', payload);
@@ -27,7 +35,7 @@ function* handleLogin({ payload }: ReturnType<typeof loginRequest>) {
 
     yield put(loginSuccess(userInfo.user, userInfo.token));
   } catch (error) {
-    yield put(loginFailure(error.response));
+    yield put(loginFailure(error.response.data.error.message));
     yield put(clearPersistedAuth());
   }
 }
@@ -36,7 +44,7 @@ function* handleLogout() {
   try {
     yield put(clearRecentBets());
     yield put(clearCart());
-    // yield await AsyncStorage.removeItem('token');
+    yield call(removeToken);
   } catch (error) {
     if (error.response) {
       yield put(loginFailure(error.response.data.error.message));
