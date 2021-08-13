@@ -14,9 +14,10 @@ interface TextProps {
 
 export const StyledButton = styled.TouchableOpacity<ButtonProps>`
   height: 30px;
-  width: 101px;
+  min-width: 101px;
+  width: auto;
   text-align: center;
-  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   border-radius: 15px;

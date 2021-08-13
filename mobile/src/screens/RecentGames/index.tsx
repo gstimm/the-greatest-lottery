@@ -61,6 +61,7 @@ const RecentGamesScreen: React.FC = () => {
                   borderColor={game.color}
                   backgroundColor={filters.includes(game.type) ? game.color : '#fff'}
                   margin="0 9px 0 0"
+                  isSelected={filters.includes(game.type) ? true : false}
                   onPress={() => betFilterHandler(game.type)}
                 />
               ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
-
+import { Foundation } from '@expo/vector-icons';
 import { StyledButton, ButtonText } from './styles';
 
 interface ButtonProps extends TouchableOpacityProps {
@@ -10,6 +10,7 @@ interface ButtonProps extends TouchableOpacityProps {
   margin?: string;
   borderColor: string;
   backgroundColor: string;
+  isSelected?: boolean;
 }
 
 const GameButton: React.FC<ButtonProps> = ({
@@ -18,6 +19,7 @@ const GameButton: React.FC<ButtonProps> = ({
   margin,
   borderColor,
   backgroundColor,
+  isSelected,
   ...rest
 }) => {
   return (
@@ -31,6 +33,7 @@ const GameButton: React.FC<ButtonProps> = ({
       <ButtonText color={color} backgroundColor={backgroundColor}>
         {gameType}
       </ButtonText>
+      {isSelected && <Foundation name='x' size={11} color='#fff' style={{ marginBottom: 7, marginLeft: 3 }} />}
     </StyledButton>
   );
 };
