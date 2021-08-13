@@ -7,11 +7,12 @@ import { Container, Border, MainContent, NumbersAndInfoText, GameNameText } from
 interface BetProps {
   bet: Bet;
   index: number;
+  length: number;
 }
 
-const RecentGamesCard: React.FC<BetProps> = ({ bet, index }) => {
+const RecentGamesCard: React.FC<BetProps> = ({ bet, index, length }) => {
   return (
-    <Container style={{ marginTop: index === 0 ? 161 : 25 }}>
+    <Container style={{ marginTop: index === 0 ? 161 : 25, marginBottom: index === length - 1 ? 150 : 0 }}>
       <Border style={{ backgroundColor: bet.color}}/>
       <MainContent>
         <NumbersAndInfoText

@@ -2,20 +2,19 @@ import styled from 'styled-components/native';
 import colors from '../../utils/colors'
 
 export const Container = styled.View`
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   padding: 0 20px;
   position: relative;
-  background-color: #F7F7F7F0;
+  background-color: #F7F7F7C8;
 `;
 
 export const TitleAndFiltersView = styled.View`
-  padding: 0 20px;
   width: 100%;
   position: absolute;
   z-index: 1;
   top: 0;
-  background-color: #F7F7F7F0;
+  background-color: #F7F7F7C8;
 `;
 
 export const Title = styled.Text`

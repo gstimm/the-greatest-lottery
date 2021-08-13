@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationStore } from '../../store';
 import { BetState, getBetRequest } from '../../store/ducks/bet';
 import { Bet, Game } from '../../interfaces';
-import { FlatList } from 'react-native';
+import { FlatList, ScrollView } from 'react-native';
 import { addBet } from '../../store/ducks/cart';
 
 const NewBetScreen: React.FC = () => {
@@ -35,14 +35,15 @@ const NewBetScreen: React.FC = () => {
   };
 
   const selectedNumbersHandler = (number: number) => {
-    if (!maxNumbersAlreadySelected()) {
-      setSelectedNumbers(prevState => [...prevState, number]);
-    } else if (numberAlreadySelected(number)) {
+    if (numberAlreadySelected(number)) {
       setSelectedNumbers(prevState =>
         prevState?.filter(arrayNumber => arrayNumber !== number),
       );
+    } else if (!maxNumbersAlreadySelected()) {
+      setSelectedNumbers(prevState => [...prevState, number]);
     }
   };
+  console.log(selectedNumbers)
 
   const numberAlreadySelected = (number: number): boolean => {
     return selectedNumbers.some(arrayNumber => arrayNumber === number);
@@ -105,19 +106,24 @@ const NewBetScreen: React.FC = () => {
           <Title>NEW BET FOR {selectedGame?.type}</Title>
           <FilterText>Choose a game</FilterText>
           <FiltersView>
-            {types.map(game => (
-              <ButtonGame
-                key={game.type}
-                type="button"
-                gameType={game.type}
-                color={game.color}
-                borderColor={game.color}
-                margin="0 9px 0 0"
-                backgroundColor="#fff"
-                // className={filters.includes(game.type) ? 'active' : ''}
-                onPress={() => selectedGameHandler(game)}
-              />
-            ))}
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {types.map(game => (
+                <ButtonGame
+                  key={game.type}
+                  type="button"
+                  gameType={game.type}
+                  color={game.color}
+                  borderColor={game.color}
+                  margin="0 9px 0 0"
+                  backgroundColor="#fff"
+                  // className={filters.includes(game.type) ? 'active' : ''}
+                  onPress={() => selectedGameHandler(game)}
+                />
+              ))}
+            </ScrollView>
           </FiltersView>
           <FillYourBetText>Fill your bet</FillYourBetText>
           <DescriptionText>{selectedGame?.description}</DescriptionText>
@@ -125,18 +131,19 @@ const NewBetScreen: React.FC = () => {
         </TitleAndFiltersView>
         <NumbersView>
           <FlatList
+            showsVerticalScrollIndicator={false}
             data={numbers}
             numColumns={5}
             columnWrapperStyle={{ justifyContent: 'space-around' }}
-            keyExtractor={number => `${number}`}
+            keyExtractor={number => number.toString()}
             renderItem={({ item, index }) => (
               <ButtonNumber
-                key={`${selectedGame?.type}=${index + 1}`}
+                key={`${selectedGame?.type}=${item}`}
                 onPress={() => selectedNumbersHandler(item)}
                 backgroundColor={selectedGame?.color}
                 style={{
                   marginTop: index < 5 ? 306 : 9,
-                  marginBottom: index > numbers.length - 5 ? 120 : 0
+                  marginBottom: index > numbers.length - 5 ? 150 : 0
                 }}
               >
                 {item < 10 ? '0' + item : item}

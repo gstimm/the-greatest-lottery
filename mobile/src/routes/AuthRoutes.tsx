@@ -1,6 +1,8 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RecentGamesScreen, NewBetScreen } from '../screens'
+import { RecentGamesScreen, NewBetScreen } from '../screens';
+import { TabBar } from '../components/index';
+import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,9 +14,10 @@ export type TabList = {
 
 export default function AuthRoutes() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="RecentGames" component={RecentGamesScreen} />
+    <Tab.Navigator tabBar={props => <TabBar {...props} />} screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Home" component={RecentGamesScreen} />
       <Tab.Screen name="NewBet" component={NewBetScreen} />
-    </Tab.Navigator>
+      <Tab.Screen name="Account" component={NewBetScreen} />
+    </ Tab.Navigator >
   )
 }

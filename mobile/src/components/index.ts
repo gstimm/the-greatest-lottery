@@ -8,3 +8,4 @@ export { default as Footer } from './Footer';
 export { default as ButtonGame } from './ButtonGame';
 export { default as ButtonNumber } from './ButtonNumber';
 export { default as RecentGamesCard } from './RecentGamesCard';
+export { default as TabBar } from './TabBar';

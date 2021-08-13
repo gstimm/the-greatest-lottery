@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationStore } from '../../store';
 import { BetState, getBetRequest } from '../../store/ducks/bet';
 import { Bet } from '../../interfaces';
-import { FlatList } from 'react-native';
+import { FlatList, ScrollView } from 'react-native';
 
 const RecentGamesScreen: React.FC = () => {
   const { types } = useTypes();
@@ -63,19 +63,24 @@ const RecentGamesScreen: React.FC = () => {
           <Title>RECENT GAMES</Title>
           <FilterText>Filters</FilterText>
           <FiltersView>
-            {types.map(game => (
-              <ButtonGame
-                key={game.type}
-                type="button"
-                gameType={game.type}
-                color={game.color}
-                borderColor={game.color}
-                margin="0 9px 0 0"
-                backgroundColor="#fff"
-                // className={filters.includes(game.type) ? 'active' : ''}
-                onPress={() => betFilterHandler(game.type)}
-              />
-            ))}
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {types.map(game => (
+                <ButtonGame
+                  key={game.type}
+                  type="button"
+                  gameType={game.type}
+                  color={game.color}
+                  borderColor={game.color}
+                  margin="0 9px 0 0"
+                  backgroundColor="#fff"
+                  // className={filters.includes(game.type) ? 'active' : ''}
+                  onPress={() => betFilterHandler(game.type)}
+                />
+              ))}
+            </ScrollView>
           </FiltersView>
         </TitleAndFiltersView>
         <CardsView>
@@ -87,19 +92,21 @@ const RecentGamesScreen: React.FC = () => {
           }
           {filters.length === 0 && bets.length > 0 && (
             <FlatList
+              showsVerticalScrollIndicator={false}
               data={bets}
               keyExtractor={bet => `${bet.id}`}
               renderItem={({ item, index }) => (
-                <RecentGamesCard key={item.id} bet={item} index={index} />
+                <RecentGamesCard key={item.id} bet={item} index={index} length={bets.length} />
               )}
             />
           )}
           {filters.length > 0 && filteredArray.length > 0 && (
             <FlatList
+              showsVerticalScrollIndicator={false}
               data={filteredArray}
               keyExtractor={bet => `${bet.id}`}
               renderItem={({ item, index }) => (
-                <RecentGamesCard key={item.id} bet={item} index={index} />
+                <RecentGamesCard key={item.id} bet={item} index={index} length={filteredArray.length} />
               )}
             />
           )}
