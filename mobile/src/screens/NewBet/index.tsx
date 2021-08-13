@@ -125,8 +125,32 @@ const NewBetScreen: React.FC = () => {
                 )))}
             </ScrollView>
           </FiltersView>
-          <FillYourBetText>Fill your bet</FillYourBetText>
-          <DescriptionText>{selectedGame?.description}</DescriptionText>
+          {selectedNumbers.length === 0 &&
+            <>
+              <FillYourBetText>Fill your bet</FillYourBetText>
+              <DescriptionText>{selectedGame?.description}</DescriptionText>
+            </>
+          }
+          {selectedNumbers.length > 0 &&
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {selectedNumbers.map(item => (
+                <ButtonNumber
+                  key={`${selectedGame?.type}-${item}-selected`}
+                  onPress={() => selectedNumbersHandler(item)}
+                  backgroundColor={selectedGame?.color}
+                  size='40px'
+                  fontSize='13px'
+                  style={{ marginRight: 10 }}
+                  isSelected={true}
+                >
+                  {item < 10 ? '0' + item : item}
+                </ButtonNumber>
+              ))}
+            </ScrollView>
+          }
           <PushView />
         </TitleAndFiltersView>
         <NumbersView>
@@ -138,9 +162,11 @@ const NewBetScreen: React.FC = () => {
             keyExtractor={number => number.toString()}
             renderItem={({ item, index }) => (
               <ButtonNumber
-                key={`${selectedGame?.type}=${item}`}
+                key={`${selectedGame?.type}-${item}`}
                 onPress={() => selectedNumbersHandler(item)}
-                backgroundColor={selectedGame?.color}
+                backgroundColor={selectedNumbers.includes(item) ? selectedGame?.color : '#ADC0C4'}
+                size='59px'
+                fontSize='18px'
                 style={{
                   marginTop: index < 5 ? 306 : 9,
                   marginBottom: index > numbers.length - 5 ? 150 : 0

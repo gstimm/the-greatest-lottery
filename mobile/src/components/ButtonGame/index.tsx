@@ -33,7 +33,14 @@ const GameButton: React.FC<ButtonProps> = ({
       <ButtonText color={color} backgroundColor={backgroundColor}>
         {gameType}
       </ButtonText>
-      {isSelected && <Foundation name='x' size={11} color='#fff' style={{ marginBottom: 7, marginLeft: 3 }} />}
+      {isSelected &&
+        <Foundation
+          name='x'
+          size={11}
+          color='#fff'
+          style={{ marginBottom: 7, marginLeft: 3 }}
+        />
+      }
     </StyledButton>
   );
 };
