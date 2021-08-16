@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
-import { Header, ButtonGame, RecentGamesCard, ButtonNumber } from '../../components/index';
-import { Container, Title, PushView, FillYourBetText, DescriptionText, FilterText, FiltersView, NumbersView, NoItemsText, TitleAndFiltersView } from './styles';
+import { Header, ButtonGame, RecentGamesCard, ButtonNumber, ButtonFunctional } from '../../components/index';
+import { Container, Title, PushView, FillYourBetText, DescriptionText, FilterText, FiltersView, NumbersView, NoItemsText, TitleAndFiltersView, FunctionalButtonView } from './styles';
 import { useTypes } from '../../hooks/useTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationStore } from '../../store';
 import { BetState, getBetRequest } from '../../store/ducks/bet';
 import { Bet, Game } from '../../interfaces';
 import { FlatList, ScrollView } from 'react-native';
-import { addBet } from '../../store/ducks/cart';
+import { addBet, CartState } from '../../store/ducks/cart';
 
 const NewBetScreen: React.FC = () => {
   const { types } = useTypes();
@@ -16,6 +16,8 @@ const NewBetScreen: React.FC = () => {
   const [selectedGame, setSelectedGame] = useState<Game>(types[0]);
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
   const [numbers, setNumbers] = useState<number[]>([]);
+
+  const { cartBets } = useSelector<ApplicationStore, CartState>(state => state.Cart);
 
   const dispatch = useDispatch();
 
@@ -32,6 +34,7 @@ const NewBetScreen: React.FC = () => {
     setSelectedGame(prevState =>
       prevState?.type === game.type ? prevState : game,
     );
+    setSelectedNumbers([]);
   };
 
   const selectedNumbersHandler = (number: number) => {
@@ -100,12 +103,12 @@ const NewBetScreen: React.FC = () => {
 
   return (
     <>
-      <Header />
+      <Header isNewBetPage={true} isEmptyCart={cartBets.length === 0 ? false : true} />
       <Container>
         <TitleAndFiltersView>
           <Title>NEW BET FOR {selectedGame?.type}</Title>
           <FilterText>Choose a game</FilterText>
-          <FiltersView>
+          <FiltersView style={{ marginBottom: selectedNumbers.length === 0 ? 23 : 13 }}>
             <ScrollView
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -132,24 +135,53 @@ const NewBetScreen: React.FC = () => {
             </>
           }
           {selectedNumbers.length > 0 &&
-            <ScrollView
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              {selectedNumbers.map(item => (
-                <ButtonNumber
-                  key={`${selectedGame?.type}-${item}-selected`}
-                  onPress={() => selectedNumbersHandler(item)}
-                  backgroundColor={selectedGame?.color}
-                  size='40px'
+            <>
+              <ScrollView
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+              >
+                {selectedNumbers.map(item => (
+                  <ButtonNumber
+                    key={`${selectedGame?.type}-${item}-selected`}
+                    onPress={() => selectedNumbersHandler(item)}
+                    backgroundColor={selectedGame?.color}
+                    size='40px'
+                    fontSize='13px'
+                    style={{ marginRight: 10 }}
+                    isSelected={true}
+                  >
+                    {item < 10 ? '0' + item : item}
+                  </ButtonNumber>
+                ))}
+              </ScrollView>
+              <FunctionalButtonView>
+                <ButtonFunctional
+                  type='button'
+                  color='#B5C401'
+                  borderColor='#B5C401'
+                  backgroundColor='#fff'
+                  margin='0 0 0 0'
                   fontSize='13px'
-                  style={{ marginRight: 10 }}
-                  isSelected={true}
-                >
-                  {item < 10 ? '0' + item : item}
-                </ButtonNumber>
-              ))}
-            </ScrollView>
+                >Complete game</ButtonFunctional>
+                <ButtonFunctional
+                  type='button'
+                  color='#B5C401'
+                  borderColor='#B5C401'
+                  backgroundColor='#fff'
+                  margin='0 0 0 0'
+                  fontSize='13px'
+                >Clear game</ButtonFunctional>
+                <ButtonFunctional
+                  type='button'
+                  color='#fff'
+                  borderColor='#B5C401'
+                  backgroundColor='#B5C401'
+                  margin='0 0 0 0'
+                  isCartButton={true}
+                  fontSize='13px'
+                >Add to cart</ButtonFunctional>
+              </FunctionalButtonView>
+            </>
           }
           <PushView />
         </TitleAndFiltersView>

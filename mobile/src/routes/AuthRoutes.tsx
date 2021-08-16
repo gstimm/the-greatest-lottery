@@ -2,12 +2,11 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { RecentGamesScreen, NewBetScreen } from '../screens';
 import { TabBar } from '../components/index';
-import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
 export type TabList = {
-  RecentGames: undefined;
+  Home: undefined;
   NewBet: undefined;
   Account: undefined;
 }

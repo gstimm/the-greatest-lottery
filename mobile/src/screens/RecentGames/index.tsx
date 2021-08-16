@@ -42,7 +42,7 @@ const RecentGamesScreen: React.FC = () => {
 
   return (
     <>
-      <Header />
+      <Header isNewBetPage={false} />
       <Container>
         <TitleAndFiltersView>
           <Title>RECENT GAMES</Title>

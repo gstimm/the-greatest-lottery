@@ -9,3 +9,7 @@ export const Container = styled.View`
   justify-content: space-between;
   padding: 39px 20px 19px 20px;
 `;
+
+export const ButtonsView = styled.View`
+  flex-direction: row;
+`;

@@ -38,7 +38,6 @@ export const FilterText = styled.Text`
 export const FiltersView = styled.View`
   width: 100%;
   flex-direction: row;
-  margin-bottom: 23px;
 `;
 
 export const FillYourBetText = styled.Text`
@@ -74,4 +73,11 @@ export const NoItemsText = styled.Text`
   font-size: 17px;
   font-style: italic;
   margin-top: 161px;
+`;
+
+export const FunctionalButtonView = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 14px;
+  margin-bottom: 11px;
 `;
