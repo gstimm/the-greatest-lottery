@@ -10,3 +10,4 @@ export { default as ButtonNumber } from './ButtonNumber';
 export { default as ButtonFunctional } from './ButtonFunctional';
 export { default as RecentGamesCard } from './RecentGamesCard';
 export { default as TabBar } from './TabBar';
+export { default as Cart } from './Cart';

@@ -9,17 +9,18 @@ import { BetState, getBetRequest } from '../../store/ducks/bet';
 import { Bet, Game } from '../../interfaces';
 import { FlatList, ScrollView } from 'react-native';
 import { addBet, CartState } from '../../store/ducks/cart';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { HeaderNavigationProp } from '../../components/Header';
 
 const NewBetScreen: React.FC = () => {
   const { types } = useTypes();
-
   const [selectedGame, setSelectedGame] = useState<Game>(types[0]);
   const [selectedNumbers, setSelectedNumbers] = useState<number[]>([]);
   const [numbers, setNumbers] = useState<number[]>([]);
-
   const { cartBets } = useSelector<ApplicationStore, CartState>(state => state.Cart);
 
-  const dispatch = useDispatch();
+  const reduxDispatch = useDispatch();
+  const { dispatch } = useNavigation<HeaderNavigationProp>()
 
   useEffect(() => {
     setSelectedGame(types[0]);
@@ -97,13 +98,14 @@ const NewBetScreen: React.FC = () => {
       numbers: selectedNumbers.sort((a, b) => a - b),
     };
 
-    dispatch(addBet(bet));
+    reduxDispatch(addBet(bet));
     clearSelectedNumbersHandler();
+    dispatch(DrawerActions.openDrawer())
   };
 
   return (
     <>
-      <Header isNewBetPage={true} isEmptyCart={cartBets.length === 0 ? false : true} />
+      <Header isNewBetPage={true} isEmptyCart={cartBets.length === 0 ? true : false} />
       <Container>
         <TitleAndFiltersView>
           <Title>NEW BET FOR {selectedGame?.type}</Title>
@@ -162,6 +164,7 @@ const NewBetScreen: React.FC = () => {
                   backgroundColor='#fff'
                   margin='0 0 0 0'
                   fontSize='13px'
+                  onPress={completeGameHandler}
                 >Complete game</ButtonFunctional>
                 <ButtonFunctional
                   type='button'
@@ -170,6 +173,7 @@ const NewBetScreen: React.FC = () => {
                   backgroundColor='#fff'
                   margin='0 0 0 0'
                   fontSize='13px'
+                  onPress={clearSelectedNumbersHandler}
                 >Clear game</ButtonFunctional>
                 <ButtonFunctional
                   type='button'
@@ -179,6 +183,7 @@ const NewBetScreen: React.FC = () => {
                   margin='0 0 0 0'
                   isCartButton={true}
                   fontSize='13px'
+                  onPress={addToCartHandler}
                 >Add to cart</ButtonFunctional>
               </FunctionalButtonView>
             </>

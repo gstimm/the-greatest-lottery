@@ -7,11 +7,11 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../store/ducks/auth';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { TabList } from '../../routes/AuthRoutes';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-type HeaderNavigationProp = StackNavigationProp<TabList, 'Home'>
+export type HeaderNavigationProp = StackNavigationProp<TabList, 'Home'>
 
 interface HeaderProps {
   isEmptyCart?: boolean;
@@ -19,11 +19,11 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isEmptyCart, isNewBetPage }) => {
-  const dispatch = useDispatch();
-  const { navigate } = useNavigation<HeaderNavigationProp>()
+  const reduxDispatch = useDispatch();
+  const { navigate, dispatch } = useNavigation<HeaderNavigationProp>()
 
   const handleLogout = () => {
-    dispatch(logout());
+    reduxDispatch(logout());
   };
 
   return (
@@ -35,6 +35,7 @@ const Header: React.FC<HeaderProps> = ({ isEmptyCart, isNewBetPage }) => {
         {isNewBetPage && !isEmptyCart && (
           <TouchableOpacity
             style={{ marginTop: 12, marginRight: 30 }}
+            onPress={() => dispatch(DrawerActions.toggleDrawer())}
           >
             <MaterialCommunityIcons
               name='cart-outline'
