@@ -9,6 +9,7 @@ const colors = {
   placeholder: '#9d9d9d',
   border: '#dddddd',
   white: '#ffffff',
-  errorRed: '#ff0000'
+  errorRed: '#ff0000',
+  buttonBackground: '#ebebeb',
 }
 export default colors;

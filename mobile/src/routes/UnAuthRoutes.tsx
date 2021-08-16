@@ -12,7 +12,9 @@ export type UnAuthStackList = {
 
 export default function UnAuthRoutes() {
   return (
-    <UnAuthStack.Navigator screenOptions={{ headerShown: false }}>
+    <UnAuthStack.Navigator
+      screenOptions={{ headerShown: false }}
+    >
       <UnAuthStack.Screen name="Login" component={LoginScreen} />
       <UnAuthStack.Screen name="SignUp" component={SignUpScreen} />
       <UnAuthStack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />

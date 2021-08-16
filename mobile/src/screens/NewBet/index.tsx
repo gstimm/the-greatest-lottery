@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
-import { Header, ButtonGame, RecentGamesCard, ButtonNumber, ButtonFunctional } from '../../components/index';
-import { Container, Title, PushView, FillYourBetText, DescriptionText, FilterText, FiltersView, NumbersView, NoItemsText, TitleAndFiltersView, FunctionalButtonView } from './styles';
+import { Header, ButtonGame, ButtonNumber, ButtonFunctional } from '../../components/index';
+import {
+  Container,
+  Title,
+  PushView,
+  FillYourBetText,
+  DescriptionText,
+  FilterText,
+  FiltersView,
+  NumbersView,
+  TitleAndFiltersView,
+  FunctionalButtonView
+} from './styles';
 import { useTypes } from '../../hooks/useTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationStore } from '../../store';
-import { BetState, getBetRequest } from '../../store/ducks/bet';
 import { Bet, Game } from '../../interfaces';
 import { FlatList, ScrollView } from 'react-native';
 import { addBet, CartState } from '../../store/ducks/cart';
@@ -137,6 +147,7 @@ const NewBetScreen: React.FC = () => {
             </>
           }
           {selectedNumbers.length > 0 &&
+            selectedNumbers.sort((a, b) => a - b) &&
             <>
               <ScrollView
                 horizontal={true}

@@ -39,7 +39,11 @@ const ButtonFunctional: React.FC<ButtonProps> = ({
           style={{ marginRight: 10 }}
         />
       }
-      <ButtonText fontSize={fontSize} color={color} backgroundColor={backgroundColor}>
+      <ButtonText
+        fontSize={fontSize}
+        color={color}
+        backgroundColor={backgroundColor}
+      >
         {children}
       </ButtonText>
     </StyledButton>

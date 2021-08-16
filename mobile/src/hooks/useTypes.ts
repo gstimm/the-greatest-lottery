@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Game } from '../interfaces';
 import api from '../services/api';
 
@@ -11,7 +11,7 @@ export const useTypes = () => {
       .then(({ data }) => {
         setTypes(data);
       })
-      .catch(error => console.log(error.message));
+      .catch(error => alert(error.message));
   }, []);
 
   return { types };

@@ -11,8 +11,7 @@ interface InputProps {
   onChangeText: (value: string) => void;
 }
 
-const index = ({ label, type, value, onChangeText, error }: InputProps) => {
-  const [focus, setFocus] = useState(false);
+const Input: React.FC<InputProps> = ({ label, type, value, onChangeText, error }) => {
   const [hidePassword, setHidePassword] = useState(true);
 
   return (
@@ -41,8 +40,6 @@ const index = ({ label, type, value, onChangeText, error }: InputProps) => {
         inputPadding={16}
         labelHeight={6}
         onChangeText={onChangeText}
-        onBlur={() => setFocus(false)}
-        onFocus={() => setFocus(true)}
         borderHeight={0}
         autoCapitalize='none'
       />
@@ -64,4 +61,4 @@ const index = ({ label, type, value, onChangeText, error }: InputProps) => {
   )
 }
 
-export default index;
+export default Input;

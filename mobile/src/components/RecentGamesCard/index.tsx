@@ -1,8 +1,13 @@
 import React from 'react';
 import { Bet } from '../../interfaces';
 import { formatPrice, formatDate } from '../../utils/formatData';
-
-import { Container, Border, MainContent, NumbersAndInfoText, GameNameText } from './styles';
+import {
+  Container,
+  Border,
+  MainContent,
+  NumbersAndInfoText,
+  GameNameText
+} from './styles';
 
 interface BetProps {
   bet: Bet;
@@ -12,8 +17,11 @@ interface BetProps {
 
 const RecentGamesCard: React.FC<BetProps> = ({ bet, index, length }) => {
   return (
-    <Container style={{ marginTop: index === 0 ? 161 : 25, marginBottom: index === length - 1 ? 150 : 0 }}>
-      <Border style={{ backgroundColor: bet.color}}/>
+    <Container style={{
+      marginTop: index === 0 ? 161 : 25,
+      marginBottom: index === length - 1 ? 150 : 0
+    }}>
+      <Border style={{ backgroundColor: bet.color }} />
       <MainContent>
         <NumbersAndInfoText
           style={{ fontWeight: 'bold' }}

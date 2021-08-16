@@ -1,8 +1,15 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { Container, TabView, TabLabel, SelectedBar, NewBetIcon, NewBetView } from './styles';
-import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
+import {
+  Container,
+  TabView,
+  TabLabel,
+  SelectedBar,
+  NewBetIcon,
+  NewBetView
+} from './styles';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import colors from '../../utils/colors';
 
 const TabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigation }) => {

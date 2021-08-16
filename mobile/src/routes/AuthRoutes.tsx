@@ -14,7 +14,10 @@ export type TabList = {
 
 export default function AuthRoutes() {
   return (
-    <Tab.Navigator tabBar={props => <TabBar {...props} />} screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      tabBar={props => <TabBar {...props} />}
+      screenOptions={{ headerShown: false }}
+    >
       <Tab.Screen name="Home" component={RecentGamesScreen} />
       <Tab.Screen name="NewBet" component={NewBetScreen} />
       <Tab.Screen name="Account" component={RecentGamesScreen} />

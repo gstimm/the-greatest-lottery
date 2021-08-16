@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import 'react-native-gesture-handler';
 import { Header, ButtonGame, RecentGamesCard } from '../../components/index';
-import { Container, Title, FilterText, FiltersView, CardsView, NoItemsText, TitleAndFiltersView } from './styles';
+import {
+  Container,
+  Title,
+  FilterText,
+  FiltersView,
+  CardsView,
+  NoItemsText,
+  TitleAndFiltersView
+} from './styles';
 import { useTypes } from '../../hooks/useTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationStore } from '../../store';
@@ -81,7 +89,12 @@ const RecentGamesScreen: React.FC = () => {
               data={bets}
               keyExtractor={bet => `${bet.id}`}
               renderItem={({ item, index }) => (
-                <RecentGamesCard key={item.id} bet={item} index={index} length={bets.length} />
+                <RecentGamesCard
+                  key={item.id}
+                  bet={item}
+                  index={index}
+                  length={bets.length}
+                />
               )}
             />
           )}
@@ -91,7 +104,12 @@ const RecentGamesScreen: React.FC = () => {
               data={filteredArray}
               keyExtractor={bet => `${bet.id}`}
               renderItem={({ item, index }) => (
-                <RecentGamesCard key={item.id} bet={item} index={index} length={filteredArray.length} />
+                <RecentGamesCard
+                  key={item.id}
+                  bet={item}
+                  index={index}
+                  length={filteredArray.length}
+                />
               )}
             />
           )}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { LogoContainer, LogoText, GreenBar } from './styles';
 
-export default function index() {
+const Logo = () => {
   return (
     <LogoContainer>
       <LogoText>TGL</LogoText>
@@ -9,3 +9,5 @@ export default function index() {
     </LogoContainer>
   )
 }
+
+export default Logo;

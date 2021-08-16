@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from './styles';
 
-const index: React.FC = ({children}) => {
+const Card: React.FC = ({children}) => {
   return (
     <Container>
       {children}
@@ -9,4 +9,4 @@ const index: React.FC = ({children}) => {
   )
 }
 
-export default index;
+export default Card;
