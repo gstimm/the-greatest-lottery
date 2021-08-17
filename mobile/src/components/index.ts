@@ -12,3 +12,4 @@ export { default as RecentGamesCard } from './RecentGamesCard';
 export { default as CartGamesCard } from './CartGamesCard';
 export { default as TabBar } from './TabBar';
 export { default as Cart } from './Cart';
+export { default as LoaderSpinner } from './LoaderSpinner';

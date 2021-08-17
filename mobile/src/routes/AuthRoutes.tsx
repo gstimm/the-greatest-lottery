@@ -12,7 +12,7 @@ export type TabList = {
   Account: undefined;
 }
 
-export default function AuthRoutes() {
+const AuthRoutes = () => {
   return (
     <Tab.Navigator
       tabBar={props => <TabBar {...props} />}
@@ -24,3 +24,5 @@ export default function AuthRoutes() {
     </ Tab.Navigator >
   )
 }
+
+export default AuthRoutes;

@@ -10,7 +10,7 @@ export type UnAuthStackList = {
   ForgotPassword: undefined;
 }
 
-export default function UnAuthRoutes() {
+const UnAuthRoutes = () => {
   return (
     <UnAuthStack.Navigator
       screenOptions={{ headerShown: false }}
@@ -22,3 +22,5 @@ export default function UnAuthRoutes() {
     </UnAuthStack.Navigator>
   )
 }
+
+export default UnAuthRoutes;
