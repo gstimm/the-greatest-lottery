@@ -10,6 +10,7 @@ const DrawerRoute = () => {
     <Drawer.Navigator screenOptions={{
       headerShown: false,
       drawerPosition: 'right',
+      overlayColor: 'rgba(255, 255, 255, 0.8)',
     }}
       drawerContent={props => <Cart {...props} />}
     >
