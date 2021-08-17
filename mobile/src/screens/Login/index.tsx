@@ -63,8 +63,6 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
     dispatch(loginRequest(data.email, data.password))
   }
 
-  //================================================================
-
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
 
@@ -88,25 +86,25 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 4000);
+    const timer = setTimeout(() => setIsLoading(false), 4000);
     splashAnimation.value = withTiming(
       60,
       { duration: 5000 }
     );
+    return () => clearTimeout(timer);
   }, [])
+
 
   return (
     <>
-        {isLoading && (
-          <SplashContainer>
-            <Animated.Image
-              source={require('../../../assets/splash.png')}
-              style={brandStyle}
-            />
-          </SplashContainer>
-        )}
+      {isLoading && (
+        <SplashContainer>
+          <Animated.Image
+            source={require('../../../assets/splash.png')}
+            style={brandStyle}
+          />
+        </SplashContainer>
+      )}
       <ScrollView
         showsVerticalScrollIndicator={false}
       >
