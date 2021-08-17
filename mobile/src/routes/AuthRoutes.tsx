@@ -1,6 +1,6 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RecentGamesScreen } from '../screens';
+import { RecentGamesScreen, AccountScreen } from '../screens';
 import { TabBar } from '../components/index';
 import NewBetScreen from './Drawer';
 
@@ -20,7 +20,7 @@ export default function AuthRoutes() {
     >
       <Tab.Screen name="Home" component={RecentGamesScreen} />
       <Tab.Screen name="NewBet" component={NewBetScreen} />
-      <Tab.Screen name="Account" component={RecentGamesScreen} />
+      <Tab.Screen name="Account" component={AccountScreen} />
     </ Tab.Navigator >
   )
 }
