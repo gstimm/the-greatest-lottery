@@ -6,6 +6,10 @@ import { Logo, Input, Card, Button, Footer } from '../../components/index';
 import { Container, Title } from './styles';
 import colors from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ResetPasswordSchema } from '../../utils/schemas';
+import api from '../../services/api';
 
 type LoginScreenNavigationProp = StackNavigationProp<UnAuthStackList, 'ForgotPassword'>
 
@@ -13,20 +17,66 @@ interface NavProps {
   navigation: LoginScreenNavigationProp;
 }
 
+interface ResetPasswordForm {
+  email: string;
+}
+
 const ForgotPasswordScreen: React.FC<NavProps> = ({ navigation }) => {
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ResetPasswordForm>({
+    mode: 'onSubmit',
+    resolver: yupResolver(ResetPasswordSchema),
+  });
+
+  const onSubmit: SubmitHandler<ResetPasswordForm> = async data => {
+    if (Object.keys(errors).length) {
+      alert('Please fill email field.');
+      return;
+    }
+
+    try {
+      await api.post('/forgot-password', data);
+
+      alert('Check your email to change your password.');
+
+      navigation.navigate('Login');
+    } catch (error) {
+      error.response.data.errors.map((err: { message: string }) =>
+        alert(err.message),
+      );
+    }
+  };
+
   return (
     <>
       <Container>
         <Logo />
         <Title>Reset password</Title>
         <Card>
-          <Input type='email' label='Email' value={''} onChangeText={() => console.log('dsad')} />
+        <Controller
+            control={control}
+            name='email'
+            defaultValue=''
+            render={({ field: { onChange, value} }) => (
+              <Input
+                type='email'
+                label='Email'
+                value={value}
+                onChangeText={onChange}
+                error={errors.email?.message}
+              />
+            )}
+          />
           <Button
             color={colors.lightGreen}
             title="Send link"
             iconSide="right"
             style={{ marginTop: 16, marginBottom: 20 }}
-            onPress={() => navigation.push('Login')}
+            onPress={handleSubmit(onSubmit)}
           >
             <MaterialCommunityIcons
               name="arrow-right"
