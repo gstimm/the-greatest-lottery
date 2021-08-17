@@ -14,6 +14,7 @@ export default function UnAuthRoutes() {
   return (
     <UnAuthStack.Navigator
       screenOptions={{ headerShown: false }}
+      initialRouteName="Login"
     >
       <UnAuthStack.Screen name="Login" component={LoginScreen} />
       <UnAuthStack.Screen name="SignUp" component={SignUpScreen} />

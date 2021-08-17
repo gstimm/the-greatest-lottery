@@ -1,10 +1,6 @@
 import styled from 'styled-components/native';
 import colors from '../../utils/colors'
 
-export const ForgotButton = styled.TouchableOpacity``;
-
-export const ScrollView = styled.ScrollView``;
-
 export const Container = styled.View`
   align-items: center;
   justify-content: center;
@@ -28,3 +24,8 @@ export const ForgotText = styled.Text`
   padding: 24px 31px 0 0;
 `;
 
+export const SplashContainer = styled.View`
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 10;
+  position: absolute;
+`;
