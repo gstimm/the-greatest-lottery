@@ -62,6 +62,8 @@ const AccountScreen: React.FC<NavProps> = ({ navigation }) => {
       return;
     }
 
+    data.password_confirmation = data.password;
+
     try {
       await api.put(`/users/${user.id}`, data);
       alert('Profile edited successfully.');
@@ -123,20 +125,6 @@ const AccountScreen: React.FC<NavProps> = ({ navigation }) => {
                   value={value}
                   onChangeText={onChange}
                   error={errors.password?.message}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name='password_confirmation'
-              defaultValue=''
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  type='password'
-                  label='Password Confirmation'
-                  value={value}
-                  onChangeText={onChange}
-                  error={errors.password_confirmation?.message}
                 />
               )}
             />

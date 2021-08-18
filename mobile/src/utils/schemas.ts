@@ -28,9 +28,6 @@ export const SignUpSchema = yup.object().shape({
     .string()
     .min(8, 'Password must be at least 8 characters')
     .required('This field is required'),
-  password_confirmation: yup
-    .string()
-    .oneOf([yup.ref('password'), null], 'Password must match'),
 });
 
 export const NewPasswordSchema = yup.object().shape({
@@ -51,7 +48,4 @@ export const EditProfileSchema = yup.object().shape({
     .notRequired()
     .email('Insert a valid email address'),
   password: yup.string().nullable().notRequired(),
-  password_confirmation: yup
-    .string()
-    .oneOf([yup.ref('password'), null], 'Password must match'),
 });
