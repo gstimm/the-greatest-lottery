@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { UnAuthStackList } from '../../routes/UnAuthRoutes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Logo, Input, Card, Button, Footer } from '../../components/index';
-import { Container, Title } from './styles';
+import { Container, Title, JustifyContainer } from './styles';
 import colors from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 import { ApplicationStore } from '../../store';
 import { AuthState } from '../../store/ducks/auth';
 import api from '../../services/api';
-import { ScrollView } from 'react-native';
+import { ScrollView, Dimensions } from 'react-native';
 
 type LoginScreenNavigationProp = StackNavigationProp<UnAuthStackList, 'SignUp'>
 
@@ -73,85 +73,89 @@ const SignUpScreen: React.FC<NavProps> = ({ navigation }) => {
     }
   }
 
+  const windowHeight = Dimensions.get('window').height;
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
     >
-      <Container>
-        <Logo />
-        <Title>Registration</Title>
-        <Card>
-          <Controller
-            control={control}
-            name='name'
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
-              <Input
-                type='text'
-                label='Name'
-                value={value}
-                onChangeText={onChange}
-                error={errors.name?.message}
+      <JustifyContainer style={{ height: windowHeight }}>
+        <Container>
+          <Logo />
+          <Title>Registration</Title>
+          <Card>
+            <Controller
+              control={control}
+              name='name'
+              defaultValue=''
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  type='text'
+                  label='Name'
+                  value={value}
+                  onChangeText={onChange}
+                  error={errors.name?.message}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name='email'
+              defaultValue=''
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  type='email'
+                  label='Email'
+                  value={value}
+                  onChangeText={onChange}
+                  error={errors.email?.message}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name='password'
+              defaultValue=''
+              render={({ field: { onChange, value } }) => (
+                <Input
+                  type='password'
+                  label='Password'
+                  value={value}
+                  onChangeText={onChange}
+                  error={errors.password?.message}
+                />
+              )}
+            />
+            <Button
+              color={colors.lightGreen}
+              title="Register"
+              iconSide="right"
+              style={{ marginTop: 21, marginBottom: 30 }}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <MaterialCommunityIcons
+                name="arrow-right"
+                size={30}
+                color={colors.lightGreen}
               />
-            )}
-          />
-          <Controller
-            control={control}
-            name='email'
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
-              <Input
-                type='email'
-                label='Email'
-                value={value}
-                onChangeText={onChange}
-                error={errors.email?.message}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name='password'
-            defaultValue=''
-            render={({ field: { onChange, value } }) => (
-              <Input
-                type='password'
-                label='Password'
-                value={value}
-                onChangeText={onChange}
-                error={errors.password?.message}
-              />
-            )}
-          />
+            </Button>
+          </Card>
           <Button
-            color={colors.lightGreen}
-            title="Register"
-            iconSide="right"
-            style={{ marginTop: 21, marginBottom: 30 }}
-            onPress={handleSubmit(onSubmit)}
+            color={colors.titleGray}
+            title="Back"
+            iconSide="left"
+            style={{ marginTop: 38, marginBottom: 20 }}
+            onPress={() => navigation.goBack()}
           >
             <MaterialCommunityIcons
-              name="arrow-right"
+              name="arrow-left"
               size={30}
-              color={colors.lightGreen}
+              color={colors.titleGray}
             />
           </Button>
-        </Card>
-        <Button
-          color={colors.titleGray}
-          title="Back"
-          iconSide="left"
-          style={{ marginTop: 38, marginBottom: 20 }}
-          onPress={() => navigation.goBack()}
-        >
-          <MaterialCommunityIcons
-            name="arrow-left"
-            size={30}
-            color={colors.titleGray}
-          />
-        </Button>
-      </Container>
-      <Footer />
+        </Container>
+        <Footer />
+      </JustifyContainer>
     </ScrollView>
   );
 };

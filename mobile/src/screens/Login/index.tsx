@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { UnAuthStackList } from '../../routes/UnAuthRoutes';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Logo, Input, Card, Button, Footer } from '../../components/index';
-import { Container, Title, ForgotText, SplashContainer } from './styles';
+import { Container, Title, ForgotText, SplashContainer, JustifyContainer } from './styles';
 import colors from '../../utils/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -108,70 +108,72 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
       >
-        <Container>
-          <Logo />
-          <Title>Authentication</Title>
-          <Card>
-            <Controller
-              control={control}
-              name='email'
-              defaultValue=''
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  type='email'
-                  label='Email'
-                  value={value}
-                  onChangeText={onChange}
-                  error={errors.email?.message}
+        <JustifyContainer style={{ height: windowHeight }}>
+          <Container>
+            <Logo />
+            <Title>Authentication</Title>
+            <Card>
+              <Controller
+                control={control}
+                name='email'
+                defaultValue=''
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    type='email'
+                    label='Email'
+                    value={value}
+                    onChangeText={onChange}
+                    error={errors.email?.message}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name='password'
+                defaultValue=''
+                render={({ field: { onChange, value } }) => (
+                  <Input
+                    type='password'
+                    label='Password'
+                    value={value}
+                    onChangeText={onChange}
+                    error={errors.password?.message}
+                  />
+                )}
+              />
+              <TouchableOpacity onPress={() => navigation.push('ForgotPassword')}>
+                <ForgotText>I forget my password</ForgotText>
+              </TouchableOpacity>
+              <Button
+                color={colors.lightGreen}
+                title="Log In"
+                iconSide="right"
+                style={{ marginTop: 45, marginBottom: 33 }}
+                onPress={handleSubmit(onSubmit)}
+              >
+                <MaterialCommunityIcons
+                  name="arrow-right"
+                  size={30}
+                  color={colors.lightGreen}
                 />
-              )}
-            />
-            <Controller
-              control={control}
-              name='password'
-              defaultValue=''
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  type='password'
-                  label='Password'
-                  value={value}
-                  onChangeText={onChange}
-                  error={errors.password?.message}
-                />
-              )}
-            />
-            <TouchableOpacity onPress={() => navigation.push('ForgotPassword')}>
-              <ForgotText>I forget my password</ForgotText>
-            </TouchableOpacity>
+              </Button>
+            </Card>
             <Button
-              color={colors.lightGreen}
-              title="Log In"
+              color={colors.titleGray}
+              title="Sign Up"
               iconSide="right"
               style={{ marginTop: 45, marginBottom: 33 }}
-              onPress={handleSubmit(onSubmit)}
+              onPress={() => navigation.push('SignUp')}
             >
               <MaterialCommunityIcons
                 name="arrow-right"
                 size={30}
-                color={colors.lightGreen}
+                color={colors.titleGray}
               />
             </Button>
-          </Card>
-          <Button
-            color={colors.titleGray}
-            title="Sign Up"
-            iconSide="right"
-            style={{ marginTop: 45, marginBottom: 33 }}
-            onPress={() => navigation.push('SignUp')}
-          >
-            <MaterialCommunityIcons
-              name="arrow-right"
-              size={30}
-              color={colors.titleGray}
-            />
-          </Button>
-        </Container>
-        <Footer />
+          </Container>
+          <Footer />
+        </JustifyContainer>
       </ScrollView>
     </>
   );

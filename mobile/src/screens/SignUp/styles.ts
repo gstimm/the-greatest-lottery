@@ -1,12 +1,14 @@
 import styled from 'styled-components/native';
 import colors from '../../utils/colors'
 
-export const ScrollView = styled.ScrollView``;
-
 export const Container = styled.View`
   align-items: center;
   justify-content: center;
   padding-top: 76px;
+`;
+
+export const JustifyContainer = styled.View`
+  justify-content: space-between;
 `;
 
 export const Title = styled.Text`

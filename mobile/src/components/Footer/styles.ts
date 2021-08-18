@@ -3,14 +3,15 @@ import colors from '../../utils/colors'
 
 export const Container = styled.View`
   width: 100%;
-  height: 39px;
+  height: 17px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   position: relative;
-  margin: auto;
+  bottom: 0;
 `;
 
 export const FooterText = styled.Text`
   font-size: 15px;
+  line-height: 17px;
   color: ${colors.titleGray};
 `;
