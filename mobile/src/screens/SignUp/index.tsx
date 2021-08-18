@@ -14,6 +14,7 @@ import { ApplicationStore } from '../../store';
 import { AuthState } from '../../store/ducks/auth';
 import api from '../../services/api';
 import { ScrollView, Dimensions } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 type LoginScreenNavigationProp = StackNavigationProp<UnAuthStackList, 'SignUp'>
 
@@ -49,14 +50,28 @@ const SignUpScreen: React.FC<NavProps> = ({ navigation }) => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: error,
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      })
     }
   }, [error]);
 
 
   const onSubmit: SubmitHandler<SignUpForm> = async data => {
     if (Object.keys(errors).length) {
-      alert('Please fill all fields.');
+      Toast.show({
+        type: 'warning',
+        text1: 'Failed',
+        text2: 'Please fill all fields.',
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      })
       return;
     }
 
@@ -64,11 +79,25 @@ const SignUpScreen: React.FC<NavProps> = ({ navigation }) => {
 
     try {
       await api.post('/users', data);
-      alert('User created successfully.');
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'User created successfully.',
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      })
       navigation.navigate('Login');
     } catch (error) {
       error.response.data.errors.map((err: { message: string }) =>
-        alert(err.message),
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: err.message,
+          topOffset: 50,
+          bottomOffset: 50,
+          position: 'top',
+        })
       );
     }
   }

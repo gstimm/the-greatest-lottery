@@ -21,6 +21,7 @@ import { FlatList, ScrollView } from 'react-native';
 import { addBet, CartState } from '../../store/ducks/cart';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { HeaderNavigationProp } from '../../components/Header';
+import Toast from 'react-native-toast-message';
 
 const NewBetScreen: React.FC = () => {
   const { types } = useTypes();
@@ -95,7 +96,14 @@ const NewBetScreen: React.FC = () => {
 
   const addToCartHandler = () => {
     if (selectedNumbers.length < selectedGame.max_number) {
-      alert('Please complete the bet before add to cart');
+      Toast.show({
+        type: 'warning',
+        text1: 'Failed',
+        text2: 'Please complete the bet before add to cart',
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      })
       return;
     }
 

@@ -12,7 +12,7 @@ import { AuthState, loginRequest } from '../../store/ducks/auth';
 import { ApplicationStore } from '../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { SignInSchema } from '../../utils/schemas';
-
+import Toast from 'react-native-toast-message';
 import { Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -54,7 +54,14 @@ const LoginScreen: React.FC<NavProps> = ({ navigation }) => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: error,
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      });
     }
   }, [error]);
 

@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ResetPasswordSchema } from '../../utils/schemas';
 import api from '../../services/api';
 import { ScrollView, Dimensions } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 type LoginScreenNavigationProp = StackNavigationProp<UnAuthStackList, 'ForgotPassword'>
 
@@ -35,19 +36,40 @@ const ForgotPasswordScreen: React.FC<NavProps> = ({ navigation }) => {
 
   const onSubmit: SubmitHandler<ResetPasswordForm> = async data => {
     if (Object.keys(errors).length) {
-      alert('Please fill email field.');
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Please fill email field.',
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      })
       return;
     }
 
     try {
       await api.post('/forgot-password', data);
 
-      alert('Check your email to change your password.');
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Check your email to change your password.',
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      })
 
       navigation.navigate('Login');
     } catch (error) {
       error.response.data.errors.map((err: { message: string }) =>
-        alert(err.message),
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: err.message,
+          topOffset: 50,
+          bottomOffset: 50,
+          position: 'top',
+        })
       );
     }
   };

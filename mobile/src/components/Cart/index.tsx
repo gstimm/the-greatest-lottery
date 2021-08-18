@@ -25,6 +25,7 @@ import { CartState } from '../../store/ducks/cart';
 import { formatPrice } from '../../utils/formatData';
 import { DrawerActions } from '@react-navigation/native';
 import { addBetRequest } from '../../store/ducks/bet';
+import Toast from 'react-native-toast-message';
 
 const Cart: React.FC<DrawerContentComponentProps> = ({ navigation }) => {
   const { cartBets, totalBetValue } = useSelector<ApplicationStore, CartState>(
@@ -35,7 +36,14 @@ const Cart: React.FC<DrawerContentComponentProps> = ({ navigation }) => {
 
   const saveBetHandler = () => {
     if (totalBetValue < 30) {
-      alert('The minimum value for a bet is R$ 30,00.');
+      Toast.show({
+        type: 'warning',
+        text1: 'Failed',
+        text2: 'The minimum value for a bet is R$ 30,00.',
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      });
       return;
     }
 

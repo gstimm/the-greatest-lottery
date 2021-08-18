@@ -14,6 +14,7 @@ import { AuthState, refreshAuthData } from '../../store/ducks/auth';
 import api from '../../services/api';
 import { ScrollView } from 'react-native';
 import { TabList } from '../../routes/AuthRoutes';
+import Toast from 'react-native-toast-message';
 
 type LoginScreenNavigationProp = StackNavigationProp<TabList, 'Account'>
 
@@ -51,14 +52,28 @@ const AccountScreen: React.FC<NavProps> = ({ navigation }) => {
 
   useEffect(() => {
     if (error) {
-      alert(error);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: error,
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      });
     }
   }, [error]);
 
 
   const onSubmit: SubmitHandler<EditProfileForm> = async data => {
     if (Object.keys(errors).length) {
-      alert('Please fill all fields.');
+      Toast.show({
+        type: 'warning',
+        text1: 'Failed',
+        text2: 'Please fill all fields.',
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      });
       return;
     }
 
@@ -66,12 +81,26 @@ const AccountScreen: React.FC<NavProps> = ({ navigation }) => {
 
     try {
       await api.put(`/users/${user.id}`, data);
-      alert('Profile edited successfully.');
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Profile edited successfully.',
+        topOffset: 50,
+        bottomOffset: 50,
+        position: 'top',
+      });
       dispatch(refreshAuthData());
       navigation.navigate('Home');
     } catch (error) {
       error.response.data.errors.map((err: { message: string }) =>
-        alert(err.message),
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: err.message,
+          topOffset: 50,
+          bottomOffset: 50,
+          position: 'top',
+        })
       );
     }
   }
