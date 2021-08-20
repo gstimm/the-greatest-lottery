@@ -9,6 +9,7 @@ import {
   getBetRequest,
   clearRecentBets,
   getBetSuccess,
+  setIsListEnd,
 } from '../ducks/bet';
 import { clearCart } from '../ducks/cart';
 
@@ -24,14 +25,19 @@ export function* handleAddBet({ payload }: ReturnType<typeof addBetRequest>) {
     yield put(clearCart());
     yield put(addBetSuccess());
     yield put(clearRecentBets());
-    yield put(getBetRequest(1));
+    yield put(getBetRequest(1, []));
   } catch (error) {
     yield put(addBetFailure(error));
   }
 }
 
 export function* handleGetBet({ payload }: ReturnType<typeof getBetRequest>) {
-  const { data: allBets } = yield call(api.get, `/bets?page=${payload.page}&perPage=10`);
+  const filters = payload.filters.map(filter => '&filter=' + filter).join('');
+
+  const { data: allBets } = yield call(
+    api.get,
+    `/bets?page=${payload.page}&perPage=10${filters}`
+  );
 
     const bets: Bet[] = allBets.data.map((bet: LongBetData) => {
       return {
@@ -47,6 +53,10 @@ export function* handleGetBet({ payload }: ReturnType<typeof getBetRequest>) {
     });
 
     yield put(getBetSuccess(bets, payload.page));
+
+    if (payload.page === allBets.meta.last_page) {
+      yield put(setIsListEnd());
+    }
 }
 
 export function* watchOnHandleAddBet() {

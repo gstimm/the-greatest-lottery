@@ -11,6 +11,7 @@ export const Types = {
   GET_BET_SUCCESS: 'bet/GET_BET_SUCCESS',
   GET_BET_FAILURE: 'bet/GET_BET_FAILURE',
   CLEAR_RECENT_BETS: 'bet/CLEAR_RECENT_BETS',
+  SET_IS_LIST_END: 'bet/SET_IS_LIST_END',
 };
 
 // State Type
@@ -20,6 +21,7 @@ export interface BetState {
   readonly loading: boolean;
   readonly error: string;
   readonly page: number;
+  readonly isListEnd: boolean;
 }
 
 // Initial State
@@ -29,6 +31,7 @@ const initialState: BetState = {
   loading: false,
   error: '',
   page: 1,
+  isListEnd: false,
 };
 
 // Reducer
@@ -80,6 +83,13 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
         loading: false,
         error: '',
         page: 1,
+        isListEnd: false,
+      };
+
+    case Types.SET_IS_LIST_END:
+      return {
+        ...state,
+        isListEnd: true,
       };
 
     default:
@@ -110,11 +120,12 @@ export const addBetSuccess = () => {
   };
 };
 
-export const getBetRequest = (page: number) => {
+export const getBetRequest = (page: number, filters: number[]) => {
   return {
     type: Types.GET_BET_REQUEST,
     payload: {
       page,
+      filters,
     }
   };
 };
@@ -139,6 +150,12 @@ export const getBetSuccess = (bets: Bet[], page: number) => {
 export const clearRecentBets = () => {
   return {
     type: Types.CLEAR_RECENT_BETS,
+  };
+};
+
+export const setIsListEnd = () => {
+  return {
+    type: Types.SET_IS_LIST_END,
   };
 };
 

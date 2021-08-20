@@ -24,12 +24,27 @@ export default class BetsController {
         return response.status(404).send({ error: { message: `User not found!` } })
       }
 
-      const { page, perPage } = request.qs()
+      const { page, perPage, filter } = request.qs()
 
-      const bets = await Bet.query()
-        .where('user_id', user.id)
-        .preload('game')
-        .paginate(page, perPage)
+      console.log(filter)
+
+      let bets = {}
+
+      if (!filter) {
+        bets = await Bet.query().where('user_id', user.id).preload('game').paginate(page, perPage)
+      } else if (!(filter instanceof Array)) {
+        bets = await Bet.query()
+          .where('user_id', user.id)
+          .where('game_id', filter)
+          .preload('game')
+          .paginate(page, perPage)
+      } else {
+        bets = await Bet.query()
+          .where('user_id', user.id)
+          .whereIn('game_id', filter)
+          .preload('game')
+          .paginate(page, perPage)
+      }
 
       return bets
     } catch (err) {

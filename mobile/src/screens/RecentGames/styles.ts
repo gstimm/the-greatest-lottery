@@ -50,3 +50,17 @@ export const NoItemsText = styled.Text`
   font-style: italic;
   margin-top: 161px;
 `;
+
+export const LoaderView = styled.View`
+  width: 100%;
+  height: 60px;
+  bottom: 140px;
+  background-color: ${colors.backgroundColor};
+`;
+
+export const EndText = styled.Text`
+  color: ${colors.textGray};
+  font-size: 17px;
+  font-style: italic;
+  text-align: center;
+`;

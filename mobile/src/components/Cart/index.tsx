@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CartState } from '../../store/ducks/cart';
 import { formatPrice } from '../../utils/formatData';
 import { DrawerActions } from '@react-navigation/native';
-import { addBetRequest, BetState, getBetRequest } from '../../store/ducks/bet';
+import { addBetRequest } from '../../store/ducks/bet';
 import Toast from 'react-native-toast-message';
 
 const Cart: React.FC<DrawerContentComponentProps> = ({ navigation }) => {
