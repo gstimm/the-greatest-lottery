@@ -110,12 +110,11 @@ export const addBetSuccess = () => {
   };
 };
 
-export const getBetRequest = (page: number, total: number) => {
+export const getBetRequest = (page: number) => {
   return {
     type: Types.GET_BET_REQUEST,
     payload: {
       page,
-      total,
     }
   };
 };

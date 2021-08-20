@@ -25,13 +25,13 @@ const RecentGamesScreen: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getBetRequest(page, bets.length));
+    dispatch(getBetRequest(page));
   }, []);
 
   console.log(bets.length);
 
   const fetchMore = () => {
-    dispatch(getBetRequest(page, bets.length));
+    dispatch(getBetRequest(page));
   }
 
 

@@ -24,7 +24,7 @@ export function* handleAddBet({ payload }: ReturnType<typeof addBetRequest>) {
     yield put(clearCart());
     yield put(addBetSuccess());
     yield put(clearRecentBets());
-    yield put(getBetRequest(1, 0));
+    yield put(getBetRequest(1));
   } catch (error) {
     yield put(addBetFailure(error));
   }
