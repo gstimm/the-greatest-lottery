@@ -23,29 +23,30 @@ export function* handleAddBet({ payload }: ReturnType<typeof addBetRequest>) {
     yield call(api.post, '/bets', { bets });
     yield put(clearCart());
     yield put(addBetSuccess());
-    yield put(getBetRequest());
+    yield put(clearRecentBets());
+    yield put(getBetRequest(1, 0));
   } catch (error) {
     yield put(addBetFailure(error));
   }
 }
 
-export function* handleGetBet(action: ReturnType<typeof getBetRequest>) {
-  const { data: allBets } = yield call(api.get, `/bets`);
+export function* handleGetBet({ payload }: ReturnType<typeof getBetRequest>) {
+  const { data: allBets } = yield call(api.get, `/bets?page=${payload.page}&perPage=10`);
 
-  const bets: Bet[] = allBets.map((bet: LongBetData) => {
-    return {
-      id: bet.id,
-      type: bet.game.type,
-      color: bet.color,
-      date: bet.created_at,
-      price: bet.price,
-      numbers: bet.numbers.split(',').map(number => {
-        return parseInt(number, 10);
-      }),
-    };
-  });
-  yield put(clearRecentBets());
-  yield put(getBetSuccess(bets));
+    const bets: Bet[] = allBets.data.map((bet: LongBetData) => {
+      return {
+        id: bet.id,
+        type: bet.game.type,
+        color: bet.color,
+        date: bet.created_at,
+        price: bet.price,
+        numbers: bet.numbers.split(',').map(number => {
+          return parseInt(number, 10);
+        }),
+      };
+    });
+
+    yield put(getBetSuccess(bets, payload.page));
 }
 
 export function* watchOnHandleAddBet() {

@@ -32,7 +32,7 @@ const RecentGamesCard: React.FC<BetProps> = ({ bet, index, length }) => {
           {formatDate(bet.date)} - ({formatPrice(bet.price)})
         </NumbersAndInfoText>
         <GameNameText
-          style={{ color: bet.color }}
+          style={{ color: bet?.color }}
         >
           {bet.type}
         </GameNameText>

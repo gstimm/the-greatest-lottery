@@ -14,7 +14,7 @@ const index = () => {
 
   return (
     <NavigationContainer>
-      {loading && <LoaderSpinner />}
+      {/* {loading && <LoaderSpinner />} */}
       {isLogged ? <AuthRoutes /> : <UnAuthRoutes />}
     </NavigationContainer>
   )

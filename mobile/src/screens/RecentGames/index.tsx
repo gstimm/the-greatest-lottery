@@ -19,12 +19,21 @@ import { FlatList, ScrollView } from 'react-native';
 
 const RecentGamesScreen: React.FC = () => {
   const { types } = useTypes();
-  const { bets } = useSelector<ApplicationStore, BetState>(state => state.Bet);
+  const { bets, page } = useSelector<ApplicationStore, BetState>(
+    state => state.Bet
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getBetRequest());
+    dispatch(getBetRequest(page, bets.length));
   }, []);
+
+  console.log(bets.length);
+
+  const fetchMore = () => {
+    dispatch(getBetRequest(page, bets.length));
+  }
+
 
   const [filters, setFilters] = useState<string[]>([]);
   const [filteredArray, setFilteredArray] = useState<Bet[]>([]);
@@ -88,6 +97,8 @@ const RecentGamesScreen: React.FC = () => {
               showsVerticalScrollIndicator={false}
               data={bets}
               keyExtractor={bet => `${bet.id}`}
+              onEndReached={fetchMore}
+              onEndReachedThreshold={0.1}
               renderItem={({ item, index }) => (
                 <RecentGamesCard
                   key={item.id}

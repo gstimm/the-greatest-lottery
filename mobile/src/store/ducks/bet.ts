@@ -19,6 +19,7 @@ export interface BetState {
   readonly bets: Bet[];
   readonly loading: boolean;
   readonly error: string;
+  readonly page: number;
 }
 
 // Initial State
@@ -27,6 +28,7 @@ const initialState: BetState = {
   bets: [],
   loading: false,
   error: '',
+  page: 1,
 };
 
 // Reducer
@@ -51,7 +53,10 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
       };
 
     case Types.GET_BET_REQUEST:
-      return { ...state, loading: true };
+      return {
+        ...state,
+        loading: true,
+      };
 
     case Types.GET_BET_FAILURE:
       return {
@@ -65,6 +70,7 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
         ...state,
         loading: false,
         error: '',
+        page: action.payload.page + 1,
         bets: [...state.bets, ...action.payload.bets],
       };
 
@@ -73,6 +79,7 @@ export const reducer: Reducer<BetState> = (state = initialState, action) => {
         bets: [],
         loading: false,
         error: '',
+        page: 1,
       };
 
     default:
@@ -103,9 +110,13 @@ export const addBetSuccess = () => {
   };
 };
 
-export const getBetRequest = () => {
+export const getBetRequest = (page: number, total: number) => {
   return {
     type: Types.GET_BET_REQUEST,
+    payload: {
+      page,
+      total,
+    }
   };
 };
 
@@ -116,11 +127,12 @@ export const getBetFailure = (error: string) => {
   };
 };
 
-export const getBetSuccess = (bets: Bet[]) => {
+export const getBetSuccess = (bets: Bet[], page: number) => {
   return {
     type: Types.GET_BET_SUCCESS,
     payload: {
       bets,
+      page
     },
   };
 };
