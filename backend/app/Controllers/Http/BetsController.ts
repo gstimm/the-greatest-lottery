@@ -21,7 +21,9 @@ export default class BetsController {
       const user = await User.findBy('id', auth.user?.id)
 
       if (!user) {
-        return response.status(404).send({ error: { message: `User not found!` } })
+        return response
+          .status(404)
+          .send({ error: { message: `User not found!` } })
       }
 
       const { page, perPage, filter } = request.qs()
@@ -31,7 +33,10 @@ export default class BetsController {
       let bets = {}
 
       if (!filter) {
-        bets = await Bet.query().where('user_id', user.id).preload('game').paginate(page, perPage)
+        bets = await Bet.query()
+          .where('user_id', user.id)
+          .preload('game')
+          .paginate(page, perPage)
       } else if (!(filter instanceof Array)) {
         bets = await Bet.query()
           .where('user_id', user.id)
@@ -61,7 +66,9 @@ export default class BetsController {
       const user = await User.findBy('id', auth.user?.id)
 
       if (!user) {
-        return response.status(404).send({ error: { message: `User not found!` } })
+        return response
+          .status(404)
+          .send({ error: { message: `User not found!` } })
       }
 
       for (const bet of bets) {
@@ -134,7 +141,9 @@ export default class BetsController {
       const bet = await Bet.findBy('id', params.id)
 
       if (!bet) {
-        return response.status(404).send({ error: { message: 'No bet found for this ID.' } })
+        return response
+          .status(404)
+          .send({ error: { message: 'No bet found for this ID.' } })
       }
 
       return bet
@@ -149,7 +158,9 @@ export default class BetsController {
       const bet = await Bet.findBy('id', params.id)
 
       if (!bet) {
-        return response.status(404).send({ error: { message: 'No bet found for this ID.' } })
+        return response
+          .status(404)
+          .send({ error: { message: 'No bet found for this ID.' } })
       }
 
       const game = await Game.find(bet.gameId)
@@ -165,7 +176,9 @@ export default class BetsController {
         bet.merge({ numbers: numbers.join(',') })
         bet.save()
       } else {
-        return response.status(404).send({ error: { message: 'No game found for this id.' } })
+        return response
+          .status(404)
+          .send({ error: { message: 'No game found for this id.' } })
       }
 
       return bet
@@ -179,7 +192,9 @@ export default class BetsController {
       const bet = await Bet.findBy('id', params.id)
 
       if (!bet) {
-        return response.status(404).send({ error: { message: 'No bet found for this ID.' } })
+        return response
+          .status(404)
+          .send({ error: { message: 'No bet found for this ID.' } })
       }
 
       await bet.delete()

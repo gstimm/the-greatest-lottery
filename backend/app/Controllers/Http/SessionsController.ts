@@ -12,7 +12,9 @@ export default class SessionsController {
 
       return { user, token }
     } catch (err) {
-      return response.status(err.status).send({ error: { message: 'Invalid Email or Password.' } })
+      return response
+        .status(err.status)
+        .send({ error: { message: 'Invalid Email or Password.' } })
     }
   }
 

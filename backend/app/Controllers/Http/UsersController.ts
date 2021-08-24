@@ -35,7 +35,9 @@ export default class UsersController {
 
       return { user, token }
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      return response
+        .status(err.status)
+        .send({ error: { message: err.message } })
     }
   }
 
@@ -51,23 +53,32 @@ export default class UsersController {
 
       return { user, bets }
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      return response
+        .status(err.status)
+        .send({ error: { message: err.message } })
     }
   }
 
-  public async update({ request, response, params, auth }: HttpContextContract) {
+  public async update({
+    request,
+    response,
+    params,
+    auth,
+  }: HttpContextContract) {
     const data = await request.validate(UserUpdateValidator)
     try {
       const user = await User.findBy('id', params.id)
 
       if (!user) {
-        return response.status(404).send({ error: { message: 'User not found for this ID.' } })
+        return response
+          .status(404)
+          .send({ error: { message: 'User not found for this ID.' } })
       }
 
       if (auth.user?.id !== user.id) {
-        return response
-          .status(401)
-          .send({ error: { message: 'You dont have permission to update this user.' } })
+        return response.status(401).send({
+          error: { message: 'You dont have permission to update this user.' },
+        })
       }
 
       user.merge(data)
@@ -76,7 +87,9 @@ export default class UsersController {
 
       return user
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      return response
+        .status(err.status)
+        .send({ error: { message: err.message } })
     }
   }
 
@@ -85,20 +98,24 @@ export default class UsersController {
       const user = await User.findBy('id', params.id)
 
       if (!user) {
-        return response.status(404).send({ error: { message: 'User not found for this ID.' } })
+        return response
+          .status(404)
+          .send({ error: { message: 'User not found for this ID.' } })
       }
 
       if (auth.user?.id !== user.id) {
-        return response
-          .status(401)
-          .send({ error: { message: 'You dont have permission to delete this user.' } })
+        return response.status(401).send({
+          error: { message: 'You dont have permission to delete this user.' },
+        })
       }
 
       await user.delete()
 
       return response.status(204)
     } catch (err) {
-      return response.status(err.status).send({ error: { message: err.message } })
+      return response
+        .status(err.status)
+        .send({ error: { message: err.message } })
     }
   }
 }
