@@ -30,7 +30,7 @@ Cypress.Commands.add("createUser", () => {
       url: 'http://localhost:3333/users',
       body: {
         name: "Test",
-        email: "test4@test.com",
+        email: "test@test.com",
         password: "123123123",
         password_confirmation: "123123123"
       }
@@ -46,12 +46,13 @@ Cypress.Commands.add("createUser", () => {
     expect(response.body.user.email).is.not.null;
     expect(response.body.user.id).is.not.null;
 
-    Cypress.env('createdUserEmail', 'test4@test.com');
+    Cypress.env('createdUserEmail', response.body.user.email);
     Cypress.env('createdUserPassword', '123123123');
+
   });
 })
 
-Cypress.Commands.add("loginUser", () => {
+Cypress.Commands.add("login", () => {
   cy.request({
     method: 'POST',
     url: 'http://localhost:3333/login',
@@ -71,5 +72,21 @@ Cypress.Commands.add("loginUser", () => {
     expect(response.body.user.name).is.not.null;
     expect(response.body.user).has.property('email');
     expect(response.body.user.email).is.not.null;
+
+    Cypress.env('authUserID', response.body.user.id);
+    Cypress.env('authToken', response.body.token);
+  })
+})
+
+Cypress.Commands.add("deleteUser", () => {
+  cy.request({
+    method: 'DELETE',
+    url: `http://localhost:3333/users/${Cypress.env('authUserID')}`,
+    headers: {
+      'authorization': 'Bearer ' + Cypress.env('authToken')
+    }
+
+}).then(response => {
+    expect(response.status).to.eq(204);
   })
 })
